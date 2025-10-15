@@ -19,3 +19,12 @@
   cursor: pointer;
   margin: auto 0.25rem;
 }
+
+
+#maze{
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+
+}

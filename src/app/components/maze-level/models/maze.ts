@@ -41,15 +41,15 @@ export class Maze {
       })
     );
     // open the beginning and ending cells
-    this.ctx.save();
-    this.ctx.beginPath();
-    this.ctx.strokeStyle = this.cellBackground;
-    this.ctx.moveTo(0, 0);
-    this.ctx.lineTo(0, this.cellSize);
-    this.ctx.moveTo(this.nCol * this.cellSize, (this.nRow - 1) * this.cellSize);
-    this.ctx.lineTo(this.nCol * this.cellSize, this.nRow * this.cellSize);
-    this.ctx.stroke();
-    this.ctx.restore();
+    // this.ctx.save();
+    // this.ctx.beginPath();
+    // this.ctx.strokeStyle = this.cellBackground;
+    // this.ctx.moveTo(0, 0);
+    // this.ctx.lineTo(0, this.cellSize);
+    // this.ctx.moveTo(this.nCol * this.cellSize, (this.nRow - 1) * this.cellSize);
+    // this.ctx.lineTo(this.nCol * this.cellSize, this.nRow * this.cellSize);
+    // this.ctx.stroke();
+    // this.ctx.restore();
   }
 
   drawPath(
