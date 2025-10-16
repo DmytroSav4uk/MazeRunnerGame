@@ -1,0 +1,25 @@
+.saveMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  width: 650px;
+  height: 400px;
+  z-index: 10;
+
+  background: rgb(73, 37, 37);
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+
+}
+
+.saveMenu div{
+  text-align: center;
+  margin: 10px;
+  border: 1px solid white;
+  width: 200px;
+}

@@ -1,0 +1,40 @@
+<div class="saveMenu">
+
+
+  <span (click)="goBack()" class="closeButton">X</span>
+
+
+  @if (saves){
+    @if (saves.slots){
+      @for (slot of saves.slots.slice(1); track slot.slot) {
+        <div class="slot">
+          <h2>{{ slot.slot }}</h2>
+
+
+          <p>Level {{slot.level}}</p>
+
+          <p>
+            {{ slot.message ||  (slot.timestamp | timestampPipe)  }}
+          </p>
+
+
+
+          @if (currentRoute.includes("maze")){
+            <button style="background: red" class="basicButton" (click)="saveToSlot(slot.slot)">Save</button>
+          } @else if (currentRoute === "menu/saves"){
+            @if (slot.hasSave){
+              <button style="background: red" class="basicButton" (click)="loadSlot(slot.slot)">Load</button>
+            }
+          }
+
+
+
+
+
+        </div>
+      }
+    }
+  }
+
+
+</div>

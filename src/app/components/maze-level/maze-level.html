@@ -1,23 +1,34 @@
 <div style="text-align: center;">
-<!--  <div class="maze-form">-->
-<!--    <label for="nRow"># Rows</label>-->
-<!--    <input id="nRow" type="number" [(ngModel)]="row" />-->
-<!--    <label for="nCol"># Columns</label>-->
-<!--    <input id="nCol" type="number" [(ngModel)]="col" />-->
-<!--    <button type="button" (click)="drawMaze()">New Maze</button>-->
-<!--    <button type="button" (click)="solution()">Solution</button>-->
-<!--  </div>-->
+
+  <div class="currentLevel">
+    <h1>Level {{ currentLevel }}</h1>
+  </div>
+
+  @if (showMenu) {
+    <div class="pauseMenu">
+      <h1 (click)="continueGame()">Continue</h1>
+      <h1 (click)="openSaveMenu()">Save Game</h1>
+      <h1 (click)="goToMainMenu()">Main Menu</h1>
+    </div>
+  }
+
+
+
+
+  @if (showSaveMenu){
+   <app-save-slots [currentLevel]="currentLevel"
+                   [maze]="maze"
+                   [playerX]="playerX"
+                   [playerY]="playerY"
+                   [showSaveMenu]="showSaveMenu"
+                   [goalCol]="goalCol"
+                   [goalRow]="goalRow"
+                   (closeSaveMenu)="showSaveMenu = false"
+   />
+  }
+
   <section>
     <canvas id="maze"></canvas>
   </section>
-<!--  <section>-->
-<!--    <div class="arrows">-->
-<!--      <div><span (click)="move('Up')">⬆️</span></div>-->
-<!--      <div>-->
-<!--        <span (click)="move('Left')">⬅️</span>-->
-<!--        <span (click)="move('Right')">➡️</span>-->
-<!--      </div>-->
-<!--      <div><span (click)="move('Down')">⬇️</span></div>-->
-<!--    </div>-->
-<!--  </section>-->
+
 </div>

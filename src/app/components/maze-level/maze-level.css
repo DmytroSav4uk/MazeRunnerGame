@@ -21,10 +21,65 @@
 }
 
 
-#maze{
+#maze {
   display: block;
   width: 100vw;
   height: 100vh;
   background: #fff;
 
+}
+
+
+.currentLevel {
+  position: fixed;
+}
+
+
+.pauseMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+  width: 400px;
+
+  background: rgba(0, 0, 0, 0.27);
+  padding: 20px;
+
+}
+
+.pauseMenu h1 {
+  cursor: pointer;
+}
+
+.pauseMenu h1:hover {
+  color: white;
+}
+
+
+.saveMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  width: 650px;
+  height: 400px;
+  z-index: 1;
+
+  background: rgb(73, 37, 37);
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+
+}
+
+.saveMenu div{
+  text-align: center;
+  margin: 10px;
+  border: 1px solid white;
+  width: 200px;
 }

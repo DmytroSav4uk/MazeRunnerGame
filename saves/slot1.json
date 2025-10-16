@@ -1,0 +1,937 @@
+{
+  "level": 2,
+  "maze": {
+    "nRow": 10,
+    "nCol": 10,
+    "cellSize": 250,
+    "ctx": {},
+    "cells": [
+      [
+        {
+          "row": 0,
+          "col": 0,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 1,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 2,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 3,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 4,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 5,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 6,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 7,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 8,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 0,
+          "col": 9,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 1,
+          "col": 0,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 1,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 2,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 3,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 4,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 5,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 6,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 7,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 8,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 1,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 2,
+          "col": 0,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 1,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 2,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 3,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 4,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 6,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 7,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 8,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 2,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 3,
+          "col": 0,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 1,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 6,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 7,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 8,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 3,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 4,
+          "col": 0,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 1,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 6,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 7,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 8,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 4,
+          "col": 9,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 5,
+          "col": 0,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 1,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 2,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 3,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 4,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 5,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 6,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 7,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 8,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 5,
+          "col": 9,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 6,
+          "col": 0,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 1,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 2,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 3,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 4,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 5,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 6,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 7,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 8,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 6,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 7,
+          "col": 0,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 1,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 2,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 3,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 4,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 5,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 6,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 7,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 8,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 7,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 8,
+          "col": 0,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 1,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 2,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 3,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 4,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 5,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": false,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 6,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 7,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 8,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 8,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": false,
+          "traversed": false
+        }
+      ],
+      [
+        {
+          "row": 9,
+          "col": 0,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 1,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 2,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 3,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 4,
+          "northWall": true,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 5,
+          "northWall": false,
+          "eastWall": false,
+          "westWall": true,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 6,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 7,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 8,
+          "northWall": true,
+          "eastWall": false,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        },
+        {
+          "row": 9,
+          "col": 9,
+          "northWall": false,
+          "eastWall": true,
+          "westWall": false,
+          "southWall": true,
+          "traversed": false
+        }
+      ]
+    ],
+    "cellBackground": "#FFFFFF"
+  },
+  "playerX": 1371.5,
+  "playerY": 1170.5,
+  "goalRow": 4,
+  "goalCol": 6,
+  "timestamp": "2025-10-16T11:01:17.220Z"
+}
