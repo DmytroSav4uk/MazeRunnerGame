@@ -6,11 +6,11 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 📁 Директорія для збережень
+
 const SAVE_DIR = path.join(__dirname, '../saves');
 const SAVE_SLOTS = ['autosave', 'slot1', 'slot2', 'slot3'];
 
-// 🧩 Переконуємось, що папка існує
+
 async function ensureSaveFolder() {
   try {
     await fs.mkdir(SAVE_DIR, { recursive: true });
@@ -46,8 +46,8 @@ const server = createServer(async (req, res) => {
         req.on('error', reject);
       });
 
-      // 🔥 додаємо goalRow та goalCol
-      const { slot, level, maze, playerX, playerY, goalRow, goalCol } = body;
+
+      const { slot, level, maze, playerX, playerY, goalRow, goalCol, nextLevelBiome, currentBiome } = body;
 
       if (!SAVE_SLOTS.includes(slot)) {
         return sendJSON(res, 400, { message: 'Невідомий слот збереження' });
@@ -60,13 +60,14 @@ const server = createServer(async (req, res) => {
         playerY,
         goalRow,
         goalCol,
+        nextLevelBiome,
+        currentBiome,
         timestamp: new Date().toISOString()
       };
 
       const filePath = path.join(SAVE_DIR, `${slot}.json`);
       await fs.writeFile(filePath, JSON.stringify(saveData, null, 2));
 
-      // паралельно оновлюємо autosave
       const autoPath = path.join(SAVE_DIR, 'autosave.json');
       await fs.writeFile(autoPath, JSON.stringify(saveData, null, 2));
 
@@ -97,7 +98,6 @@ const server = createServer(async (req, res) => {
       try {
         const data = JSON.parse(rawData);
 
-        // 🔥 Якщо goalRow/goalCol відсутні, додаємо null для стабільності
         if (data.goalRow === undefined) data.goalRow = null;
         if (data.goalCol === undefined) data.goalCol = null;
 

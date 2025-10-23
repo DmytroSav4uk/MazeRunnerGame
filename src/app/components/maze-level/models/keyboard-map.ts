@@ -1,14 +1,16 @@
-export const keyboardMap: Record<string, 'Left' | 'Right' | 'Up' | 'Down'> = {
+export type Direction = 'Up' | 'Down' | 'Left' | 'Right';
+
+export const keyboardMap: Record<string, Direction> = {
   ArrowLeft: 'Left',
-  A: 'Left',
-  a: 'Left',
   ArrowRight: 'Right',
-  D: 'Right',
-  d: 'Right',
   ArrowUp: 'Up',
-  W: 'Up',
-  w: 'Up',
-  ArrowDown: 'Down',
-  S: 'Down',
-  s: 'Down',
+  ArrowDown: 'Down'
+};
+
+export const actionMap: Record<string, 'Use' | 'Sprint'> = {
+  F: 'Use',
+  f: 'Use',
+  А:'Use',
+  а:'Use',
+  Shift: 'Sprint'
 };

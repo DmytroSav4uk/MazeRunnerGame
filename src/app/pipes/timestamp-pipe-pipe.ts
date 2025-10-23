@@ -21,5 +21,4 @@ export class TimestampPipePipe implements PipeTransform {
 
     return `${day} ${month} ${year}  ${hours}:${minutes}`;
   }
-
 }

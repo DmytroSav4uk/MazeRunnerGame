@@ -83,3 +83,25 @@
   border: 1px solid white;
   width: 200px;
 }
+
+
+.videoEasterEgg{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  object-fit: fill;
+}
+
+.item-modal{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 150px;
+}
