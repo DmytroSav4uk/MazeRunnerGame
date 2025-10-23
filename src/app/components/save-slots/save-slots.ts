@@ -3,6 +3,7 @@ import { TimestampPipePipe } from '../../pipes/timestamp-pipe-pipe';
 import { ISave } from '../../interfaces/save';
 import { SavesService } from '../../services/saves/saves-service';
 import { Router } from '@angular/router';
+import {IBiome} from '../../interfaces/Biome';
 
 @Component({
   selector: 'app-save-slots',
@@ -23,6 +24,9 @@ export class SaveSlots implements OnInit {
   @Input() goalRow!: number;
   @Input() goalCol!: number;
   @Input() showSaveMenu: boolean = false;
+  @Input() currentBiome!: IBiome;
+  @Input() nextLevelBiome!: IBiome;
+
 
   @Output() closeSaveMenu: EventEmitter<void> = new EventEmitter();
 
@@ -49,6 +53,7 @@ export class SaveSlots implements OnInit {
   }
 
   saveToSlot(slot: string) {
+
     const saveObj: ISave = {
       slot: slot,
       level: this.currentLevel,
@@ -56,7 +61,9 @@ export class SaveSlots implements OnInit {
       playerX: this.playerX,
       playerY: this.playerY,
       goalRow: this.goalRow,
-      goalCol: this.goalCol
+      goalCol: this.goalCol,
+      nextLevelBiome:this.nextLevelBiome,
+      currentBiome:this.currentBiome
     };
 
     this.saveService.saveGame(saveObj).subscribe(() => {

@@ -1,11 +1,19 @@
 import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
-import {Maze, keyboardMap} from './models';
+import {Maze, keyboardMap, actionMap} from './models';
 import {FormsModule} from '@angular/forms';
 import {MainChar, Direction, IAnimationFrames} from '../../interfaces/mainChar';
 import {SavesService} from '../../services/saves/saves-service';
-
 import {Router, ActivatedRoute} from '@angular/router';
 import {SaveSlots} from '../save-slots/save-slots';
+import {equivalentKeys} from '../../configs/equivalents';
+import {PublicFunctions} from '../../services/publicFunctions/public-functions';
+import {IEnemy} from '../../interfaces/Enemy';
+import {IBiome, forest, dungeon, winterForest} from '../../interfaces/Biome';
+import {SkeletonEnemy} from '../../interfaces/Enemy';
+import {Chest, IChest} from '../../interfaces/Chest';
+import {healingPotion, IItem} from '../../interfaces/Item';
+import {MatDialog} from '@angular/material/dialog';
+import {ChestDialog} from '../chest-dialog/chest-dialog';
 
 @Component({
   selector: 'app-maze-level',
@@ -18,44 +26,97 @@ export class MazeLevel implements OnInit, AfterViewInit {
   constructor(
     private saveService: SavesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private publicFunc: PublicFunctions,
+    private dialog: MatDialog
   ) {
   }
 
+// ---------------- GAME STATE ----------------
   currentLevel = 1;
   private paused = false;
   showSaveMenu = false;
-
+  showMenu = false;
+  private gameOver = false;
+// ---------------- MAZE & PLAYER ----------------
   row = 10;
   col = 10;
   cellSize = 250;
-
-  showMenu = false;
-
   protected maze!: Maze;
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
-  private gameOver = false;
 
   protected playerX = 0;
   protected playerY = 0;
   private playerWidth = 38;
   private playerHeight = 64;
   private playerSpeed = 1.5;
-
+// ---------------- CONTROLS ----------------
   private keys: Record<string, boolean> = {};
+  private keyboardMap: Record<string, 'Up' | 'Down' | 'Left' | 'Right'> = keyboardMap;
+  private actionMap: Record<string, 'Use' | 'Sprint'> = actionMap;
+// ---------------- ANIMATION ----------------
   private characterImage = new Image();
-  private currentAnimation: 'Idle' | 'Walk' = 'Idle';
+  private currentAnimation: 'Idle' | 'Walk' | 'Run' = 'Idle';
   private currentDirection: Direction = 'Down';
   private frameIndex = 0;
   private lastFrameTime = 0;
   private lastHorizontalDirection: 'Left' | 'Right' = 'Right';
   private animationFrameId!: number;
-
+// ---------------- LEVEL OBJECTIVES ----------------
   goalRow!: number;
   goalCol!: number;
+// ---------------- ENEMIES ----------------
+  enemies: IEnemy[] = [];
+// ---------------- CHESTS ----------------
+  chests: IChest[] = [];
+// ---------------- BIOMES ----------------
+  currentBiome!: IBiome;
+  nextLevelBiome!: IBiome;
+  biomes: IBiome[] = [forest, dungeon, winterForest];
+// ---------------- MODAL ----------------
+  pickedItem: IItem | null = null;
+  showItemModal: boolean = false;
+// ==============================================================
+// INIT
+// ==============================================================
 
   ngOnInit() {
+    this.loadControlsFromLocalStorage();
+  }
+
+  private loadControlsFromLocalStorage() {
+    const baseKeyboardMap = {...keyboardMap};
+    const baseActionMap = {...actionMap};
+    const equivalents: Record<string, string[]> = equivalentKeys;
+
+    const savedSettings = this.publicFunc.getLocalStorage('settings');
+    if (savedSettings?.controls) {
+      const c = savedSettings.controls;
+      this.keyboardMap = {};
+      this.actionMap = {};
+
+      const addWithEquivalents = (key: unknown, targetMap: Record<string, any>, value: any) => {
+        if (!key) return;
+        const keys = Array.isArray(key) ? key : [key];
+        for (const k of keys) {
+          if (typeof k !== 'string' || k.trim() === '') continue;
+          const upperKey = k.toUpperCase();
+          const allKeys = equivalents[upperKey] || [k];
+          for (const ak of allKeys) targetMap[ak] = value;
+        }
+      };
+
+      addWithEquivalents(c.up, this.keyboardMap, 'Up');
+      addWithEquivalents(c.down, this.keyboardMap, 'Down');
+      addWithEquivalents(c.left, this.keyboardMap, 'Left');
+      addWithEquivalents(c.right, this.keyboardMap, 'Right');
+      addWithEquivalents(c.use, this.actionMap, 'Use');
+      addWithEquivalents(c.sprint, this.actionMap, 'Sprint');
+    } else {
+      this.keyboardMap = baseKeyboardMap;
+      this.actionMap = baseActionMap;
+    }
   }
 
   ngAfterViewInit() {
@@ -66,53 +127,61 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
     this.canvas = canvas;
     this.ctx = ctx;
-
     this.characterImage.src = MainChar.spritePath;
     this.characterImage.onload = () => {
       const slot = this.route.snapshot.queryParamMap.get('slot');
       if (slot) {
         this.loadSlotFromQuery(slot);
       } else {
+        this.setBiome(true);
         this.startLevel();
       }
     };
   }
 
+// ==============================================================
+// BIOME SYSTEM
+// ==============================================================
+
+  private setBiome(initial = false) {
+    if (initial || !this.currentBiome) {
+      this.currentBiome = this.randomBiome();
+      this.nextLevelBiome = this.randomBiome();
+    } else {
+      this.currentBiome = this.nextLevelBiome;
+      this.nextLevelBiome = this.randomBiome();
+    }
+
+    console.log(`🌿 Current biome: ${this.currentBiome.name}`);
+    console.log(`➡️ Next biome: ${this.nextLevelBiome.name}`);
+  }
+
+  private randomBiome(): IBiome {
+    const i = Math.floor(Math.random() * this.biomes.length);
+    return this.biomes[i];
+  }
+
+  private decorateLevel() {
+    this.canvas.style.backgroundColor = this.currentBiome.backgroundColor;
+  }
+
+// ==============================================================
+// SAVE / LOAD
+// ==============================================================
 
   private loadSlotFromQuery(slot: string) {
     this.saveService.loadGame(slot).subscribe({
       next: (res: any) => {
-        console.log('📦 Отримано відповідь із сервера:', res);
-
         const data = res?.data;
         if (!data || !data.maze) {
-          console.warn('⚠️ Немає maze у res.data — запускаємо новий рівень');
+          console.warn('⚠️ invalid save data, starting new level');
+          this.setBiome(true);
           this.startLevel();
           return;
         }
 
         const mazeData = data.maze;
-        let cellsData: any;
-
-        if (typeof mazeData.cells === 'string') {
-          try {
-            cellsData = JSON.parse(mazeData.cells);
-          } catch (e) {
-            console.error('❌ Помилка при парсингу maze.cells:', e);
-            this.startLevel();
-            return;
-          }
-        } else {
-          cellsData = mazeData.cells;
-        }
-
-        if (!Array.isArray(cellsData)) {
-          this.startLevel();
-          return;
-        }
-
-
-
+        const cellsData = typeof mazeData.cells === 'string' ? JSON.parse(mazeData.cells) : mazeData.cells;
 
         this.currentLevel = data.level;
         this.playerX = data.playerX;
@@ -123,49 +192,53 @@ export class MazeLevel implements OnInit, AfterViewInit {
         this.cellSize = mazeData.cellSize;
 
         this.maze = new Maze(this.row, this.col, this.cellSize, this.ctx, cellsData);
+        this.goalRow = data.goalRow ?? Math.floor(Math.random() * this.row);
+        this.goalCol = data.goalCol ?? Math.floor(Math.random() * this.col);
 
 
-        if (typeof data.goalRow === 'number' && typeof data.goalCol === 'number') {
-          this.goalRow = data.goalRow;
-          this.goalCol = data.goalCol;
+        if (data.currentBiome && data.nextLevelBiome) {
+          this.currentBiome = this.biomes.find(b => b.name === data.currentBiome.name) || this.randomBiome();
+          this.nextLevelBiome = this.biomes.find(b => b.name === data.nextLevelBiome.name) || this.randomBiome();
         } else {
-          this.setRandomGoal();
+          this.setBiome(true);
         }
+
+        this.decorateLevel();
+        this.decorateEnemies();
 
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-
         this.gameOver = false;
         if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
         this.gameLoop();
 
-        this.router.navigate([], {
-          relativeTo: this.route,
-          queryParams: {},
-          replaceUrl: true
-        });
+        this.router.navigate([], {relativeTo: this.route, queryParams: {}, replaceUrl: true});
       },
       error: (err) => {
-        console.error('❌ Не вдалося завантажити слот:', err);
+        console.error('❌ load slot error:', err);
+        this.setBiome(true);
         this.startLevel();
       }
     });
   }
 
 
+// ==============================================================
+// LEVEL SETUP
+// ==============================================================
 
-  /** почати або оновити рівень */
   startLevel() {
     this.updateGridSizeByLevel();
-
     this.maze = new Maze(this.row, this.col, this.cellSize, this.ctx);
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-
     this.setRandomGoal();
-
     this.playerX = this.cellSize / 2;
     this.playerY = this.cellSize / 2;
+    this.decorateLevel();
+    this.decorateEnemies();
+    this.spawnChests();
+
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
     this.gameOver = false;
 
     if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
@@ -185,28 +258,205 @@ export class MazeLevel implements OnInit, AfterViewInit {
     } while (this.goalRow === 0 && this.goalCol === 0);
   }
 
+// ==============================================================
+// ENEMIES
+// ==============================================================
+
+  private decorateEnemies() {
+    this.enemies = [];
+    if (this.currentLevel < 3) return;
+
+    const biomeName = this.currentBiome.name;
+    const allEnemies: IEnemy[] = [
+      SkeletonEnemy
+    ];
+
+    const biomeEnemies = allEnemies.filter(e => e.biome === biomeName);
+    if (biomeEnemies.length === 0) {
+      console.warn(`⚠️ No enemies found for biome ${biomeName}`);
+      return;
+    }
+
+    const baseEnemies = 2;
+    const extra = Math.floor((this.currentLevel - 3) / 4);
+    const maxEnemies = Math.min(baseEnemies + extra, 8);
+    const count = Math.floor(Math.random() * maxEnemies) + 1;
+
+    for (let i = 0; i < count; i++) {
+      const enemyTemplate = biomeEnemies[Math.floor(Math.random() * biomeEnemies.length)];
+
+      let r, c;
+      do {
+        r = Math.floor(Math.random() * this.row);
+        c = Math.floor(Math.random() * this.col);
+      } while ((r === 0 && c === 0) || (r === this.goalRow && c === this.goalCol));
+
+      const enemy: IEnemy = {
+        ...enemyTemplate,
+        x: (c + 0.5) * this.cellSize,
+        y: (r + 0.5) * this.cellSize,
+        row: r,
+        col: c,
+        direction: ['Up', 'Down', 'Left', 'Right'][Math.floor(Math.random() * 4)] as any
+      };
+
+
+      const anim = enemy.animations?.Idle;
+      if (anim) {
+        const img = new Image();
+        img.src = anim.spritePath;
+        enemy.image = img;
+        enemy.currentAnimation = 'Idle';
+        enemy.frameIndex = 0;
+        enemy.lastFrameTime = 0;
+      }
+
+      this.enemies.push(enemy);
+    }
+
+    console.log(`👾 Spawned ${this.enemies.length} enemies for biome ${biomeName}`);
+  }
+
+  private moveEnemies() {
+    for (const enemy of this.enemies) {
+
+      const oldX = enemy.x;
+      const oldY = enemy.y;
+
+
+      if (Math.random() < 0.02) {
+        const dirs = ['Up', 'Down', 'Left', 'Right'];
+        enemy.direction = dirs[Math.floor(Math.random() * 4)] as any;
+      }
+
+      let nextX = enemy.x;
+      let nextY = enemy.y;
+
+      switch (enemy.direction) {
+        case 'Up':
+          nextY -= enemy.speed;
+          break;
+        case 'Down':
+          nextY += enemy.speed;
+          break;
+        case 'Left':
+          nextX -= enemy.speed;
+          break;
+        case 'Right':
+          nextX += enemy.speed;
+          break;
+      }
+
+      if (!this.isWallCollision(nextX, nextY)) {
+        enemy.x = nextX;
+        enemy.y = nextY;
+      }
+
+      const moved = Math.abs(enemy.x - oldX) > 0.1 || Math.abs(enemy.y - oldY) > 0.1;
+
+      const desiredAnim = moved ? 'Walk' : 'Idle';
+      if (enemy.currentAnimation !== desiredAnim) {
+        enemy.currentAnimation = desiredAnim;
+
+        const anim = enemy.animations?.[desiredAnim];
+        if (anim) {
+          const img = new Image();
+          img.src = anim.spritePath;
+          enemy.image = img;
+          enemy.frameIndex = 0;
+          enemy.lastFrameTime = 0;
+        }
+      }
+
+      const dx = this.playerX - enemy.x;
+      const dy = this.playerY - enemy.y;
+      if (Math.sqrt(dx * dx + dy * dy) < this.cellSize / 3) {
+        console.log('💀 Player hit by enemy!');
+      }
+    }
+  }
+
+  private drawEnemies(camOffsetX: number, camOffsetY: number) {
+    this.ctx.save();
+    this.ctx.translate(camOffsetX, camOffsetY);
+
+    for (const e of this.enemies) {
+      const anim = e.animations?.[e.currentAnimation || 'Idle'];
+      const img = e.image;
+      if (!anim || !img) continue;
+
+
+      const now = Date.now();
+      if (now - (e.lastFrameTime ?? 0) > anim.frameSpeed) {
+        e.frameIndex = ((e.frameIndex ?? 0) + 1) % anim.frames;
+        e.lastFrameTime = now;
+      }
+
+      const sx = (e.frameIndex ?? 0) * anim.frameWidth;
+      const sy = 0;
+      const scale = e.spriteScale ?? 1;
+
+      const dx = e.x - (anim.frameWidth * scale) / 2;
+      const dy = e.y - (anim.frameHeight * scale);
+
+      this.ctx.save();
+
+
+      if (e.direction === 'Left') {
+        this.ctx.translate(dx + anim.frameWidth * scale, dy);
+        this.ctx.scale(-1, 1);
+        this.ctx.drawImage(
+          img,
+          sx, sy, anim.frameWidth, anim.frameHeight,
+          0, 0,
+          anim.frameWidth * scale, anim.frameHeight * scale
+        );
+      } else {
+        this.ctx.drawImage(
+          img,
+          sx, sy, anim.frameWidth, anim.frameHeight,
+          dx, dy,
+          anim.frameWidth * scale, anim.frameHeight * scale
+        );
+      }
+
+      this.ctx.restore();
+    }
+
+    this.ctx.restore();
+  }
+
+// ==============================================================
+// GAME LOOP
+// ==============================================================
+
   private gameLoop() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.imageSmoothingEnabled = false;
 
     this.updatePlayerPosition();
+    this.moveEnemies();
     this.updateAnimationState();
 
-    this.drawMazeCamera();
+    const camOffsetX = this.canvas.width / 2 - this.playerX;
+    const camOffsetY = this.canvas.height / 2 - this.playerY;
+
+    this.ctx.save();
+    this.ctx.translate(camOffsetX, camOffsetY);
+    this.maze.draw();
+    this.ctx.restore();
+
+    this.drawChests(camOffsetX, camOffsetY);
     this.drawGoal();
+    this.drawEnemies(camOffsetX, camOffsetY);
     this.drawPlayer();
 
     this.animationFrameId = requestAnimationFrame(() => this.gameLoop());
   }
 
-  private drawMazeCamera() {
-    const camOffsetX = this.canvas.width / 2 - this.playerX;
-    const camOffsetY = this.canvas.height / 2 - this.playerY;
-    this.ctx.save();
-    this.ctx.translate(camOffsetX, camOffsetY);
-    this.maze.draw();
-    this.ctx.restore();
-  }
+// ==============================================================
+// RENDERING
+// ==============================================================
 
   private drawGoal() {
     const camOffsetX = this.canvas.width / 2 - this.playerX;
@@ -215,20 +465,37 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const y = this.goalRow * this.cellSize;
     const size = this.cellSize / 2;
 
+
+    let goalColor = '#00ff00';
+    switch (this.nextLevelBiome.name) {
+      case 'Emerald Woods':
+        goalColor = '#00ff00';
+        break;
+      case 'Spooky Dungeon':
+        goalColor = '#ff00ff';
+        break;
+      case 'Glassy Forest':
+        goalColor = '#00ffff';
+        break;
+    }
+
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
-    this.ctx.fillStyle = '#ff0000';
+    this.ctx.fillStyle = goalColor;
     this.ctx.fillRect(x + this.cellSize / 4, y + this.cellSize / 4, size, size);
     this.ctx.restore();
   }
+
+// ==============================================================
+// PLAYER MOVEMENT & COLLISION
+// ==============================================================
 
   private isAtGoal(): boolean {
     const goalX = (this.goalCol + 0.5) * this.cellSize;
     const goalY = (this.goalRow + 0.5) * this.cellSize;
     const dx = this.playerX - goalX;
     const dy = this.playerY - goalY;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    return distance < this.cellSize / 4;
+    return Math.sqrt(dx * dx + dy * dy) < this.cellSize / 4;
   }
 
   private completeLevel() {
@@ -236,12 +503,18 @@ export class MazeLevel implements OnInit, AfterViewInit {
       this.gameOver = true;
       setTimeout(() => {
         this.currentLevel++;
+        this.setBiome();
         this.startLevel();
       }, 500);
     }
   }
 
   private updateAnimationState() {
+    const prev = this.currentAnimation;
+    const movingH = this.keys['Left'] || this.keys['Right'];
+    const movingV = this.keys['Up'] || this.keys['Down'];
+    const moving = movingH || movingV;
+
     if (this.keys['Left']) {
       this.currentDirection = 'Left';
       this.lastHorizontalDirection = 'Left';
@@ -250,13 +523,18 @@ export class MazeLevel implements OnInit, AfterViewInit {
       this.currentDirection = 'Right';
       this.lastHorizontalDirection = 'Right';
     }
-    if (this.keys['Up'] || this.keys['Down']) {
-      if (this.lastHorizontalDirection === 'Left' || this.lastHorizontalDirection === 'Right') {
-        this.currentDirection = this.lastHorizontalDirection;
-      }
+    if (!movingH && movingV) {
+      this.currentDirection = this.lastHorizontalDirection;
     }
-    this.currentAnimation = (this.keys['Left'] || this.keys['Right'] || this.keys['Up'] || this.keys['Down'])
-      ? 'Walk' : 'Idle';
+
+    this.currentAnimation = moving
+      ? (this.playerSpeed > 1.5 ? 'Run' : 'Walk')
+      : 'Idle';
+
+    if (prev !== this.currentAnimation) {
+      this.frameIndex = 0;
+      this.lastFrameTime = 0;
+    }
   }
 
   private drawPlayer() {
@@ -277,19 +555,11 @@ export class MazeLevel implements OnInit, AfterViewInit {
     if (this.currentDirection === 'Left') {
       this.ctx.translate(dx + (anim.frameWidth * scale) / 2, 0);
       this.ctx.scale(-1, 1);
-      this.ctx.drawImage(
-        this.characterImage,
-        sx, sy, anim.frameWidth, anim.frameHeight,
-        -anim.frameWidth / 2, dy,
-        anim.frameWidth * scale, anim.frameHeight * scale
-      );
+      this.ctx.drawImage(this.characterImage, sx, sy, anim.frameWidth, anim.frameHeight,
+        -anim.frameWidth / 2, dy, anim.frameWidth * scale, anim.frameHeight * scale);
     } else {
-      this.ctx.drawImage(
-        this.characterImage,
-        sx, sy, anim.frameWidth, anim.frameHeight,
-        dx, dy,
-        anim.frameWidth * scale, anim.frameHeight * scale
-      );
+      this.ctx.drawImage(this.characterImage, sx, sy, anim.frameWidth, anim.frameHeight,
+        dx, dy, anim.frameWidth * scale, anim.frameHeight * scale);
     }
     this.ctx.restore();
   }
@@ -314,35 +584,93 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const row = Math.floor(y / this.cellSize);
     const col = Math.floor(x / this.cellSize);
     if (row < 0 || row >= this.row || col < 0 || col >= this.col) return true;
-
     const cell = this.maze.cells[row][col];
     const offsetX = x - col * this.cellSize;
     const offsetY = y - row * this.cellSize;
     const halfW = this.playerWidth / 2;
     const halfH = this.playerHeight / 2;
-
     if (cell.northWall && offsetY - halfH < 0) return true;
     if (cell.southWall && offsetY + halfH > this.cellSize) return true;
     if (cell.westWall && offsetX - halfW < 0) return true;
     if (cell.eastWall && offsetX + halfW > this.cellSize) return true;
-
     return false;
   }
 
+// ==============================================================
+// INPUT HANDLING
+// ==============================================================
+
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
-    if (this.paused && event.key !== 'Escape') return;
-    const direction = keyboardMap[event.key];
-    if (direction) this.keys[direction] = true;
 
-    if ((event.key === 'f' || event.key === 'F') && this.isAtGoal()) this.completeLevel();
+    const konamiCode = [
+      'ArrowUp',
+      'ArrowUp',
+      'ArrowDown',
+      'ArrowDown',
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowLeft',
+      'ArrowRight',
+      'b',
+      'a'
+    ];
+
+    (this as any)._konamiIndex = (this as any)._konamiIndex ?? 0;
+
+    if (event.key === konamiCode[(this as any)._konamiIndex]) {
+      (this as any)._konamiIndex++;
+      if ((this as any)._konamiIndex === konamiCode.length) {
+        this.showEasterEgg = true;
+        (this as any)._konamiIndex = 0;
+        setTimeout(() => {
+          this.showEasterEgg = false
+        }, 15500)
+      }
+    } else {
+      (this as any)._konamiIndex = 0;
+    }
+
+    if (this.paused && event.key !== 'Escape') return;
+
+    const direction = this.keyboardMap[event.key];
+    const action = this.actionMap[event.key];
+
+    if (direction) this.keys[direction] = true;
+    if (action === 'Use') {
+
+      if (this.isAtGoal()) this.completeLevel();
+
+
+      const playerRow = Math.floor(this.playerY / this.cellSize);
+      const playerCol = Math.floor(this.playerX / this.cellSize);
+
+      for (const chest of this.chests) {
+        if (!chest.isOpen && chest.row === playerRow && chest.col === playerCol) {
+          chest.isOpen = true;
+          console.log(`📦 You opened a chest! You got: ${chest.itemInside.name}`);
+
+          this.dialog.open(ChestDialog, {
+            width: '400px',
+            data: {item: chest.itemInside}
+          });
+
+          // chest.itemInside.use(MainChar);
+        }
+      }
+    }
+    if (action === 'Sprint') this.playerSpeed = 2;
     if (event.key === 'Escape' || event.key === 'Esc') this.togglePauseMenu();
+
+
   }
 
   @HostListener('window:keyup', ['$event'])
   handleKeyUp(event: KeyboardEvent) {
-    const direction = keyboardMap[event.key];
+    const direction = this.keyboardMap[event.key];
+    const action = this.actionMap[event.key];
     if (direction) this.keys[direction] = false;
+    if (action === 'Sprint') this.playerSpeed = 1.5;
   }
 
   private togglePauseMenu() {
@@ -365,15 +693,105 @@ export class MazeLevel implements OnInit, AfterViewInit {
     this.showSaveMenu = true;
   }
 
-  saves: any;
-
-  getAllSaves() {
-    this.saveService.getAll().subscribe((res) => {
-      this.saves = res;
-    });
-  }
-
   goToMainMenu() {
-    this.router.navigateByUrl('menu')
+    this.router.navigateByUrl('menu');
   }
+
+// ==============================================================
+// Easter_Egg
+// ==============================================================
+
+  showEasterEgg: boolean = false
+
+
+  private spawnChests() {
+    this.chests = [];
+
+    const baseCount = 1;
+    const extra = Math.floor((this.currentLevel - 1) / 3);
+    const chestCount = Math.min(baseCount + extra, 8);
+
+    for (let i = 0; i < chestCount; i++) {
+      let r: number, c: number;
+      do {
+        r = Math.floor(Math.random() * this.row);
+        c = Math.floor(Math.random() * this.col);
+      } while (
+        (r === 0 && c === 0) ||
+        (r === this.goalRow && c === this.goalCol) ||
+        this.chests.some(ch => ch.row === r && ch.col === c)
+        );
+
+
+      const chest: IChest = {
+        ...Chest,
+        itemInside: healingPotion,
+        row: 1,
+        col: 1,
+        isOpen: false,
+        frameIndex: 0,
+        lastFrameTime: 0
+      };
+
+      this.chests.push(chest);
+    }
+
+    console.log(`📦 Spawned ${this.chests.length} chests`);
+  }
+
+
+  private drawChests(camOffsetX: number, camOffsetY: number) {
+    this.ctx.save();
+    this.ctx.translate(camOffsetX, camOffsetY);
+
+    for (const chest of this.chests) {
+      const anim = chest.isOpen ? chest.animations.Open : chest.animations.Closed;
+
+      const now = Date.now();
+      if (!chest.lastFrameTime) chest.lastFrameTime = now;
+      if (chest.frameIndex === undefined) chest.frameIndex = 0;
+
+      if (now - chest.lastFrameTime > anim.frameSpeed) {
+        if (!chest.isOpen) {
+          chest.frameIndex = 0;
+        } else if (chest.frameIndex < anim.frames.length - 1) {
+          chest.frameIndex++;
+        }
+        chest.lastFrameTime = now;
+      }
+
+      const frame = anim.frames[chest.frameIndex];
+      if (!frame) continue;
+
+      const scale = 2;
+      const width = anim.frameWidth * scale;
+      const height = anim.frameHeight * scale;
+
+      const x = chest.col * this.cellSize + (this.cellSize - width) / 2;
+      const y = chest.row * this.cellSize + (this.cellSize - height) / 2;
+
+      this.ctx.drawImage(
+        chest.sprite,
+        frame.x * anim.frameWidth,
+        frame.y * anim.frameHeight,
+        anim.frameWidth,
+        anim.frameHeight,
+        x,
+        y,
+        width,
+        height
+      );
+
+    }
+
+    this.ctx.restore();
+  }
+
+
+  closeItemModal() {
+    this.showItemModal = false;
+    this.pickedItem = null;
+  }
+
+
 }
