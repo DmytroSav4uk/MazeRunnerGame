@@ -5,6 +5,21 @@
     <h1>{{ currentBiome?.name }}</h1>
   </div>
 
+  <div class="charStatus">
+
+    <div class="imageWrap">
+      <img src="assets/characters/mainCharProfile.png" alt="char"/>
+    </div>
+
+   <div>
+     <p>Health: {{MainChar.health}}/{{MainChar.maxHealth}}</p>
+     <p>Armor:{{MainChar.armor}}</p>
+     <p>Damage:{{MainChar.damage}}</p>
+   </div>
+
+  </div>
+
+
   @if (showMenu) {
     <div class="pauseMenu">
       <h1 (click)="continueGame()">Continue</h1>
@@ -23,6 +38,7 @@
                     [goalRow]="goalRow"
                     [currentBiome]="currentBiome"
                     [nextLevelBiome]="nextLevelBiome"
+                    [chests]="chests"
                     (closeSaveMenu)="showSaveMenu = false"
     />
   }

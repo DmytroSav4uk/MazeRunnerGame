@@ -47,11 +47,25 @@ const server = createServer(async (req, res) => {
       });
 
 
-      const { slot, level, maze, playerX, playerY, goalRow, goalCol, nextLevelBiome, currentBiome } = body;
+      const {
+        slot,
+        level,
+        maze,
+        playerX,
+        playerY,
+        goalRow,
+        goalCol,
+        nextLevelBiome,
+        currentBiome,
+        chests,
+        playerState
+      } = body;
+
 
       if (!SAVE_SLOTS.includes(slot)) {
         return sendJSON(res, 400, { message: 'Невідомий слот збереження' });
       }
+
 
       const saveData = {
         level,
@@ -62,12 +76,42 @@ const server = createServer(async (req, res) => {
         goalCol,
         nextLevelBiome,
         currentBiome,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+
+
+        chests: Array.isArray(chests) ? chests.map(c => ({
+          id: c.id,
+          row: c.row,
+          col: c.col,
+          isOpen: c.isOpen ?? false,
+          itemInside: c.itemInside ? {
+            id: c.itemInside.id,
+            name: c.itemInside.name,
+            description: c.itemInside.description,
+            type: c.itemInside.type
+          } : null
+        })) : [],
+
+        playerState: playerState ? {
+          health: playerState.health,
+          maxHealth: playerState.maxHealth,
+          armor: playerState.armor,
+          damage: playerState.damage,
+          inventory: Array.isArray(playerState.inventory)
+            ? playerState.inventory.map(i => ({
+              name: i.item.name,
+              quantity: i.quantity ?? 1
+            }))
+            : []
+        } : null
+
       };
 
+      // 🔹 Зберігаємо у файл
       const filePath = path.join(SAVE_DIR, `${slot}.json`);
       await fs.writeFile(filePath, JSON.stringify(saveData, null, 2));
 
+      // 🔹 Дублюємо в autosave.json
       const autoPath = path.join(SAVE_DIR, 'autosave.json');
       await fs.writeFile(autoPath, JSON.stringify(saveData, null, 2));
 
@@ -77,6 +121,7 @@ const server = createServer(async (req, res) => {
       return sendJSON(res, 500, { message: 'Помилка при збереженні' });
     }
   }
+
 
   // ------------------ LOAD ------------------
   if (req.method === 'GET' && req.url.startsWith('/load')) {

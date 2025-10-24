@@ -7,10 +7,14 @@ export const keyboardMap: Record<string, Direction> = {
   ArrowDown: 'Down'
 };
 
-export const actionMap: Record<string, 'Use' | 'Sprint'> = {
+export const actionMap: Record<string, 'Use' | 'Sprint' | 'Inventory'> = {
   F: 'Use',
   f: 'Use',
   А:'Use',
   а:'Use',
-  Shift: 'Sprint'
+  Shift: 'Sprint',
+  I:'Inventory',
+  i:'Inventory',
+  Ш:'Inventory',
+  ш:'Inventory'
 };

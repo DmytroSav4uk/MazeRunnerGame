@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, HostListener, OnInit} from '@angular/core';
 import {Maze, keyboardMap, actionMap} from './models';
 import {FormsModule} from '@angular/forms';
-import {MainChar, Direction, IAnimationFrames} from '../../interfaces/mainChar';
+import {MainChar, Direction, IAnimationFrames, createInventory} from '../../interfaces/mainChar';
 import {SavesService} from '../../services/saves/saves-service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {SaveSlots} from '../save-slots/save-slots';
@@ -11,9 +11,17 @@ import {IEnemy} from '../../interfaces/Enemy';
 import {IBiome, forest, dungeon, winterForest} from '../../interfaces/Biome';
 import {SkeletonEnemy} from '../../interfaces/Enemy';
 import {Chest, IChest} from '../../interfaces/Chest';
-import {healingPotion, IItem} from '../../interfaces/Item';
+import {
+  ArmorUpgrade,
+  healingPotion,
+  HealthUpgrade,
+  IItem, ITEM_REGISTRY,
+  UltraSpeedPotion,
+  WeaponUpgrade
+} from '../../interfaces/Item';
 import {MatDialog} from '@angular/material/dialog';
 import {ChestDialog} from '../chest-dialog/chest-dialog';
+import {InventoryDialog} from '../inventory-dialog/inventory-dialog';
 
 @Component({
   selector: 'app-maze-level',
@@ -50,11 +58,11 @@ export class MazeLevel implements OnInit, AfterViewInit {
   protected playerY = 0;
   private playerWidth = 38;
   private playerHeight = 64;
-  private playerSpeed = 1.5;
+  // private playerSpeed = MainChar.speed;
 // ---------------- CONTROLS ----------------
   private keys: Record<string, boolean> = {};
   private keyboardMap: Record<string, 'Up' | 'Down' | 'Left' | 'Right'> = keyboardMap;
-  private actionMap: Record<string, 'Use' | 'Sprint'> = actionMap;
+  private actionMap: Record<string, 'Use' | 'Sprint' | 'Inventory'> = actionMap;
 // ---------------- ANIMATION ----------------
   private characterImage = new Image();
   private currentAnimation: 'Idle' | 'Walk' | 'Run' = 'Idle';
@@ -113,6 +121,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
       addWithEquivalents(c.right, this.keyboardMap, 'Right');
       addWithEquivalents(c.use, this.actionMap, 'Use');
       addWithEquivalents(c.sprint, this.actionMap, 'Sprint');
+      addWithEquivalents(c.inventory, this.actionMap, 'Inventory');
     } else {
       this.keyboardMap = baseKeyboardMap;
       this.actionMap = baseActionMap;
@@ -137,6 +146,9 @@ export class MazeLevel implements OnInit, AfterViewInit {
         this.startLevel();
       }
     };
+
+
+    console.log(MainChar)
   }
 
 // ==============================================================
@@ -195,7 +207,6 @@ export class MazeLevel implements OnInit, AfterViewInit {
         this.goalRow = data.goalRow ?? Math.floor(Math.random() * this.row);
         this.goalCol = data.goalCol ?? Math.floor(Math.random() * this.col);
 
-
         if (data.currentBiome && data.nextLevelBiome) {
           this.currentBiome = this.biomes.find(b => b.name === data.currentBiome.name) || this.randomBiome();
           this.nextLevelBiome = this.biomes.find(b => b.name === data.nextLevelBiome.name) || this.randomBiome();
@@ -205,6 +216,44 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
         this.decorateLevel();
         this.decorateEnemies();
+
+        if (Array.isArray(data.chests) && data.chests.length > 0) {
+          this.chests = data.chests.map((savedChest: any) => {
+            return {
+              ...Chest,
+              row: savedChest.row,
+              col: savedChest.col,
+              isOpen: savedChest.isOpen ?? false,
+              itemInside: savedChest.itemInside ?? null,
+              frameIndex: savedChest.isOpen ? (Chest.animations.Open.frames.length - 1) : 0,
+              lastFrameTime: 0
+            };
+          });
+        } else {
+          this.spawnChests();
+        }
+
+        if (data.playerState) {
+          const p = data.playerState;
+          MainChar.health = p.health ?? MainChar.health;
+          MainChar.maxHealth = p.maxHealth ?? MainChar.maxHealth;
+          MainChar.damage = p.damage ?? MainChar.damage;
+          MainChar.armor = p.armor ?? MainChar.armor;
+
+          if (Array.isArray(p.inventory)) {
+            const newInventory = createInventory();
+
+            for (const slot of p.inventory) {
+              const fullItem = ITEM_REGISTRY[slot.name];
+              if (fullItem) {
+                newInventory.addItem(fullItem, slot.quantity ?? 1);
+              }
+            }
+
+            MainChar.inventory = newInventory;
+          }
+
+        }
 
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
@@ -221,7 +270,6 @@ export class MazeLevel implements OnInit, AfterViewInit {
       }
     });
   }
-
 
 // ==============================================================
 // LEVEL SETUP
@@ -371,9 +419,14 @@ export class MazeLevel implements OnInit, AfterViewInit {
       const dx = this.playerX - enemy.x;
       const dy = this.playerY - enemy.y;
       if (Math.sqrt(dx * dx + dy * dy) < this.cellSize / 3) {
-        console.log('💀 Player hit by enemy!');
+        this.startBattle()
       }
     }
+  }
+
+
+  private startBattle() {
+
   }
 
   private drawEnemies(camOffsetX: number, camOffsetY: number) {
@@ -528,7 +581,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
     }
 
     this.currentAnimation = moving
-      ? (this.playerSpeed > 1.5 ? 'Run' : 'Walk')
+      ? (this.MainChar.speed > 1.5 ? 'Run' : 'Walk')
       : 'Idle';
 
     if (prev !== this.currentAnimation) {
@@ -569,10 +622,10 @@ export class MazeLevel implements OnInit, AfterViewInit {
     let nextX = this.playerX;
     let nextY = this.playerY;
 
-    if (this.keys['Left']) nextX -= this.playerSpeed;
-    if (this.keys['Right']) nextX += this.playerSpeed;
-    if (this.keys['Up']) nextY -= this.playerSpeed;
-    if (this.keys['Down']) nextY += this.playerSpeed;
+    if (this.keys['Left']) nextX -= this.MainChar.speed;
+    if (this.keys['Right']) nextX += this.MainChar.speed;
+    if (this.keys['Up']) nextY -= this.MainChar.speed;
+    if (this.keys['Down']) nextY += this.MainChar.speed;
 
     if (!this.isWallCollision(nextX, nextY)) {
       this.playerX = nextX;
@@ -599,6 +652,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
 // ==============================================================
 // INPUT HANDLING
 // ==============================================================
+  private inventoryDialogRef: any = null;
 
   @HostListener('window:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
@@ -648,21 +702,44 @@ export class MazeLevel implements OnInit, AfterViewInit {
       for (const chest of this.chests) {
         if (!chest.isOpen && chest.row === playerRow && chest.col === playerCol) {
           chest.isOpen = true;
-          console.log(`📦 You opened a chest! You got: ${chest.itemInside.name}`);
 
-          this.dialog.open(ChestDialog, {
-            width: '400px',
-            data: {item: chest.itemInside}
-          });
+          setTimeout(() => {
+            const dialogRef = this.dialog.open(ChestDialog, {
+              width: '400px',
+              data: {item: chest.itemInside}
+            });
+
+            dialogRef.afterClosed().subscribe((result) => {
+
+              MainChar.inventory.addItem(chest.itemInside);
+              console.log(`✅ Added ${chest.itemInside.name} to inventory.`);
+              console.log(MainChar)
+            });
+          }, 1000);
+
 
           // chest.itemInside.use(MainChar);
         }
       }
     }
-    if (action === 'Sprint') this.playerSpeed = 2;
+    if (action === 'Sprint') this.MainChar.speed = 2;
     if (event.key === 'Escape' || event.key === 'Esc') this.togglePauseMenu();
+    if (action === 'Inventory') {
 
+      if (this.inventoryDialogRef && this.inventoryDialogRef.getState() !== 'closed') {
+        return;
+      }
 
+      this.inventoryDialogRef = this.dialog.open(InventoryDialog, {
+        width: '550px',
+        data: { items: MainChar.inventory.items },
+        disableClose: false
+      });
+
+      this.inventoryDialogRef.afterClosed().subscribe(() => {
+        this.inventoryDialogRef = null;
+      });
+    }
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -670,7 +747,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const direction = this.keyboardMap[event.key];
     const action = this.actionMap[event.key];
     if (direction) this.keys[direction] = false;
-    if (action === 'Sprint') this.playerSpeed = 1.5;
+    if (action === 'Sprint') this.MainChar.speed = 1.5;
   }
 
   private togglePauseMenu() {
@@ -707,12 +784,24 @@ export class MazeLevel implements OnInit, AfterViewInit {
   private spawnChests() {
     this.chests = [];
 
+
     const baseCount = 1;
     const extra = Math.floor((this.currentLevel - 1) / 3);
     const chestCount = Math.min(baseCount + extra, 8);
 
+
+    const possibleItems: IItem[] = [
+       healingPotion,
+       WeaponUpgrade,
+       ArmorUpgrade,
+       HealthUpgrade,
+      UltraSpeedPotion
+    ];
+
     for (let i = 0; i < chestCount; i++) {
       let r: number, c: number;
+
+
       do {
         r = Math.floor(Math.random() * this.row);
         c = Math.floor(Math.random() * this.col);
@@ -723,11 +812,13 @@ export class MazeLevel implements OnInit, AfterViewInit {
         );
 
 
+      const randomItem = possibleItems[Math.floor(Math.random() * possibleItems.length)];
+
       const chest: IChest = {
         ...Chest,
-        itemInside: healingPotion,
-        row: 1,
-        col: 1,
+        itemInside: randomItem,
+        row: r,
+        col: c,
         isOpen: false,
         frameIndex: 0,
         lastFrameTime: 0
@@ -736,9 +827,8 @@ export class MazeLevel implements OnInit, AfterViewInit {
       this.chests.push(chest);
     }
 
-    console.log(`📦 Spawned ${this.chests.length} chests`);
-  }
 
+  }
 
   private drawChests(camOffsetX: number, camOffsetY: number) {
     this.ctx.save();
@@ -794,4 +884,5 @@ export class MazeLevel implements OnInit, AfterViewInit {
   }
 
 
+  protected readonly MainChar = MainChar;
 }

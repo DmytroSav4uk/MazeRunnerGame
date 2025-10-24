@@ -14,7 +14,7 @@ export class Settings implements OnInit {
   form!: FormGroup;
 
   difficulties = ['easy', 'medium', 'hard'];
-  controlNames = ['up', 'down', 'left', 'right', 'use', 'sprint'];
+  controlNames = ['up', 'down', 'left', 'right', 'use', 'sprint', 'inventory'];
 
   constructor(public publicFunc: PublicFunctions, private fb: FormBuilder) {
   }
@@ -35,7 +35,7 @@ export class Settings implements OnInit {
 
   private createDefaultControls(savedControls?: any) {
     const group: any = {};
-    const defaults = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'F', 'Shift'];
+    const defaults = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'F', 'Shift',"I"];
 
     this.controlNames.forEach((name, i) => {
       group[name] = [savedControls?.[name] || defaults[i]];

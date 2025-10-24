@@ -33,7 +33,7 @@ export interface IEnemy {
   health?: number;
   damage?: number;
   visionRange?: number;
-  attackRange?: number;
+  armor: number
 
 
   image?: HTMLImageElement;
@@ -53,7 +53,7 @@ export interface IEnemy {
 export const SkeletonEnemy: IEnemy = {
   id: 'enemy_skeleton_white',
   name: 'Skeleton Warrior',
-  biome:'Spooky Dungeon',
+  biome: 'Spooky Dungeon',
   x: 150,
   y: 200,
   row: 5,
@@ -61,10 +61,11 @@ export const SkeletonEnemy: IEnemy = {
   direction: 'Down',
   speed: 1.1,
   color: '#cccccc',
-  health: 70,
+  health: 60,
   damage: 10,
   visionRange: 220,
-  attackRange: 40,
+  armor:10,
+
   spriteScale: 2,
   directional: false,
 
