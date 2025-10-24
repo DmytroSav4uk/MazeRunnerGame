@@ -6,6 +6,7 @@ import {Credits} from './components/credits/credits';
 import {MazeLevel} from './components/maze-level/maze-level';
 import {SaveSlots} from './components/save-slots/save-slots';
 import {Settings} from './components/settings/settings';
+import {BattleLevel} from './components/battle-level/battle-level';
 
 export const routes: Routes = [
   {
@@ -21,7 +22,10 @@ export const routes: Routes = [
     path: 'maze', component: MazeLevel, children: [
       {path: 'saves', component: SaveSlots}
     ]
-  }
+  },
+
+  {path:'battle',component:BattleLevel}
+
   // {path:'', component:Start},
   // {path:'menu', component:MainMenu}
 ];

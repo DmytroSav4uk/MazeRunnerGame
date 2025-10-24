@@ -4,6 +4,8 @@ import { ISave } from '../../interfaces/save';
 import { SavesService } from '../../services/saves/saves-service';
 import { Router } from '@angular/router';
 import {IBiome} from '../../interfaces/Biome';
+import {IChest} from '../../interfaces/Chest';
+import {MainChar} from '../../interfaces/mainChar';
 
 @Component({
   selector: 'app-save-slots',
@@ -26,6 +28,7 @@ export class SaveSlots implements OnInit {
   @Input() showSaveMenu: boolean = false;
   @Input() currentBiome!: IBiome;
   @Input() nextLevelBiome!: IBiome;
+  @Input() chests!: IChest[];
 
 
   @Output() closeSaveMenu: EventEmitter<void> = new EventEmitter();
@@ -53,7 +56,6 @@ export class SaveSlots implements OnInit {
   }
 
   saveToSlot(slot: string) {
-
     const saveObj: ISave = {
       slot: slot,
       level: this.currentLevel,
@@ -62,8 +64,21 @@ export class SaveSlots implements OnInit {
       playerY: this.playerY,
       goalRow: this.goalRow,
       goalCol: this.goalCol,
-      nextLevelBiome:this.nextLevelBiome,
-      currentBiome:this.currentBiome
+      currentBiome: this.currentBiome,
+      nextLevelBiome: this.nextLevelBiome,
+
+
+      chests: this.chests ?? [],
+      playerState: {
+        health: MainChar.health,
+        maxHealth: MainChar.maxHealth,
+        armor:MainChar.armor,
+        damage:MainChar.damage,
+        inventory: MainChar.inventory.items.map(it => ({
+          item: it.item,
+          quantity: it.quantity ?? 1
+        }))
+      }
     };
 
     this.saveService.saveGame(saveObj).subscribe(() => {

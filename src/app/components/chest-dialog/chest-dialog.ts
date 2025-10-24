@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
@@ -6,7 +6,7 @@ import {
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
-import { IItem } from '../../interfaces/Item';
+import {IItem} from '../../interfaces/Item';
 import {MatButton} from '@angular/material/button';
 
 @Component({
@@ -24,7 +24,8 @@ export class ChestDialog {
   constructor(
     public dialogRef: MatDialogRef<ChestDialog>,
     @Inject(MAT_DIALOG_DATA) public data: { item: IItem }
-  ) {}
+  ) {
+  }
 
   close() {
     this.dialogRef.close();

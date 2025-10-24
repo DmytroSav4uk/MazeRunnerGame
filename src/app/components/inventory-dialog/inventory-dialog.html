@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Inventory</h2>
+
+<mat-dialog-content class="inventory-content">
+
+  @if (items.length === 0) {
+    <div class="empty">
+      Your inventory is empty.
+    </div>
+  }
+
+
+  @for (stack of items; track items) {
+    <div class="item-row">
+      <div class="item-info">
+        <span class="item-name">{{ stack.item.name }}</span>
+
+        @if (stack.quantity > 1) {
+          <span class="item-qty">×{{ stack.quantity }}</span>
+        }
+
+        <p class="item-desc">{{ stack.item.description }}</p>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="useItem(stack.item)"
+        [disabled]="canBeUsed(stack.item)"
+      >
+        Use
+      </button>
+    </div>
+  }
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

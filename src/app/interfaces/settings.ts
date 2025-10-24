@@ -5,6 +5,7 @@ export interface IControls {
   right: string[] | string;
   use: string[] | string;
   sprint: string[] | string;
+  inventory: string[] | string;
 }
 
 export interface ISettings {

@@ -1,3 +1,5 @@
+import {IItem} from './Item';
+
 export type Direction = 'Up' | 'Down' | 'Left' | 'Right';
 
 export interface IAnimationFrames {
@@ -18,20 +20,91 @@ export interface ICharacterAnimations {
   GetDamage?:Record<Direction, IAnimationFrames>;
 }
 
+export interface IInventorySlot {
+  item: IItem;
+  quantity: number;
+}
+
+export interface IInventory {
+  items: IInventorySlot[];
+
+  addItem: (item: IItem, amount?: number) => void;
+  useItem: (index: number, player: IMainChar) => void;
+  removeItem: (index: number) => void;
+}
+
 export interface IMainChar {
   name: string;
   health:number
   maxHealth:number
   damage:number
+  armor:number
   spritePath: string;
   animations: ICharacterAnimations;
+  inventory:IInventory;
+  speed:number
 }
+
+export function createInventory(): IInventory {
+  const items: IInventorySlot[] = [];
+
+  return {
+    items,
+
+    addItem(item: IItem, amount: number = 1): void {
+      if (item.stackable) {
+        const existing = items.find(slot => slot.item.name === item.name);
+        if (existing) {
+          existing.quantity += amount;
+          console.log(`📦 Added ${amount}x ${item.name} (Total: ${existing.quantity})`);
+          return;
+        }
+      }
+      items.push({ item, quantity: amount });
+      console.log(`🎒 Added ${amount}x ${item.name}`);
+    },
+
+    useItem(index: number, player: IMainChar): void {
+      const slot = items[index];
+      if (!slot) {
+        console.log('❌ No item in that slot!');
+        return;
+      }
+
+      const item = slot.item;
+
+      if (!item.usableInMaze && !item.usableInBattle) {
+        console.log('🚫 Item cannot be used now.');
+        return;
+      }
+
+      item.use(player);
+
+      if (item.stackable) {
+        slot.quantity -= 1;
+        console.log(`🧪 Used ${item.name} (x${slot.quantity} left)`);
+        if (slot.quantity <= 0) this.removeItem(index);
+      } else {
+        this.removeItem(index);
+      }
+    },
+
+    removeItem(index: number): void {
+      const removed = items.splice(index, 1)[0];
+      if (removed) console.log(`🗑️ Removed ${removed.item.name}`);
+    }
+  };
+}
+
 
 export const MainChar: IMainChar = {
   name: 'Hero',
   health:50,
   maxHealth:50,
   damage:20,
+  armor:10,
+  speed:1.5,
+  inventory: createInventory(),
   spritePath: 'assets/characters/mainCharSheet.png',
   animations: {
     Walk: {
