@@ -179,17 +179,15 @@ export class MazeLevel implements OnInit, AfterViewInit {
   }
 
   private decorateLevel() {
-    // 🔹 змінюємо фон під біом
+
     this.canvas.style.backgroundColor = this.currentBiome.backgroundColor;
 
-    // 🔹 створюємо зображення для стін
     const wallImages: HTMLImageElement[] = this.currentBiome.wallAssets.map(path => {
       const img = new Image();
       img.src = path;
       return img;
     });
 
-    // 🔹 додаємо їх у Maze, щоб він малював декор
     (this.maze as any).wallAssets = wallImages;
   }
 
@@ -533,8 +531,8 @@ export class MazeLevel implements OnInit, AfterViewInit {
     this.ctx.translate(camOffsetX, camOffsetY);
 
     this.maze.draw(this.wallThickness);
-
     this.ctx.restore();
+
 
     this.drawChests(camOffsetX, camOffsetY);
     this.drawGoal();

@@ -74,26 +74,26 @@ export class Maze {
     const size = this.cellSize;
     const step = size / 4; // щільність картинок
     const count = Math.ceil(size / step);
-    const wallImg = () => this.wallAssets![Math.floor(Math.random() * this.wallAssets!.length)];
     const x0 = cell.col * size;
     const y0 = cell.row * size;
 
     if (!cell.wallDecorPositions) cell.wallDecorPositions = {};
 
+    const getWallImg = (index: number) => this.wallAssets![index % this.wallAssets!.length];
 
-    // === lower wall===
+    // === lower wall ===
     const southOffsetX = -20;
     const southOffsetY = -100;
     if (cell.southWall) {
       if (!cell.wallDecorPositions.south) {
         cell.wallDecorPositions.south = [];
         for (let i = 0; i < count; i++) {
-          const img = wallImg();
+          const img = getWallImg(i);
           cell.wallDecorPositions.south.push({
             img,
-            dx: x0 + southOffsetX + i * step + Math.random() * 4 - 2,
+            dx: x0 + southOffsetX + i * step,
             dy: y0 + size - img.height * 0.3 + southOffsetY + 60,
-            scale: 0.6 + Math.random() * 0.3
+            scale: 0.7
           });
         }
       }
@@ -102,7 +102,6 @@ export class Maze {
       );
     }
 
-
     // === upper wall ===
     const northOffsetX = -20;
     const northOffsetY = -10;
@@ -110,12 +109,12 @@ export class Maze {
       if (!cell.wallDecorPositions.north) {
         cell.wallDecorPositions.north = [];
         for (let i = 0; i < count; i++) {
-          const img = wallImg();
+          const img = getWallImg(i);
           cell.wallDecorPositions.north.push({
             img,
-            dx: x0 + northOffsetX + i * step + Math.random() * 4 - 2,
-            dy: y0 - img.height * 0.7 + Math.random() * 3 + northOffsetY + 60,
-            scale: 0.6 + Math.random() * 0.3
+            dx: x0 + northOffsetX + i * step,
+            dy: y0 - img.height * 0.7 + northOffsetY + 60,
+            scale: 0.7
           });
         }
       }
@@ -124,7 +123,6 @@ export class Maze {
       );
     }
 
-
     // === left wall ===
     const westOffsetX = 50;
     const westOffsetY = -30;
@@ -132,12 +130,12 @@ export class Maze {
       if (!cell.wallDecorPositions.west) {
         cell.wallDecorPositions.west = [];
         for (let i = 0; i < count; i++) {
-          const img = wallImg();
+          const img = getWallImg(i);
           cell.wallDecorPositions.west.push({
             img,
-            dx: x0 - img.width * 0.8 + westOffsetX ,
-            dy: y0 + i * step + Math.random() * 3 - 1.5 + westOffsetY,
-            scale: 0.6 + Math.random() * 0.3
+            dx: x0 - img.width * 0.8 + westOffsetX,
+            dy: y0 + i * step + westOffsetY,
+            scale: 0.7
           });
         }
       }
@@ -153,12 +151,12 @@ export class Maze {
       if (!cell.wallDecorPositions.east) {
         cell.wallDecorPositions.east = [];
         for (let i = 0; i < count; i++) {
-          const img = wallImg();
+          const img = getWallImg(i);
           cell.wallDecorPositions.east.push({
             img,
-            dx: x0 + size - img.width * 0.2 + eastOffsetX + Math.random() * 3,
-            dy: y0 + i * step + Math.random() * 3 - 1.5 + eastOffsetY,
-            scale: 0.6 + Math.random() * 0.3
+            dx: x0 + size - img.width * 0.2 + eastOffsetX,
+            dy: y0 + i * step + eastOffsetY,
+            scale: 0.7
           });
         }
       }
@@ -167,6 +165,8 @@ export class Maze {
       );
     }
   }
+
+
 
   private huntAndKill(current: Cell) {
     const unvisitedNeighbors = this.getNeighbors(current).filter((c) => !c.hasVisited());
