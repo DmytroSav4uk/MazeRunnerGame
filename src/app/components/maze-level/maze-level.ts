@@ -75,6 +75,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
 // ---------------- LEVEL OBJECTIVES ----------------
   goalRow!: number;
   goalCol!: number;
+  goalFrameImage = new Image();
 // ---------------- ENEMIES ----------------
   enemies: IEnemy[] = [];
 // ---------------- CHESTS ----------------
@@ -84,7 +85,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
   nextLevelBiome!: IBiome;
   biomes: IBiome[] = [forest
 
-  //  , dungeon, winterForest
+    , dungeon, winterForest
 
   ];
 // ---------------- MODAL ----------------
@@ -134,6 +135,11 @@ export class MazeLevel implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+
+
+    this.goalFrameImage.src = 'assets/mazeLevel/shared/portal.png'; // шлях до картинки рамки
+
+
     const canvas = document.getElementById('maze') as HTMLCanvasElement | null;
     if (!canvas) throw new Error('Canvas not found');
     const ctx = canvas.getContext('2d');
@@ -545,34 +551,71 @@ export class MazeLevel implements OnInit, AfterViewInit {
 // ==============================================================
 // RENDERING
 // ==============================================================
-
   private drawGoal() {
     const camOffsetX = this.canvas.width / 2 - this.playerX;
     const camOffsetY = this.canvas.height / 2 - this.playerY;
-    const x = this.goalCol * this.cellSize;
-    const y = this.goalRow * this.cellSize;
-    const size = this.cellSize / 2;
 
+    const fillSize = this.cellSize * 0.3;
+    const radius = fillSize / 3;
+    const xFill = this.goalCol * this.cellSize + (this.cellSize - fillSize) / 2;
+    const yFill = this.goalRow * this.cellSize + (this.cellSize - fillSize) / 2;
 
     let goalColor = '#00ff00';
     switch (this.nextLevelBiome.name) {
-      case 'Emerald Woods':
-        goalColor = '#00ff00';
-        break;
-      case 'Spooky Dungeon':
-        goalColor = '#ff00ff';
-        break;
-      case 'Glassy Forest':
-        goalColor = '#00ffff';
-        break;
+      case 'Emerald Woods': goalColor = '#00ff00'; break;
+      case 'Spooky Dungeon': goalColor = '#ff00ff'; break;
+      case 'Glassy Forest': goalColor = '#00ffff'; break;
     }
 
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
+
     this.ctx.fillStyle = goalColor;
-    this.ctx.fillRect(x + this.cellSize / 4, y + this.cellSize / 4, size, size);
+    this.ctx.beginPath();
+    this.ctx.moveTo(xFill, yFill + fillSize);
+    this.ctx.lineTo(xFill, yFill + radius);
+    this.ctx.quadraticCurveTo(xFill, yFill, xFill + radius, yFill);
+    this.ctx.lineTo(xFill + fillSize - radius, yFill);
+    this.ctx.quadraticCurveTo(xFill + fillSize, yFill, xFill + fillSize, yFill + radius);
+    this.ctx.lineTo(xFill + fillSize, yFill + fillSize);
+    this.ctx.closePath();
+    this.ctx.fill();
+
+
+    const particleCount = 60;
+    const centerX = xFill + fillSize / 2;
+    const centerY = yFill + fillSize / 2;
+    const time = performance.now() / -500;
+
+    for (let i = 0; i < particleCount; i++) {
+      const t = (i / particleCount) * Math.PI * 4;
+      const spiralRadius = (fillSize / 3) * (i / particleCount);
+      const angle = t + time;
+
+      const px = centerX + Math.cos(angle) * spiralRadius;
+      const py = centerY + Math.sin(angle) * spiralRadius;
+      const pr = 1 + Math.random() * 1.2;
+
+      this.ctx.beginPath();
+      this.ctx.arc(px, py, pr, 0, Math.PI * 2);
+      this.ctx.fillStyle = 'white';
+      this.ctx.fill();
+    }
+
+
+    if (this.goalFrameImage.complete) {
+      const frameSize = fillSize * 1.18;
+      const xFrame = this.goalCol * this.cellSize + (this.cellSize - frameSize) / 2;
+      const yFrame = this.goalRow * this.cellSize + (this.cellSize - frameSize) / 2 -5;
+      this.ctx.drawImage(this.goalFrameImage, xFrame, yFrame, frameSize, frameSize);
+    }
+
     this.ctx.restore();
   }
+
+
+
+
 
 // ==============================================================
 // PLAYER MOVEMENT & COLLISION
