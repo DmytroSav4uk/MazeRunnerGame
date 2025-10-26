@@ -29,7 +29,7 @@ export const healingPotion: IItem = {
 };
 
 export const WeaponUpgrade: IItem = {
-  name: 'Weapon upgrade',
+  name: 'Weapon Upgrade',
   description: 'Increases damage on 5',
   usableInMaze: true,
   usableInBattle: false,
@@ -53,7 +53,7 @@ export const ArmorUpgrade: IItem = {
 };
 
 export const HealthUpgrade: IItem = {
-  name: 'Health upgrade',
+  name: 'Health Upgrade',
   description: 'Increases max health on 5',
   usableInMaze: true,
   usableInBattle: false,
@@ -64,7 +64,7 @@ export const HealthUpgrade: IItem = {
 };
 
 export const UltraSpeedPotion: IItem = {
-  name: 'Ultra speed potion',
+  name: 'Ultra Speed Potion',
   description: 'makes you so fast you can that tear through the matter but only for 5 seconds (do not use sprint button or potion will stop working)',
   usableInMaze: true,
   usableInBattle: false,

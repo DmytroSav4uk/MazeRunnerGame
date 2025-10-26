@@ -28,7 +28,6 @@ export interface IEnemy {
   speed: number;
   color: string;
 
-  id?: string;
   name?: string;
   health?: number;
   damage?: number;
@@ -49,9 +48,7 @@ export interface IEnemy {
   directional?: boolean;
 }
 
-
 export const SkeletonEnemy: IEnemy = {
-  id: 'enemy_skeleton_white',
   name: 'Skeleton Warrior',
   biome: 'Spooky Dungeon',
   x: 150,
@@ -111,6 +108,65 @@ export const SkeletonEnemy: IEnemy = {
       spritePath: 'assets/enemies/skeleton/Skeleton_01_White_Die.png',
       frames: 6,
       frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 150
+    }
+  }
+};
+
+export const MushroomEnemy: IEnemy = {
+  name: 'Angry Mushroom',
+  biome: 'Emerald Woods',
+  x: 150,
+  y: 200,
+  row: 5,
+  col: 3,
+  direction: 'Down',
+  speed: 1.1,
+  color: '#cccccc',
+  health: 60,
+  damage: 10,
+  visionRange: 220,
+  armor:10,
+
+  spriteScale: 2,
+  directional: false,
+
+  animations: {
+    Idle: {
+      spritePath: 'assets/enemies/mushroom/Mushroom-Idle.png',
+      frames: 8,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 200,
+      loop: true
+    },
+    Walk: {
+      spritePath: 'assets/enemies/mushroom/Mushroom-Run.png',
+      frames: 8,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 120,
+      loop: true
+    },
+    Attack: {
+      spritePath: 'assets/enemies/mushroom/Mushroom-Attack.png',
+      frames: 8,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 100
+    },
+    GetDamage: {
+      spritePath: 'assets/enemies/mushroom/Mushroom-Hit.png',
+      frames: 4,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 150
+    },
+    Death: {
+      spritePath: 'assets/enemies/mushroom/Mushroom-Die.png',
+      frames: 6,
+      frameWidth: 80,
       frameHeight: 64,
       frameSpeed: 150
     }

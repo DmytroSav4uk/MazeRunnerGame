@@ -5,7 +5,7 @@ import { Cell } from './cell';
  */
 export class Maze {
   public  cells: Array<Array<Cell>> = [];
-  private readonly cellBackground = '#FFFFFF';
+  private readonly cellBackground = 'rgba(255,255,255,0)';
 
   /**
    * Create a maze with <nRow> × <nCol> cells.
@@ -14,13 +14,15 @@ export class Maze {
    * @param cellSize size of each cell in pixels
    * @param ctx canvas rendering context
    * @param cellsData optional pre-made cells (for loading saved maze)
+   * @param wallAssets
    */
   constructor(
     public nRow: number,
     public nCol: number,
     public cellSize: number,
     public ctx: CanvasRenderingContext2D,
-    cellsData?: Array<Array<any>> // cells from JSON
+    cellsData?: Array<Array<any>>, // cells from JSON
+    private wallAssets?: HTMLImageElement[]
   ) {
     if (cellsData) {
       for (let i = 0; i < cellsData.length; i++) {
@@ -55,63 +57,115 @@ export class Maze {
   }
 
 
-  draw(lineThickness = 2) {
+  draw(lineThickness = 80) {
     this.ctx.lineWidth = lineThickness;
     this.cells.forEach((row) =>
-      row.forEach((c) => c.draw(this.ctx, this.cellSize, this.cellBackground))
+      row.forEach((c) => {
+        this.drawWallDecor(c);
+        c.draw(this.ctx, this.cellSize, this.cellBackground, 'rgba(0,0,0,0)');
+      })
     );
   }
 
-  drawPath(
-    path: Cell[],
-    color = '#4080ff',
-    lineThickness = 10,
-    drawSolution = false
-  ) {
-    this.ctx.lineWidth = lineThickness;
-    this.ctx.strokeStyle = color;
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, this.cellSize / 2);
+  drawWallDecor(cell: Cell) {
+    if (!this.wallAssets || this.wallAssets.length === 0) return;
 
-    path.forEach((x) =>
-      this.ctx.lineTo((x.col + 0.5) * this.cellSize, (x.row + 0.5) * this.cellSize)
-    );
+    const ctx = this.ctx;
+    const size = this.cellSize;
+    const step = size / 4; // щільність картинок
+    const count = Math.ceil(size / step);
+    const wallImg = () => this.wallAssets![Math.floor(Math.random() * this.wallAssets!.length)];
+    const x0 = cell.col * size;
+    const y0 = cell.row * size;
 
-    if (drawSolution) {
-      this.ctx.lineTo(this.nCol * this.cellSize, (this.nRow - 0.5) * this.cellSize);
-    }
-    this.ctx.stroke();
-  }
+    if (!cell.wallDecorPositions) cell.wallDecorPositions = {};
 
-  erasePath(path: Cell[]) {
-    this.drawPath(path, this.cellBackground);
-  }
 
-  findPath(): Array<Cell> {
-    this.cells.forEach((row) => row.forEach((c) => (c.traversed = false)));
-    const start = this.cells[0][0];
-    const end = this.cells[this.nRow - 1][this.nCol - 1];
-    const path: Array<Cell> = [];
-    path.unshift(start);
-
-    while (1) {
-      let current = path[0];
-      current.traversed = true;
-
-      if (current.equals(end)) break;
-
-      const traversableNeighbors = this.getNeighbors(current)
-        .filter((c) => c.hasConnectionWith(current))
-        .filter((c) => !c.traversed);
-
-      if (traversableNeighbors.length === 0) {
-        path.splice(0, 1);
-      } else {
-        path.unshift(traversableNeighbors[0]);
+    // === lower wall===
+    const southOffsetX = -20;
+    const southOffsetY = -100;
+    if (cell.southWall) {
+      if (!cell.wallDecorPositions.south) {
+        cell.wallDecorPositions.south = [];
+        for (let i = 0; i < count; i++) {
+          const img = wallImg();
+          cell.wallDecorPositions.south.push({
+            img,
+            dx: x0 + southOffsetX + i * step + Math.random() * 4 - 2,
+            dy: y0 + size - img.height * 0.3 + southOffsetY + 60,
+            scale: 0.6 + Math.random() * 0.3
+          });
+        }
       }
+      cell.wallDecorPositions.south.forEach(p =>
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
     }
 
-    return path.reverse();
+
+    // === upper wall ===
+    const northOffsetX = -20;
+    const northOffsetY = -10;
+    if (cell.northWall) {
+      if (!cell.wallDecorPositions.north) {
+        cell.wallDecorPositions.north = [];
+        for (let i = 0; i < count; i++) {
+          const img = wallImg();
+          cell.wallDecorPositions.north.push({
+            img,
+            dx: x0 + northOffsetX + i * step + Math.random() * 4 - 2,
+            dy: y0 - img.height * 0.7 + Math.random() * 3 + northOffsetY + 60,
+            scale: 0.6 + Math.random() * 0.3
+          });
+        }
+      }
+      cell.wallDecorPositions.north.forEach(p =>
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+
+
+    // === left wall ===
+    const westOffsetX = 50;
+    const westOffsetY = -30;
+    if (cell.westWall) {
+      if (!cell.wallDecorPositions.west) {
+        cell.wallDecorPositions.west = [];
+        for (let i = 0; i < count; i++) {
+          const img = wallImg();
+          cell.wallDecorPositions.west.push({
+            img,
+            dx: x0 - img.width * 0.8 + westOffsetX ,
+            dy: y0 + i * step + Math.random() * 3 - 1.5 + westOffsetY,
+            scale: 0.6 + Math.random() * 0.3
+          });
+        }
+      }
+      cell.wallDecorPositions.west.forEach(p =>
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+
+    // === right wall ===
+    const eastOffsetX = -20;
+    const eastOffsetY = -30;
+    if (cell.eastWall) {
+      if (!cell.wallDecorPositions.east) {
+        cell.wallDecorPositions.east = [];
+        for (let i = 0; i < count; i++) {
+          const img = wallImg();
+          cell.wallDecorPositions.east.push({
+            img,
+            dx: x0 + size - img.width * 0.2 + eastOffsetX + Math.random() * 3,
+            dy: y0 + i * step + Math.random() * 3 - 1.5 + eastOffsetY,
+            scale: 0.6 + Math.random() * 0.3
+          });
+        }
+      }
+      cell.wallDecorPositions.east.forEach(p =>
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
   }
 
   private huntAndKill(current: Cell) {

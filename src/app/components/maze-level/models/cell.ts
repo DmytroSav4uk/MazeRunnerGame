@@ -1,7 +1,22 @@
-/**
- *
- */
+
+interface WallDecor {
+  img: HTMLImageElement;
+  dx: number;
+  dy: number;
+  scale: number;
+}
+
+
+
 export class Cell {
+  wallDecorIndexes?: { north?: number; south?: number; east?: number; west?: number };
+  public wallDecorPositions?: {
+    north?: WallDecor[];
+    south?: WallDecor[];
+    west?: WallDecor[];
+    east?: WallDecor[];
+  };
+
   /**
    * Create a cell in a maze.
    * @param row rowID of the cell in a maze. integer, row>=0
@@ -19,13 +34,16 @@ export class Cell {
     public westWall: boolean = true,
     public southWall: boolean = true,
     public traversed: boolean = false
-  ) {}
+  ) {
+  }
+
 
   hasVisited(): boolean {
     return (
       !this.northWall || !this.eastWall || !this.westWall || !this.southWall
     );
   }
+
 
   breakWallWith(another: Cell) {
     if (this.row === another.row) {
@@ -58,15 +76,14 @@ export class Cell {
   draw(
     ctx: CanvasRenderingContext2D,
     length: number,
-    cellBackground = '#FFFFFF'
+    cellBackground = '#FFFFFF',
+    wallColor: string = 'rgba(0,0,0,0)' // прозорі стіни за замовчуванням
   ) {
     ctx.fillStyle = cellBackground;
-    ctx.fillRect(
-      this.col * length,
-      this.row * length,
-      (this.col + 1) * length,
-      (this.row + 1) * length
-    );
+    ctx.fillRect(this.col * length, this.row * length, length, length);
+
+    ctx.strokeStyle = wallColor; // колір стін
+
     if (this.northWall) {
       ctx.beginPath();
       ctx.moveTo(this.col * length, this.row * length);
@@ -92,6 +109,7 @@ export class Cell {
       ctx.stroke();
     }
   }
+
 
   equals(another: Cell): boolean {
     return this.row === another.row && this.col === another.col;

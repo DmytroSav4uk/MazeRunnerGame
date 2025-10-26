@@ -7,7 +7,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {SaveSlots} from '../save-slots/save-slots';
 import {equivalentKeys} from '../../configs/equivalents';
 import {PublicFunctions} from '../../services/publicFunctions/public-functions';
-import {IEnemy} from '../../interfaces/Enemy';
+import {IEnemy, MushroomEnemy} from '../../interfaces/Enemy';
 import {IBiome, forest, dungeon, winterForest} from '../../interfaces/Biome';
 import {SkeletonEnemy} from '../../interfaces/Enemy';
 import {Chest, IChest} from '../../interfaces/Chest';
@@ -49,7 +49,8 @@ export class MazeLevel implements OnInit, AfterViewInit {
 // ---------------- MAZE & PLAYER ----------------
   row = 10;
   col = 10;
-  cellSize = 250;
+  cellSize = 350;
+  private wallThickness = 50;
   protected maze!: Maze;
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
@@ -81,7 +82,11 @@ export class MazeLevel implements OnInit, AfterViewInit {
 // ---------------- BIOMES ----------------
   currentBiome!: IBiome;
   nextLevelBiome!: IBiome;
-  biomes: IBiome[] = [forest, dungeon, winterForest];
+  biomes: IBiome[] = [forest
+
+  //  , dungeon, winterForest
+
+  ];
 // ---------------- MODAL ----------------
   pickedItem: IItem | null = null;
   showItemModal: boolean = false;
@@ -174,7 +179,18 @@ export class MazeLevel implements OnInit, AfterViewInit {
   }
 
   private decorateLevel() {
+    // 🔹 змінюємо фон під біом
     this.canvas.style.backgroundColor = this.currentBiome.backgroundColor;
+
+    // 🔹 створюємо зображення для стін
+    const wallImages: HTMLImageElement[] = this.currentBiome.wallAssets.map(path => {
+      const img = new Image();
+      img.src = path;
+      return img;
+    });
+
+    // 🔹 додаємо їх у Maze, щоб він малював декор
+    (this.maze as any).wallAssets = wallImages;
   }
 
 // ==============================================================
@@ -240,20 +256,9 @@ export class MazeLevel implements OnInit, AfterViewInit {
           MainChar.damage = p.damage ?? MainChar.damage;
           MainChar.armor = p.armor ?? MainChar.armor;
 
-          if (Array.isArray(p.inventory)) {
-            const newInventory = createInventory();
-
-            for (const slot of p.inventory) {
-              const fullItem = ITEM_REGISTRY[slot.name];
-              if (fullItem) {
-                newInventory.addItem(fullItem, slot.quantity ?? 1);
-              }
-            }
-
-            MainChar.inventory = newInventory;
-          }
-
+          this.loadPlayerInventory(p.inventory);
         }
+
 
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
@@ -269,6 +274,35 @@ export class MazeLevel implements OnInit, AfterViewInit {
         this.startLevel();
       }
     });
+  }
+
+  private loadPlayerInventory(savedInventory: any[]) {
+    if (!Array.isArray(savedInventory)) return;
+
+    const newInventory = createInventory();
+
+    for (const slot of savedInventory) {
+      if (!slot?.name) continue;
+
+      const itemKey = Object.keys(ITEM_REGISTRY)
+        .find(key => key.toLowerCase() === slot.name.toLowerCase());
+
+      if (!itemKey) {
+        console.warn(`⚠️ Item "${slot.name}" not found in ITEM_REGISTRY`);
+        continue;
+      }
+
+      const fullItem = ITEM_REGISTRY[itemKey];
+      const quantity = slot.quantity ?? 1;
+
+
+      newInventory.addItem(fullItem, quantity);
+
+      console.log(`✅ Loaded item: ${fullItem.name}, quantity: ${quantity}`);
+    }
+
+
+    MainChar.inventory = newInventory;
   }
 
 // ==============================================================
@@ -316,7 +350,8 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
     const biomeName = this.currentBiome.name;
     const allEnemies: IEnemy[] = [
-      SkeletonEnemy
+      SkeletonEnemy,
+      MushroomEnemy
     ];
 
     const biomeEnemies = allEnemies.filter(e => e.biome === biomeName);
@@ -496,7 +531,9 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
-    this.maze.draw();
+
+    this.maze.draw(this.wallThickness);
+
     this.ctx.restore();
 
     this.drawChests(camOffsetX, camOffsetY);
@@ -637,15 +674,20 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const row = Math.floor(y / this.cellSize);
     const col = Math.floor(x / this.cellSize);
     if (row < 0 || row >= this.row || col < 0 || col >= this.col) return true;
+
     const cell = this.maze.cells[row][col];
     const offsetX = x - col * this.cellSize;
     const offsetY = y - row * this.cellSize;
     const halfW = this.playerWidth / 2;
     const halfH = this.playerHeight / 2;
-    if (cell.northWall && offsetY - halfH < 0) return true;
-    if (cell.southWall && offsetY + halfH > this.cellSize) return true;
-    if (cell.westWall && offsetX - halfW < 0) return true;
-    if (cell.eastWall && offsetX + halfW > this.cellSize) return true;
+
+    const t = this.wallThickness / 2;
+
+    if (cell.northWall && offsetY - halfH < t) return true;
+    if (cell.southWall && offsetY + halfH > this.cellSize - t) return true;
+    if (cell.westWall && offsetX - halfW < t) return true;
+    if (cell.eastWall && offsetX + halfW > this.cellSize - t) return true;
+
     return false;
   }
 
@@ -732,7 +774,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
       this.inventoryDialogRef = this.dialog.open(InventoryDialog, {
         width: '550px',
-        data: { items: MainChar.inventory.items },
+        data: {items: MainChar.inventory.items},
         disableClose: false
       });
 
@@ -780,28 +822,26 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
   showEasterEgg: boolean = false
 
-
+// ==============================================================
+// Chests
+// ==============================================================
   private spawnChests() {
     this.chests = [];
-
 
     const baseCount = 1;
     const extra = Math.floor((this.currentLevel - 1) / 3);
     const chestCount = Math.min(baseCount + extra, 8);
 
-
     const possibleItems: IItem[] = [
-       healingPotion,
-       WeaponUpgrade,
-       ArmorUpgrade,
-       HealthUpgrade,
+      healingPotion,
+      WeaponUpgrade,
+      ArmorUpgrade,
+      HealthUpgrade,
       UltraSpeedPotion
     ];
 
     for (let i = 0; i < chestCount; i++) {
       let r: number, c: number;
-
-
       do {
         r = Math.floor(Math.random() * this.row);
         c = Math.floor(Math.random() * this.col);
@@ -810,10 +850,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
         (r === this.goalRow && c === this.goalCol) ||
         this.chests.some(ch => ch.row === r && ch.col === c)
         );
-
-
       const randomItem = possibleItems[Math.floor(Math.random() * possibleItems.length)];
-
       const chest: IChest = {
         ...Chest,
         itemInside: randomItem,
@@ -823,11 +860,8 @@ export class MazeLevel implements OnInit, AfterViewInit {
         frameIndex: 0,
         lastFrameTime: 0
       };
-
       this.chests.push(chest);
     }
-
-
   }
 
   private drawChests(camOffsetX: number, camOffsetY: number) {
@@ -871,18 +905,15 @@ export class MazeLevel implements OnInit, AfterViewInit {
         width,
         height
       );
-
     }
 
     this.ctx.restore();
   }
 
-
   closeItemModal() {
     this.showItemModal = false;
     this.pickedItem = null;
   }
-
 
   protected readonly MainChar = MainChar;
 }
