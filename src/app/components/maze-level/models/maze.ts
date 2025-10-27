@@ -166,8 +166,6 @@ export class Maze {
     }
   }
 
-
-
   private huntAndKill(current: Cell) {
     const unvisitedNeighbors = this.getNeighbors(current).filter((c) => !c.hasVisited());
 

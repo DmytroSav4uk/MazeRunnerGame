@@ -51,6 +51,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
   col = 10;
   cellSize = 350;
   private wallThickness = 50;
+  private groundDecorations: { img: HTMLImageElement, x: number, y: number, size: number }[] = [];
   protected maze!: Maze;
   private canvas!: HTMLCanvasElement;
   private ctx!: CanvasRenderingContext2D;
@@ -136,9 +137,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-
     this.goalFrameImage.src = 'assets/mazeLevel/shared/portal.png'; // шлях до картинки рамки
-
 
     const canvas = document.getElementById('maze') as HTMLCanvasElement | null;
     if (!canvas) throw new Error('Canvas not found');
@@ -157,8 +156,6 @@ export class MazeLevel implements OnInit, AfterViewInit {
         this.startLevel();
       }
     };
-
-
     console.log(MainChar)
   }
 
@@ -174,7 +171,6 @@ export class MazeLevel implements OnInit, AfterViewInit {
       this.currentBiome = this.nextLevelBiome;
       this.nextLevelBiome = this.randomBiome();
     }
-
     console.log(`🌿 Current biome: ${this.currentBiome.name}`);
     console.log(`➡️ Next biome: ${this.nextLevelBiome.name}`);
   }
@@ -185,16 +181,83 @@ export class MazeLevel implements OnInit, AfterViewInit {
   }
 
   private decorateLevel() {
-
     this.canvas.style.backgroundColor = this.currentBiome.backgroundColor;
+
+    const groundImages: HTMLImageElement[] = this.currentBiome.groundAssets.map(path => {
+      const img = new Image();
+      img.src = path;
+      return img;
+    });
+
 
     const wallImages: HTMLImageElement[] = this.currentBiome.wallAssets.map(path => {
       const img = new Image();
       img.src = path;
       return img;
     });
-
     (this.maze as any).wallAssets = wallImages;
+
+    this.groundDecorations = [];
+
+    const decorSize = this.cellSize * 0.15;
+    const minDistance = this.cellSize * 0.35;
+
+    for (let r = 0; r < this.row; r++) {
+      for (let c = 0; c < this.col; c++) {
+        if (r === this.goalRow && c === this.goalCol) continue;
+        if (this.chests.some(ch => ch.row === r && ch.col === c)) continue;
+
+        const decorCount = Math.floor(Math.random() * 3); // 0–2 елементи
+        const placed: { x: number; y: number }[] = [];
+
+        for (let i = 0; i < decorCount; i++) {
+          const img = groundImages[Math.floor(Math.random() * groundImages.length)];
+          const baseX = c * this.cellSize + this.cellSize / 2;
+          const baseY = r * this.cellSize + this.cellSize / 2;
+
+          let attempt = 0;
+          let offsetX, offsetY;
+          let valid = false;
+
+          while (attempt < 10 && !valid) {
+            offsetX = (Math.random() - 0.5) * this.cellSize * 0.8;
+            offsetY = (Math.random() - 0.5) * this.cellSize * 0.8;
+
+            const newX = baseX + offsetX;
+            const newY = baseY + offsetY;
+            valid = placed.every(p => {
+              const dx = p.x - newX;
+              const dy = p.y - newY;
+              return Math.sqrt(dx * dx + dy * dy) >= minDistance;
+            });
+
+            if (valid) placed.push({ x: newX, y: newY });
+            attempt++;
+          }
+
+          if (valid) {
+            this.groundDecorations.push({
+              img,
+              x: baseX + offsetX! - decorSize / 2,
+              y: baseY + offsetY! - decorSize / 2,
+              size: decorSize
+            });
+          }
+        }
+      }
+    }
+  }
+
+  private drawGroundDecorations(camOffsetX: number, camOffsetY: number) {
+    this.ctx.save();
+    this.ctx.translate(camOffsetX, camOffsetY);
+
+    for (const deco of this.groundDecorations) {
+      if (!deco.img.complete) continue;
+      this.ctx.drawImage(deco.img, deco.x, deco.y, deco.size, deco.size);
+    }
+
+    this.ctx.restore();
   }
 
 // ==============================================================
@@ -533,11 +596,16 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const camOffsetX = this.canvas.width / 2 - this.playerX;
     const camOffsetY = this.canvas.height / 2 - this.playerY;
 
+
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
-
-    this.maze.draw(this.wallThickness);
+    this.maze.cells.forEach(row => row.forEach(c =>
+      c.draw(this.ctx, this.cellSize, this.currentBiome.backgroundColor, 'rgba(168,168,168,0.18)')
+    ));
     this.ctx.restore();
+
+
+    this.drawGroundDecorations(camOffsetX, camOffsetY);
 
 
     this.drawChests(camOffsetX, camOffsetY);
@@ -545,8 +613,15 @@ export class MazeLevel implements OnInit, AfterViewInit {
     this.drawEnemies(camOffsetX, camOffsetY);
     this.drawPlayer();
 
+
+    this.ctx.save();
+    this.ctx.translate(camOffsetX, camOffsetY);
+    this.maze.cells.forEach(row => row.forEach(c => this.maze.drawWallDecor(c)));
+    this.ctx.restore();
+
     this.animationFrameId = requestAnimationFrame(() => this.gameLoop());
   }
+
 
 // ==============================================================
 // RENDERING
