@@ -596,7 +596,6 @@ export class MazeLevel implements OnInit, AfterViewInit {
     const camOffsetX = this.canvas.width / 2 - this.playerX;
     const camOffsetY = this.canvas.height / 2 - this.playerY;
 
-
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
     this.maze.cells.forEach(row => row.forEach(c =>
@@ -604,20 +603,19 @@ export class MazeLevel implements OnInit, AfterViewInit {
     ));
     this.ctx.restore();
 
-
     this.drawGroundDecorations(camOffsetX, camOffsetY);
-
 
     this.drawChests(camOffsetX, camOffsetY);
     this.drawGoal();
     this.drawEnemies(camOffsetX, camOffsetY);
     this.drawPlayer();
 
-
     this.ctx.save();
     this.ctx.translate(camOffsetX, camOffsetY);
     this.maze.cells.forEach(row => row.forEach(c => this.maze.drawWallDecor(c)));
     this.ctx.restore();
+
+    this.maze.setBiome(this.currentBiome);
 
     this.animationFrameId = requestAnimationFrame(() => this.gameLoop());
   }

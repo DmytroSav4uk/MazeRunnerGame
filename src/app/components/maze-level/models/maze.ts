@@ -1,12 +1,18 @@
 import { Cell } from './cell';
+import {IBiome} from '../../../interfaces/Biome';
 
 /**
  * A 2-dimensional maze generated based on "hunt-and-kill" algorithm.
  */
 export class Maze {
   public  cells: Array<Array<Cell>> = [];
+
+  public currentBiome: IBiome | null = null;
   private readonly cellBackground = 'rgba(255,255,255,0)';
 
+  setBiome(biome: IBiome) {
+    this.currentBiome = biome;
+  }
   /**
    * Create a maze with <nRow> × <nCol> cells.
    * @param nRow number of rows
@@ -67,23 +73,57 @@ export class Maze {
     );
   }
 
-  drawWallDecor(cell: Cell) {
-    if (!this.wallAssets || this.wallAssets.length === 0) return;
+  private _wallTextureCache?: HTMLImageElement;
 
+
+  drawWallDecor(cell: Cell) {
     const ctx = this.ctx;
     const size = this.cellSize;
-    const step = size / 4; // щільність картинок
-    const count = Math.ceil(size / step);
     const x0 = cell.col * size;
     const y0 = cell.row * size;
+
+    // Якщо є текстура стіни — малюємо її на всю довжину
+    const biomeTexture = (this as any).currentBiome?.wallTexture; // отримаємо з MazeLevel через setBiome
+    if (biomeTexture) {
+      // === кешуємо зображення один раз ===
+      if (!this._wallTextureCache) {
+        this._wallTextureCache = new Image();
+        this._wallTextureCache.src = biomeTexture;
+      }
+      const textureImg = this._wallTextureCache;
+
+      const wallThickness = 50; // товщина стіни
+
+      const drawTexturedWall = (x: number, y: number, w: number, h: number, angle: number = 0) => {
+        if (!textureImg.complete) return; // якщо ще не завантажено
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+        ctx.drawImage(textureImg, 0, 0, w, h);
+        ctx.restore();
+      };
+
+      if (cell.northWall) drawTexturedWall(x0, y0 - wallThickness / 2, size, wallThickness);
+      if (cell.southWall) drawTexturedWall(x0, y0 + size - wallThickness / 2, size, wallThickness);
+      if (cell.westWall)  drawTexturedWall(x0 - wallThickness / 2, y0, wallThickness, size);
+      if (cell.eastWall)  drawTexturedWall(x0 + size - wallThickness / 2, y0, wallThickness, size);
+
+      return; // не малюємо декор якщо є текстура
+    }
+
+    console.log('no wall texture');
+
+    // --- Старий варіант з окремими картинками ---
+    if (!this.wallAssets || this.wallAssets.length === 0) return;
+
+    const step = size / 4;
+    const count = Math.ceil(size / step);
 
     if (!cell.wallDecorPositions) cell.wallDecorPositions = {};
 
     const getWallImg = (index: number) => this.wallAssets![index % this.wallAssets!.length];
 
-    // === lower wall ===
-    const southOffsetX = -20;
-    const southOffsetY = -100;
+    // === нижня стіна ===
     if (cell.southWall) {
       if (!cell.wallDecorPositions.south) {
         cell.wallDecorPositions.south = [];
@@ -91,8 +131,8 @@ export class Maze {
           const img = getWallImg(i);
           cell.wallDecorPositions.south.push({
             img,
-            dx: x0 + southOffsetX + i * step,
-            dy: y0 + size - img.height * 0.3 + southOffsetY + 60,
+            dx: x0 + i * step,
+            dy: y0 + size - img.height * 0.3 - 30,
             scale: 0.7
           });
         }
@@ -102,9 +142,7 @@ export class Maze {
       );
     }
 
-    // === upper wall ===
-    const northOffsetX = -20;
-    const northOffsetY = -10;
+    // === верхня стіна ===
     if (cell.northWall) {
       if (!cell.wallDecorPositions.north) {
         cell.wallDecorPositions.north = [];
@@ -112,8 +150,8 @@ export class Maze {
           const img = getWallImg(i);
           cell.wallDecorPositions.north.push({
             img,
-            dx: x0 + northOffsetX + i * step,
-            dy: y0 - img.height * 0.7 + northOffsetY + 60,
+            dx: x0 + i * step,
+            dy: y0 - img.height * 0.7 + 60,
             scale: 0.7
           });
         }
@@ -123,9 +161,7 @@ export class Maze {
       );
     }
 
-    // === left wall ===
-    const westOffsetX = 50;
-    const westOffsetY = -30;
+    // === ліва стіна ===
     if (cell.westWall) {
       if (!cell.wallDecorPositions.west) {
         cell.wallDecorPositions.west = [];
@@ -133,8 +169,8 @@ export class Maze {
           const img = getWallImg(i);
           cell.wallDecorPositions.west.push({
             img,
-            dx: x0 - img.width * 0.8 + westOffsetX,
-            dy: y0 + i * step + westOffsetY,
+            dx: x0 - img.width * 0.8 + 50,
+            dy: y0 + i * step - 30,
             scale: 0.7
           });
         }
@@ -144,9 +180,7 @@ export class Maze {
       );
     }
 
-    // === right wall ===
-    const eastOffsetX = -20;
-    const eastOffsetY = -30;
+    // === права стіна ===
     if (cell.eastWall) {
       if (!cell.wallDecorPositions.east) {
         cell.wallDecorPositions.east = [];
@@ -154,8 +188,8 @@ export class Maze {
           const img = getWallImg(i);
           cell.wallDecorPositions.east.push({
             img,
-            dx: x0 + size - img.width * 0.2 + eastOffsetX,
-            dy: y0 + i * step + eastOffsetY,
+            dx: x0 + size - img.width * 0.2 - 20,
+            dy: y0 + i * step - 30,
             scale: 0.7
           });
         }
