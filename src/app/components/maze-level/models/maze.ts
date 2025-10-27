@@ -62,7 +62,7 @@ export class Maze {
     this.cells.forEach((row) =>
       row.forEach((c) => {
         this.drawWallDecor(c);
-        c.draw(this.ctx, this.cellSize, this.cellBackground, 'rgba(168,168,168,0.18)');
+        c.draw(this.ctx, this.cellSize, this.cellBackground, 'rgb(241,0,0)');
       })
     );
   }

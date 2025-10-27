@@ -3,6 +3,7 @@ export interface IBiome {
   backgroundColor: string
   wallAssets: string[]
   groundAssets: string[]
+  wallTexture?:string
 }
 
 export const forest: IBiome = {
@@ -15,8 +16,9 @@ export const forest: IBiome = {
 export const dungeon: IBiome = {
   name: 'Spooky Dungeon',
   backgroundColor: 'black',
-  wallAssets: [],
-  groundAssets: []
+  wallAssets: [""],
+  wallTexture:"assets/mazeLevel/Spooky dungeon/wall/dungeonWall.png",
+  groundAssets: ["assets/mazeLevel/Spooky dungeon/ground/skulls.png"]
 }
 
 export const winterForest: IBiome = {
