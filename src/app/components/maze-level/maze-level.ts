@@ -137,7 +137,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    this.goalFrameImage.src = 'assets/mazeLevel/shared/portal.png'; // шлях до картинки рамки
+    this.goalFrameImage.src = 'assets/mazeLevel/shared/portal.png';
 
     const canvas = document.getElementById('maze') as HTMLCanvasElement | null;
     if (!canvas) throw new Error('Canvas not found');
@@ -207,7 +207,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
         if (r === this.goalRow && c === this.goalCol) continue;
         if (this.chests.some(ch => ch.row === r && ch.col === c)) continue;
 
-        const decorCount = Math.floor(Math.random() * 3); // 0–2 елементи
+        const decorCount = Math.floor(Math.random() * 3);
         const placed: { x: number; y: number }[] = [];
 
         for (let i = 0; i < decorCount; i++) {
