@@ -1,33 +1,56 @@
 import { Cell } from './cell';
-import {IBiome} from '../../../interfaces/Biome';
+import { IBiome } from '../../../interfaces/Biome';
 
-/**
- * A 2-dimensional maze generated based on "hunt-and-kill" algorithm.
- */
 export class Maze {
-  public  cells: Array<Array<Cell>> = [];
-
+  public cells: Array<Array<Cell>> = [];
   public currentBiome: IBiome | null = null;
   private readonly cellBackground = 'rgba(255,255,255,0)';
 
+  private _wallTextureCache?: HTMLImageElement;
+  private _wallTextureLoaded: boolean = false;
+  private _wallTexturePromise?: Promise<void>;
+
   setBiome(biome: IBiome) {
     this.currentBiome = biome;
+
+    if (biome?.wallTexture) {
+      if (!this._wallTextureCache || this._wallTextureCache.src !== biome.wallTexture) {
+        this._wallTextureCache = new Image();
+        this._wallTextureLoaded = false;
+        this._wallTexturePromise = new Promise((resolve) => {
+          this._wallTextureCache!.onload = () => {
+            this._wallTextureLoaded = true;
+            resolve();
+          };
+          this._wallTextureCache!.src = biome.wallTexture!;
+        });
+      }
+    } else {
+      this._wallTextureCache = undefined;
+      this._wallTextureLoaded = false;
+    }
   }
-  /**
-   * Create a maze with <nRow> × <nCol> cells.
-   * @param nRow number of rows
-   * @param nCol number of columns
-   * @param cellSize size of each cell in pixels
-   * @param ctx canvas rendering context
-   * @param cellsData optional pre-made cells (for loading saved maze)
-   * @param wallAssets
-   */
+
+
+   async preloadWallAssets(): Promise<void> {
+    if (!this.wallAssets) return;
+    const loadPromises = this.wallAssets.map(
+      img =>
+        new Promise<void>(resolve => {
+          if (img.complete && img.naturalWidth > 0) resolve();
+          else img.onload = () => resolve();
+        })
+    );
+    await Promise.all(loadPromises);
+  }
+
+
   constructor(
     public nRow: number,
     public nCol: number,
     public cellSize: number,
     public ctx: CanvasRenderingContext2D,
-    cellsData?: Array<Array<any>>, // cells from JSON
+    cellsData?: Array<Array<any>>,
     private wallAssets?: HTMLImageElement[]
   ) {
     if (cellsData) {
@@ -46,7 +69,6 @@ export class Maze {
         this.cells.push(row);
       }
     } else {
-      // generating random maze
       for (let i = 0; i < nRow; i++) {
         const row: Cell[] = [];
         for (let j = 0; j < nCol; j++) {
@@ -54,14 +76,10 @@ export class Maze {
         }
         this.cells.push(row);
       }
-
-      const current = this.cells[RandomNumber.within(this.nRow)][
-        RandomNumber.within(this.nCol)
-        ];
+      const current = this.cells[RandomNumber.within(this.nRow)][RandomNumber.within(this.nCol)];
       this.huntAndKill(current);
     }
   }
-
 
   draw(lineThickness = 80) {
     this.ctx.lineWidth = lineThickness;
@@ -73,29 +91,30 @@ export class Maze {
     );
   }
 
-  private _wallTextureCache?: HTMLImageElement;
+  async drawWallDecor(cell: Cell) {
 
 
-  drawWallDecor(cell: Cell) {
+    if (this.wallAssets && this.wallAssets.some(img => img.width === 0)) return;
+
+
     const ctx = this.ctx;
     const size = this.cellSize;
     const x0 = cell.col * size;
     const y0 = cell.row * size;
+    const biomeTexture = (this as any).currentBiome?.wallTexture;
 
-    // Якщо є текстура стіни — малюємо її на всю довжину
-    const biomeTexture = (this as any).currentBiome?.wallTexture; // отримаємо з MazeLevel через setBiome
     if (biomeTexture) {
-      // === кешуємо зображення один раз ===
-      if (!this._wallTextureCache) {
-        this._wallTextureCache = new Image();
-        this._wallTextureCache.src = biomeTexture;
-      }
-      const textureImg = this._wallTextureCache;
 
-      const wallThickness = 50; // товщина стіни
+      if (this._wallTexturePromise && !this._wallTextureLoaded) {
+        await this._wallTexturePromise;
+      }
+
+      const textureImg = this._wallTextureCache;
+      if (!textureImg || !this._wallTextureLoaded) return;
+
+      const wallThickness = 50;
 
       const drawTexturedWall = (x: number, y: number, w: number, h: number, angle: number = 0) => {
-        if (!textureImg.complete) return; // якщо ще не завантажено
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(angle);
@@ -105,25 +124,20 @@ export class Maze {
 
       if (cell.northWall) drawTexturedWall(x0, y0 - wallThickness / 2, size, wallThickness);
       if (cell.southWall) drawTexturedWall(x0, y0 + size - wallThickness / 2, size, wallThickness);
-      if (cell.westWall)  drawTexturedWall(x0 - wallThickness / 2, y0, wallThickness, size);
-      if (cell.eastWall)  drawTexturedWall(x0 + size - wallThickness / 2, y0, wallThickness, size);
+      if (cell.westWall) drawTexturedWall(x0 - wallThickness / 2, y0, wallThickness, size);
+      if (cell.eastWall) drawTexturedWall(x0 + size - wallThickness / 2, y0, wallThickness, size);
 
-      return; // не малюємо декор якщо є текстура
+      return;
     }
 
-    console.log('no wall texture');
-
-    // --- Старий варіант з окремими картинками ---
     if (!this.wallAssets || this.wallAssets.length === 0) return;
 
     const step = size / 4;
     const count = Math.ceil(size / step);
-
     if (!cell.wallDecorPositions) cell.wallDecorPositions = {};
-
     const getWallImg = (index: number) => this.wallAssets![index % this.wallAssets!.length];
 
-    // === нижня стіна ===
+    // SOUTH
     if (cell.southWall) {
       if (!cell.wallDecorPositions.south) {
         cell.wallDecorPositions.south = [];
@@ -142,7 +156,7 @@ export class Maze {
       );
     }
 
-    // === верхня стіна ===
+    // NORTH
     if (cell.northWall) {
       if (!cell.wallDecorPositions.north) {
         cell.wallDecorPositions.north = [];
@@ -161,7 +175,7 @@ export class Maze {
       );
     }
 
-    // === ліва стіна ===
+    // WEST
     if (cell.westWall) {
       if (!cell.wallDecorPositions.west) {
         cell.wallDecorPositions.west = [];
@@ -180,7 +194,7 @@ export class Maze {
       );
     }
 
-    // === права стіна ===
+    // EAST
     if (cell.eastWall) {
       if (!cell.wallDecorPositions.east) {
         cell.wallDecorPositions.east = [];
@@ -204,7 +218,6 @@ export class Maze {
     const unvisitedNeighbors = this.getNeighbors(current).filter((c) => !c.hasVisited());
 
     if (unvisitedNeighbors.length === 0) {
-      // Hunt
       const randomRows = this.shuffleArray([...Array(this.nRow).keys()]);
       for (let huntRow of randomRows) {
         const randomColumns = this.shuffleArray([...Array(this.nCol).keys()]);
@@ -221,7 +234,6 @@ export class Maze {
         }
       }
     } else {
-      // Kill
       const nextCell = unvisitedNeighbors[RandomNumber.within(unvisitedNeighbors.length)];
       current.breakWallWith(nextCell);
       this.huntAndKill(nextCell);

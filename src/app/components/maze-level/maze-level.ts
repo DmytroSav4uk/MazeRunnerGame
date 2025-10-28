@@ -86,7 +86,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
   nextLevelBiome!: IBiome;
   biomes: IBiome[] = [forest
 
-    , dungeon, winterForest
+  //  , dungeon, winterForest
 
   ];
 // ---------------- MODAL ----------------
@@ -180,15 +180,17 @@ export class MazeLevel implements OnInit, AfterViewInit {
     return this.biomes[i];
   }
 
-  private decorateLevel() {
+  private async decorateLevel() {
     this.canvas.style.backgroundColor = this.currentBiome.backgroundColor;
+    this.maze.setBiome(this.currentBiome);
+    await this.maze.preloadWallAssets();
+
 
     const groundImages: HTMLImageElement[] = this.currentBiome.groundAssets.map(path => {
       const img = new Image();
       img.src = path;
       return img;
     });
-
 
     const wallImages: HTMLImageElement[] = this.currentBiome.wallAssets.map(path => {
       const img = new Image();
@@ -615,7 +617,7 @@ export class MazeLevel implements OnInit, AfterViewInit {
     this.maze.cells.forEach(row => row.forEach(c => this.maze.drawWallDecor(c)));
     this.ctx.restore();
 
-    this.maze.setBiome(this.currentBiome);
+   // this.maze.setBiome(this.currentBiome);
 
     this.animationFrameId = requestAnimationFrame(() => this.gameLoop());
   }

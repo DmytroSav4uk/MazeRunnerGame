@@ -25,7 +25,4 @@ export const routes: Routes = [
   },
 
   {path:'battle',component:BattleLevel}
-
-  // {path:'', component:Start},
-  // {path:'menu', component:MainMenu}
 ];
