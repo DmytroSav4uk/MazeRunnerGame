@@ -1,0 +1,87 @@
+<div style="text-align: center;">
+
+  <div class="currentLevel">
+    <h2>Level {{ currentLevel }}</h2>
+    <h2>{{ currentBiome?.name }}</h2>
+  </div>
+
+  <div class="charStatus">
+
+    <div class="imageWrap">
+      <img src="assets/characters/mainCharProfile.png" alt="char"/>
+    </div>
+
+    <div>
+      <p>Health:  {{ MainChar.health }}/{{ MainChar.maxHealth }}</p>
+      <p>Armor :  {{ MainChar.armor }}</p>
+      <p>Damage:  {{ MainChar.damage }}</p>
+    </div>
+
+  </div>
+
+
+  @if (showMenu) {
+    <div class="pauseMenu">
+      <h1 (click)="continueGame()">Continue</h1>
+      <h1 (click)="openSaveMenu()">Save Game</h1>
+      <h1 (click)="goToMainMenu()">Main Menu</h1>
+    </div>
+  }
+
+  @if (showSaveMenu) {
+    <app-save-slots [currentLevel]="currentLevel"
+                    [maze]="maze"
+                    [playerX]="playerX"
+                    [playerY]="playerY"
+                    [showSaveMenu]="showSaveMenu"
+                    [goalCol]="goalCol"
+                    [goalRow]="goalRow"
+                    [currentBiome]="currentBiome"
+                    [nextLevelBiome]="nextLevelBiome"
+                    [chests]="chests"
+                    (closeSaveMenu)="showSaveMenu = false"
+    />
+  }
+
+  <section>
+    <canvas id="maze"></canvas>
+  </section>
+
+
+
+  @if (showEasterEgg) {
+    <video autoplay class="videoEasterEgg" src="assets/video/eastereggvideo.mp4"></video>
+  }
+
+  @if (showItemModal) {
+    <div class="item-modal">
+      <div class="item-modal-content">
+        <h2>You found a {{ pickedItem?.name }}!</h2>
+        <p>{{ pickedItem?.description }}</p>
+        <button (click)="closeItemModal()">Close</button>
+      </div>
+    </div>
+  }
+
+  @if (interactionHint) {
+    <div class="interactionHint">
+      {{interactionHint}}
+    </div>
+
+  }
+
+
+  @if (currentBiome?.skyEffect) {
+    <div class="skyEffect">
+      <img [src]="currentBiome?.skyEffect" alt="effect">
+    </div>
+
+  }
+
+  <div (click)="openInventory()" class="inventoryButton">
+    <img src="assets/mazeLevel/shared/backpackClosed.png" class="closed">
+    <img src="assets/mazeLevel/shared/backpackOpen.png" class="open">
+  </div>
+
+
+</div>

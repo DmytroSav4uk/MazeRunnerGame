@@ -1,0 +1,57 @@
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+.credits {
+  position: relative;
+  color: white;
+  width: 50%;
+  border: 20px solid black;
+  background: rgba(60, 24, 24, 0.51);
+  padding: 10px;
+}
+
+
+.credits h1 {
+  text-align: center;
+}
+
+
+.credits a {
+  color: #6abc3a;
+}
+
+
+.closeButton {
+  position: absolute;
+  right: -30px;
+  top: -40px;
+  color: #fff;
+  background-color: #bc3a3a;
+  padding: 15px 30px;
+  font-size: 20px;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, 0px 10px #00000038, 5px 5px #00000038, -5px 5px #00000038, inset 0px 5px #ffffff36;
+  cursor: pointer;
+
+  width: 10px;
+
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.closeButton:active {
+  transform: translateY(5px);
+  box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, inset 0px 5px #00000038;
+}

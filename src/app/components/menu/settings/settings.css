@@ -1,0 +1,158 @@
+.menu {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.settingsNav {
+  display: flex;
+  justify-content: center;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.settings {
+  width: 80%;
+  height: 550px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+}
+
+.control-row input {
+  text-align: center;
+  padding: 10px;
+  margin: 5px;
+  font-family: "Press Start 2P", sans-serif;
+}
+
+
+.movement-grid {
+  display: grid;
+  grid-template-columns: 80px 80px 80px;
+  grid-template-rows: 80px 80px 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+  width: 50%;
+  height: 100%;
+  padding-top: 30px;
+}
+
+
+.move-row.up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.move-row.left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.move-row.right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.move-row.down {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+
+.move-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.move-row label {
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.move-row input {
+  text-align: center;
+  font-family: "Press Start 2P", sans-serif;
+  margin-bottom: 5px;
+  padding: 6px;
+  width: 120px;
+}
+
+.centeredH1 {
+  text-align: center;
+}
+
+.otherSettings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+}
+
+
+.settingsNav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.settingsNav h1 {
+  color: #ffffff;
+
+}
+
+.settingsNav h1:hover {
+  transform: scale(1.05);
+}
+
+.settingsNav h1.active {
+  color: #a9ba41;
+  border-bottom: 2px solid #a9ba41;
+}
+
+.audio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loudness {
+  display: flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  position: relative;
+  top: 5px;
+}
+
+.loudness p {
+  margin: 0;
+}
+
+.difficulties {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.activeDif{
+  background: #bc3a3a;
+  text-transform: uppercase;
+}

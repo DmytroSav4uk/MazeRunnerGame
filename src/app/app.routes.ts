@@ -1,12 +1,13 @@
 import {Routes} from '@angular/router';
-import {MainMenu} from './components/main-menu/main-menu';
-import {Start} from './components/start/start';
-import {StartMenu} from './components/start-menu/start-menu';
-import {Credits} from './components/credits/credits';
-import {MazeLevel} from './components/maze-level/maze-level';
-import {SaveSlots} from './components/save-slots/save-slots';
-import {Settings} from './components/settings/settings';
-import {BattleLevel} from './components/battle-level/battle-level';
+import {StartMenu} from './components/menu/start-menu/start-menu';
+import {Start} from './components/menu/start/start';
+import {MainMenu} from './components/menu/main-menu/main-menu';
+import {Credits} from './components/menu/credits/credits';
+import {SaveSlots} from './components/menu/save-slots/save-slots';
+import {Settings} from './components/menu/settings/settings';
+import {MazeLevel} from './components/game/maze-level/maze-level';
+import {BattleLevel} from './components/game/battle-level/battle-level';
+
 
 export const routes: Routes = [
   {
@@ -23,6 +24,5 @@ export const routes: Routes = [
       {path: 'saves', component: SaveSlots}
     ]
   },
-
   {path:'battle',component:BattleLevel}
 ];

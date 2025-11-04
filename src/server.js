@@ -107,11 +107,9 @@ const server = createServer(async (req, res) => {
 
       };
 
-      // 🔹 Зберігаємо у файл
       const filePath = path.join(SAVE_DIR, `${slot}.json`);
       await fs.writeFile(filePath, JSON.stringify(saveData, null, 2));
 
-      // 🔹 Дублюємо в autosave.json
       const autoPath = path.join(SAVE_DIR, 'autosave.json');
       await fs.writeFile(autoPath, JSON.stringify(saveData, null, 2));
 

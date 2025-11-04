@@ -1,0 +1,86 @@
+<div class="menu">
+  <div class="settings">
+    <button (click)="publicFunc.redirectTo('menu')" class="closeButton">X</button>
+
+    <form [formGroup]="form" class="settings-form">
+      <div class="settingsNav">
+        <h1 class="centeredH1" [class.active]="activeSection === 'audio'" (click)="setSection('audio')">
+          Audio
+        </h1>
+        <h1 class="centeredH1" [class.active]="activeSection === 'controls'" (click)="setSection('controls')">
+          Controls
+        </h1>
+        <h1 class="centeredH1" [class.active]="activeSection === 'difficulty'" (click)="setSection('difficulty')">
+          Difficulty
+        </h1>
+      </div>
+
+      @if (activeSection === 'audio'){
+        <div class="section audio">
+          <h1 >Loudness:</h1>
+
+          <div class="loudness">
+            <p> {{ form.value.volume * 100  }}%</p>
+            <input  type="range" formControlName="volume" min="0" step="0.1" max="1" />
+          </div>
+
+        </div>
+      }
+
+      @if (activeSection === 'controls'){
+        <div  formGroupName="controls" class="section controls">
+
+          <div class="movement-grid">
+            <div class="move-row up">
+              <label>Up</label>
+              <input type="text" formControlName="up" readonly />
+              <button type="button" class="basicButton" style="background:#bc3a3a" (click)="bindKey('up')">Bind</button>
+            </div>
+
+            <div class="move-row left">
+              <label>Left</label>
+              <input type="text" formControlName="left" readonly />
+              <button type="button" class="basicButton" style="background:#bc3a3a" (click)="bindKey('left')">Bind</button>
+            </div>
+
+            <div class="move-row right">
+              <label>Right</label>
+              <input type="text" formControlName="right" readonly />
+              <button type="button" class="basicButton" style="background:#bc3a3a" (click)="bindKey('right')">Bind</button>
+            </div>
+
+            <div class="move-row down">
+              <label>Down</label>
+              <input type="text" formControlName="down" readonly />
+              <button type="button" class="basicButton" style="background:#bc3a3a" (click)="bindKey('down')">Bind</button>
+            </div>
+          </div>
+
+          <div class="otherSettings">
+            @for (ctrl of controlNames.slice(4); track ctrl) {
+              <div class="control-row">
+                <label>{{ ctrl }}</label>
+                <input type="text" [formControlName]="ctrl" readonly />
+                <button type="button" class="basicButton" style="background:#bc3a3a" (click)="bindKey(ctrl)">Bind</button>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (activeSection === 'difficulty'){
+        <div class="section difficulties">
+          @for (diff of difficulties; track diff) {
+            <label  [class.activeDif]="form.get('difficulty')?.value === diff" style="display: flex;flex-direction: column-reverse; border: 5px solid black;padding: 10px">
+              <input style="display: none" type="radio" formControlName="difficulty" [value]="diff" />
+              <h1>
+                {{ diff }}
+              </h1>
+              </label>
+          }
+        </div>
+      }
+
+    </form>
+  </div>
+</div>

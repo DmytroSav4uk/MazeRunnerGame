@@ -1,0 +1,191 @@
+.maze-form {
+  margin: 1rem 0;
+}
+
+.maze-form input {
+  max-width: 3rem;
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.maze-form button {
+  padding: 0.25rem;
+  margin: 0 0.5rem;
+}
+
+.arrows span {
+  font-size: xx-large;
+  user-select: none;
+  cursor: pointer;
+  margin: auto 0.25rem;
+}
+
+#maze {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+}
+
+.currentLevel {
+  position: fixed;
+  left: 20px;
+  background: #bc3a3a;
+  padding: 10px;
+  top: 5px;
+  border: 10px solid black;
+  color: white;
+  width: 343px;
+
+  z-index: 1000;
+}
+
+.currentLevel h2{
+  margin: 0;
+}
+
+.charStatus {
+  position: fixed;
+  left: 20px;
+  padding: 10px;
+  top: 120px;
+  display: flex;
+  text-align: left;
+  gap: 20px;
+  align-items: center;
+
+  color: white;
+  z-index: 1000;
+  width: 343px;
+
+  background: #bc3a3a;
+  border: 10px solid black;
+}
+
+.charStatus p {
+  margin: 0;
+}
+
+.imageWrap {
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 5px solid black;
+}
+
+.imageWrap img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+}
+
+.currentLevel h1 {
+  margin: 0;
+}
+
+.pauseMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 400px;
+
+  background: rgba(0, 0, 0, 0.27);
+  padding: 20px;
+  z-index: 50;
+}
+
+.pauseMenu h1 {
+  cursor: pointer;
+}
+
+.pauseMenu h1:hover {
+  color: white;
+}
+
+.saveMenu div {
+  text-align: center;
+  margin: 10px;
+  border: 1px solid white;
+  width: 200px;
+}
+
+.videoEasterEgg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  object-fit: fill;
+}
+
+.item-modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 150px;
+}
+
+.skyEffect {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 8;
+  top: 0;
+}
+
+.skyEffect img {
+  width: 100%;
+  height: 100%;
+}
+
+.inventoryButton {
+  position: fixed;
+  right: 30px;
+  bottom: 20px;
+  width: 100px;
+  z-index: 1000;
+
+}
+
+.inventoryButton:hover {
+  transform: scale(1.2);
+}
+
+.inventoryButton img {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  left: 0;
+
+}
+
+.inventoryButton img.open {
+  opacity: 0;
+}
+
+.inventoryButton:hover img.closed {
+  opacity: 0;
+}
+.inventoryButton:hover img.open {
+  opacity: 1;
+}
+
+.interactionHint{
+  position: fixed;
+  z-index: 1000;
+  color: white;
+  background: #bc3a3a;
+  border: 5px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 115px));
+  padding: 10px;
+}

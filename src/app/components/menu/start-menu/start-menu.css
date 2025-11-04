@@ -1,0 +1,35 @@
+button {
+  color: #fff;
+  background-color: #6abc3a;
+  padding: 15px 40px 15px 40px;
+  margin: 10px;
+  font-size: 14px;
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, 0px 10px #00000038, 5px 5px #00000038, -5px 5px #00000038, inset 0px 5px #ffffff36 ;
+  cursor: pointer;
+
+  width: 200px;
+}
+button:active {
+  transform: translateY(5px);
+  box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black,inset 0px 5px #00000038;
+}
+
+.backgroundImage{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  object-fit: cover;
+}
+
+.menu{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
