@@ -8,8 +8,7 @@
     </div>
   }
 
-
-  @for (stack of items; track items) {
+  @for (stack of items; track stack.item.name) {
     <div class="item-row">
       <div class="item-info">
         <span class="item-name">{{ stack.item.name }}</span>

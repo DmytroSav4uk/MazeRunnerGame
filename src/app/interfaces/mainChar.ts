@@ -36,9 +36,12 @@ export interface IInventory {
 export interface IMainChar {
   name: string;
   health:number
+  baseHealth:number
   maxHealth:number
   damage:number
+  baseDamage:number
   armor:number
+  baseArmor:number
   spritePath: string;
   animations: ICharacterAnimations;
   inventory:IInventory;
@@ -100,9 +103,12 @@ export function createInventory(): IInventory {
 export const MainChar: IMainChar = {
   name: 'Hero',
   health:50,
+  baseHealth:50,
   maxHealth:50,
   damage:20,
+  baseDamage:20,
   armor:10,
+  baseArmor:10,
   speed:1.5,
   inventory: createInventory(),
   spritePath: 'assets/characters/mainCharSheet.png',
@@ -146,3 +152,5 @@ export const MainChar: IMainChar = {
     }
   }
 };
+
+

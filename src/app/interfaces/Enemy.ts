@@ -46,6 +46,14 @@ export interface IEnemy {
 
   spriteScale?: number;
   directional?: boolean;
+
+  hitbox?: {
+    width: number;
+    height: number;
+    offsetX: number;
+    offsetY: number;
+  };
+
 }
 
 export const SkeletonEnemy: IEnemy = {
@@ -61,10 +69,17 @@ export const SkeletonEnemy: IEnemy = {
   health: 60,
   damage: 10,
   visionRange: 220,
-  armor:10,
+  armor: 10,
 
   spriteScale: 2,
   directional: false,
+
+  hitbox: {
+    width: 40,
+    height: 50,
+    offsetX: -20,  // центр спрайта
+    offsetY: -40   // зсунуто до ніг
+  },
 
   animations: {
     Idle: {
@@ -90,13 +105,6 @@ export const SkeletonEnemy: IEnemy = {
       frameHeight: 64,
       frameSpeed: 100
     },
-    // Attack2: {
-    //   spritePath: 'assets/enemies/skeleton/Skeleton_01_White_Attack2.png',
-    //   frames: 8,
-    //   frameWidth: 64,
-    //   frameHeight: 96,
-    //   frameSpeed: 100
-    // },
     GetDamage: {
       spritePath: 'assets/enemies/skeleton/Skeleton_01_White_Hurt.png',
       frames: 4,
@@ -114,6 +122,7 @@ export const SkeletonEnemy: IEnemy = {
   }
 };
 
+
 export const MushroomEnemy: IEnemy = {
   name: 'Angry Mushroom',
   biome: 'Emerald Woods',
@@ -127,10 +136,17 @@ export const MushroomEnemy: IEnemy = {
   health: 60,
   damage: 10,
   visionRange: 220,
-  armor:10,
+  armor: 10,
 
   spriteScale: 2,
   directional: false,
+
+  hitbox: {
+    width: 45,
+    height: 40,
+    offsetX: -22,
+    offsetY: -35
+  },
 
   animations: {
     Idle: {
@@ -172,3 +188,4 @@ export const MushroomEnemy: IEnemy = {
     }
   }
 };
+

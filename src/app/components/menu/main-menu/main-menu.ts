@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -7,13 +7,16 @@ import {Router} from '@angular/router';
   templateUrl: './main-menu.html',
   styleUrl: './main-menu.css'
 })
-export class MainMenu {
+export class MainMenu   {
 
 
-  constructor(private router:Router) {
+
+
+  constructor(private router: Router) {
   }
 
   redirectTo(menuCredits: string) {
     this.router.navigateByUrl(menuCredits)
   }
+
 }

@@ -2,7 +2,6 @@ import {AfterViewInit, Component, HostListener, OnDestroy, OnInit} from '@angula
 import {actionMap, keyboardMap, Maze} from './models';
 import {FormsModule} from '@angular/forms';
 
-
 import {ActivatedRoute, Router} from '@angular/router';
 import {SaveSlots} from '../../menu/save-slots/save-slots';
 import {SavesService} from '../../../services/saves/saves-service';
@@ -24,8 +23,7 @@ import {
 import {InventoryDialog} from '../../dialogs/inventory-dialog/inventory-dialog';
 import {ChestDialog} from '../../dialogs/chest-dialog/chest-dialog';
 import {equivalentKeys} from '../../../configs/equivalents';
-
-
+import {ISave} from '../../../interfaces/save';
 
 @Component({
   selector: 'app-maze-level',
@@ -185,13 +183,10 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
       this.currentBiome = this.nextLevelBiome;
       this.nextLevelBiome = this.randomBiome();
     }
-
     setTimeout(() => {
       this.musicService.playMusic(this.currentBiome.music);
     }, 100)
-
   }
-
 
   private randomBiome(): IBiome {
     const i = Math.floor(Math.random() * this.biomes.length);
@@ -442,11 +437,51 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
     MainChar.inventory = newInventory;
   }
 
+  private autoSave(slot:string) {
+    const saveObj: ISave = {
+      slot: slot,
+      level: this.currentLevel,
+      maze: this.maze,
+      playerX: this.playerX,
+      playerY: this.playerY,
+      goalRow: this.goalRow,
+      goalCol: this.goalCol,
+      currentBiome: this.currentBiome,
+      nextLevelBiome: this.nextLevelBiome,
+
+      chests: this.chests ?? [],
+      playerState: {
+        health: MainChar.health,
+        maxHealth: MainChar.maxHealth,
+        armor: MainChar.armor,
+        damage: MainChar.damage,
+        inventory: MainChar.inventory.items.map(it => ({
+          item: it.item,
+          quantity: it.quantity ?? 1
+        }))
+      }
+    };
+    this.saveService.saveGame(saveObj).subscribe()
+  }
+
 // ==============================================================
 // LEVEL SETUP
 // ==============================================================
 
+  private resetPlayerState() {
+    MainChar.health = MainChar.baseHealth;
+    MainChar.maxHealth = MainChar.baseHealth;
+    MainChar.damage = MainChar.baseDamage;
+    MainChar.armor = MainChar.baseArmor;
+
+    MainChar.inventory = createInventory();
+  }
+
+
   startLevel() {
+
+    this.resetPlayerState();
+
     this.updateGridSizeByLevel();
     this.maze = new Maze(this.row, this.col, this.cellSize, this.ctx);
     this.setRandomGoal();
@@ -471,9 +506,6 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
     this.row = Math.min(10 + extra, 60);
     this.col = Math.min(10 + extra, 60);
   }
-
-
-
 
   private setRandomGoal() {
     do {
@@ -595,14 +627,37 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
 
       const dx = this.playerX - enemy.x;
       const dy = this.playerY - enemy.y;
-      if (Math.sqrt(dx * dx + dy * dy) < this.cellSize / 3) {
-        this.startBattle()
+      const playerHalfW = this.playerWidth / 2;
+      const playerHalfH = this.playerHeight / 2;
+
+      const playerLeft = this.playerX - playerHalfW;
+      const playerRight = this.playerX + playerHalfW;
+      const playerTop = this.playerY - playerHalfH;
+      const playerBottom = this.playerY + playerHalfH;
+
+      const eW = enemy.hitbox?.width ?? 40;
+      const eH = enemy.hitbox?.height ?? 60;
+
+      const enemyLeft = enemy.x - eW / 2;
+      const enemyRight = enemy.x + eW / 2;
+      const enemyTop = enemy.y - eH / 2;
+      const enemyBottom = enemy.y + eH / 2;
+
+      const intersects =
+        playerLeft < enemyRight &&
+        playerRight > enemyLeft &&
+        playerTop < enemyBottom &&
+        playerBottom > enemyTop;
+
+      if (intersects) {
+        this.startBattle();
       }
     }
   }
 
   private startBattle() {
-
+    this.autoSave('beforeBattle')
+    this.publicFunc.redirectTo('battle')
   }
 
 // ==============================================================
@@ -882,6 +937,7 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
         this.currentLevel++;
         this.setBiome();
         this.startLevel();
+        this.autoSave('autosave')
       }, 500);
     }
   }
@@ -956,9 +1012,6 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
 
     this.interactionHint = null;
   }
-
-
-
 
   private isWallCollision(x: number, y: number): boolean {
     const row = Math.floor(y / this.cellSize);
