@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {SavesService} from '../../../services/saves/saves-service';
 import {ISave} from '../../../interfaces/save';
 import {cloneEnemy, Direction, IEnemy, IEnemyAnimations, MushroomEnemy, SkeletonEnemy} from '../../../interfaces/Enemy';
@@ -7,6 +7,7 @@ import {PublicFunctions} from '../../../services/publicFunctions/public-function
 import {NgStyle} from '@angular/common';
 import {MatDialog} from '@angular/material/dialog';
 import {InventoryDialog} from '../../dialogs/inventory-dialog/inventory-dialog';
+import {MusicService} from '../../../services/music/music';
 
 export type CharacterAnimState = keyof ICharacterAnimations;
 export type EnemyAnimState = keyof IEnemyAnimations;
@@ -19,7 +20,7 @@ export type EnemyAnimState = keyof IEnemyAnimations;
   ],
   styleUrls: ['./battle-level.css']
 })
-export class BattleLevel implements OnInit, AfterViewInit {
+export class BattleLevel implements OnInit, AfterViewInit, OnDestroy {
 
   // ----------------------------
   // Properties
@@ -54,7 +55,7 @@ export class BattleLevel implements OnInit, AfterViewInit {
   enemyOffset: number = 0;
 
 
-  constructor(private savesService: SavesService, private publicFunc: PublicFunctions, private dialog: MatDialog) {
+  constructor(private savesService: SavesService, private publicFunc: PublicFunctions, private dialog: MatDialog,private musicService:MusicService) {
   }
 
 
@@ -63,11 +64,20 @@ export class BattleLevel implements OnInit, AfterViewInit {
   // ----------------------------
   ngOnInit(): void {
     this.loadInitialData();
+    this.startMusic()
     console.log(this.mainChar);
   }
 
   ngAfterViewInit(): void {
     this.initCanvasContexts();
+  }
+
+  ngOnDestroy() {
+    this.musicService.stopMusic()
+  }
+
+  startMusic(){
+    this.musicService.playMusic('assets/music/battleMusic.wav')
   }
 
 
@@ -438,7 +448,7 @@ export class BattleLevel implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       this.actionMessage = null;
-    }, 2000)
+    }, 1400)
 
   }
 
