@@ -12,7 +12,12 @@
           <p>
             {{ saves.slots[0].message ||  (saves.slots[0].timestamp | timestampPipe)  }}
           </p>
-          <button style="background: #bc3a3a" class="basicButton" (click)="loadSlot(saves.slots[0].slot)">Load</button>
+
+          @if (saves.slots[0].hasSave){
+            <button style="background: #bc3a3a" class="basicButton" (click)="loadSlot(saves.slots[0].slot)">Load</button>
+          }
+
+
         </div>
       }
 

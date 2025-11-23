@@ -963,7 +963,6 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
         this.currentLevel++;
         this.setBiome();
         this.startLevel();
-        this.autoSave('autosave')
       }, 500);
     }
   }

@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 
 const SAVE_DIR = path.join(__dirname, '../saves');
-const SAVE_SLOTS = ['autosave', 'slot1', 'slot2', 'slot3','beforeBattle','lastSave'];
+const SAVE_SLOTS = ['autosave', 'slot1', 'slot2', 'slot3','beforeBattle'];
 
 
 async function ensureSaveFolder() {
@@ -108,9 +108,10 @@ const server = createServer(async (req, res) => {
       };
 
       const filePath = path.join(SAVE_DIR, `${slot}.json`);
-
+      const autoPath = path.join(SAVE_DIR, `autosave.json`);
       await fs.writeFile(filePath, JSON.stringify(saveData, null, 2));
-      await fs.writeFile('lastSave.json', JSON.stringify(saveData, null, 2));
+      await fs.writeFile(autoPath, JSON.stringify(saveData, null, 2));
+
 
 
       return sendJSON(res, 200, { message: `✅ Збережено у ${slot}.json`, saveData });
