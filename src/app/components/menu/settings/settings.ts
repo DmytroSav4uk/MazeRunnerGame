@@ -19,8 +19,6 @@ export class Settings implements OnInit {
   difficulties = ['easy', 'medium', 'hard'];
   controlNames = ['up', 'down', 'left', 'right', 'use', 'sprint', 'inventory'];
 
-
-
   constructor(public publicFunc: PublicFunctions, private fb: FormBuilder, private musicService:MusicService) {
   }
 
@@ -32,7 +30,6 @@ export class Settings implements OnInit {
       volume: [savedSettings?.volume ?? 0.5],
       controls: this.createDefaultControls(savedSettings?.controls)
     });
-
 
     this.form.valueChanges.subscribe(value => {
       this.publicFunc.setLocalStorage('settings', value);
@@ -71,17 +68,16 @@ export class Settings implements OnInit {
 
         const finalKey = matchedKey || normalizedKey;
         const allKeys = equivalentKeys[finalKey] || [finalKey];
+
         const control = this.form.get(['controls', controlName]);
         if (control) {
-          control.setValue(allKeys);
+
+          (control as any).fullValue = allKeys;
+          control.setValue(allKeys[0]);
         }
 
-        console.log(`✅ Призначено: ${controlName} = ${allKeys.join(', ')}`);
       },
       { once: true }
     );
   }
-
-
-
 }

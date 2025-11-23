@@ -29,8 +29,9 @@ export interface IEnemy {
   color: string;
 
   name?: string;
-  health?: number;
-  damage?: number;
+  health: number;
+  maxHealth:number
+  damage: number;
   visionRange?: number;
   armor: number
 
@@ -67,7 +68,8 @@ export const SkeletonEnemy: IEnemy = {
   speed: 1.1,
   color: '#cccccc',
   health: 60,
-  damage: 10,
+  maxHealth:60,
+  damage: 20,
   visionRange: 220,
   armor: 10,
 
@@ -77,8 +79,8 @@ export const SkeletonEnemy: IEnemy = {
   hitbox: {
     width: 40,
     height: 50,
-    offsetX: -20,  // центр спрайта
-    offsetY: -40   // зсунуто до ніг
+    offsetX: -20,
+    offsetY: -40
   },
 
   animations: {
@@ -114,7 +116,7 @@ export const SkeletonEnemy: IEnemy = {
     },
     Death: {
       spritePath: 'assets/enemies/skeleton/Skeleton_01_White_Die.png',
-      frames: 6,
+      frames: 13,
       frameWidth: 96,
       frameHeight: 64,
       frameSpeed: 150
@@ -134,7 +136,8 @@ export const MushroomEnemy: IEnemy = {
   speed: 1.1,
   color: '#cccccc',
   health: 60,
-  damage: 10,
+  maxHealth:60,
+  damage: 15,
   visionRange: 220,
   armor: 10,
 
@@ -151,7 +154,7 @@ export const MushroomEnemy: IEnemy = {
   animations: {
     Idle: {
       spritePath: 'assets/enemies/mushroom/Mushroom-Idle.png',
-      frames: 8,
+      frames: 7,
       frameWidth: 80,
       frameHeight: 64,
       frameSpeed: 200,
@@ -181,7 +184,7 @@ export const MushroomEnemy: IEnemy = {
     },
     Death: {
       spritePath: 'assets/enemies/mushroom/Mushroom-Die.png',
-      frames: 6,
+      frames: 15,
       frameWidth: 80,
       frameHeight: 64,
       frameSpeed: 150
@@ -189,3 +192,6 @@ export const MushroomEnemy: IEnemy = {
   }
 };
 
+export function cloneEnemy<T extends IEnemy>(enemy: T): T {
+  return JSON.parse(JSON.stringify(enemy));
+}

@@ -92,9 +92,14 @@
 
   width: 400px;
 
-  background: rgba(0, 0, 0, 0.27);
+  background: #bc3a3a;
   padding: 20px;
   z-index: 50;
+
+  border: 10px solid black;
+
+  color: white;
+
 }
 
 .pauseMenu h1 {
@@ -102,7 +107,7 @@
 }
 
 .pauseMenu h1:hover {
-  color: white;
+  color: #c5c5c5;
 }
 
 .saveMenu div {

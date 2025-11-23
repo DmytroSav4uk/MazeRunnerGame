@@ -481,6 +481,7 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
   startLevel() {
 
     this.resetPlayerState();
+    this.applyDifficulty();
 
     this.updateGridSizeByLevel();
     this.maze = new Maze(this.row, this.col, this.cellSize, this.ctx);
@@ -500,6 +501,31 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
 
     this.footprints = []
   }
+
+  private applyDifficulty() {
+    const savedSettings = this.publicFunc.getLocalStorage('settings');
+    const difficulty = savedSettings?.difficulty?.toLowerCase() || 'medium';
+
+    switch (difficulty) {
+      case 'easy':
+        MainChar.health += 20;
+        MainChar.maxHealth += 20;
+        MainChar.damage += 15;
+        MainChar.armor += 5;
+        break;
+      case 'hard':
+        MainChar.damage -= 5;
+        MainChar.armor -= 5;
+
+        if (MainChar.damage < 1) MainChar.damage = 1;
+        if (MainChar.armor < 0) MainChar.armor = 0;
+        break;
+      case 'medium':
+      default:
+        break;
+    }
+  }
+
 
   private updateGridSizeByLevel() {
     const extra = Math.floor((this.currentLevel - 1) / 2) * 2;
@@ -972,23 +998,37 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
 
   private updatePlayerPosition() {
     if (this.gameOver) return;
+
     let nextX = this.playerX;
     let nextY = this.playerY;
 
-    if (this.keys['Left']) nextX -= this.MainChar.speed;
-    if (this.keys['Right']) nextX += this.MainChar.speed;
-    if (this.keys['Up']) nextY -= this.MainChar.speed;
-    if (this.keys['Down']) nextY += this.MainChar.speed;
+    const speed = this.MainChar.speed;
 
-    if (!this.isWallCollision(nextX, nextY)) {
-      this.playerX = nextX;
-      this.playerY = nextY;
-      this.addFootprint();
+
+    let testX = nextX;
+    if (this.keys['Left']) testX -= speed;
+    if (this.keys['Right']) testX += speed;
+
+    if (!this.isWallCollision(testX, nextY)) {
+      nextX = testX;
     }
 
-    this.checkInteractionHint();
 
+    let testY = nextY;
+    if (this.keys['Up']) testY -= speed;
+    if (this.keys['Down']) testY += speed;
+
+    if (!this.isWallCollision(nextX, testY)) {
+      nextY = testY;
+    }
+
+    this.playerX = nextX;
+    this.playerY = nextY;
+
+    this.addFootprint();
+    this.checkInteractionHint();
   }
+
 
   private checkInteractionHint() {
     const useKey = Object.keys(this.actionMap).find(k => this.actionMap[k] === 'Use') || 'F';
@@ -1076,8 +1116,9 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
     if (direction) this.keys[direction] = true;
     if (action === 'Use') {
 
-      if (this.isAtGoal()) this.completeLevel();
-
+      if (this.isAtGoal()) {
+        this.completeLevel();
+      }
 
       const playerRow = Math.floor(this.playerY / this.cellSize);
       const playerCol = Math.floor(this.playerX / this.cellSize);
@@ -1089,20 +1130,36 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
           setTimeout(() => {
             const dialogRef = this.dialog.open(ChestDialog, {
               width: '500px',
-              data: {item: chest.itemInside}
+              data: { item: chest.itemInside }
             });
 
             dialogRef.afterClosed().subscribe(() => {
 
-              MainChar.inventory.addItem(chest.itemInside);
+              if (!chest.itemInside?.name) {
+                console.warn('⚠️ Chest item is missing a name');
+                return;
+              }
 
+              const key = Object.keys(ITEM_REGISTRY)
+                .find(k => k.toLowerCase() === chest.itemInside.name.toLowerCase());
+
+              if (!key) {
+                console.warn(`⚠️ Item "${chest.itemInside.name}" not found in ITEM_REGISTRY`);
+                return;
+              }
+
+              const fullItem = ITEM_REGISTRY[key];
+
+
+              MainChar.inventory.addItem(fullItem);
+
+              console.log(`✅ Picked up item: ${fullItem.name}`);
             });
-          }, 1000);
-
-          // chest.itemInside.use(MainChar);
+          }, 500);
         }
       }
     }
+
     if (action === 'Sprint') this.MainChar.speed = 2;
     if (event.key === 'Escape' || event.key === 'Esc') this.togglePauseMenu();
     if (action === 'Inventory') {
@@ -1133,6 +1190,9 @@ export class MazeLevel implements OnInit, AfterViewInit, OnDestroy {
     this.inventoryDialogRef.afterClosed().subscribe(() => {
       this.inventoryDialogRef = null;
     });
+
+
+    console.log(MainChar.inventory.items)
   }
 
   private togglePauseMenu() {

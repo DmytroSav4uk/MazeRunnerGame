@@ -1,4 +1,97 @@
+<div class="battle-container">
 
-{{battleBiome}}
+  <img class="backgroundImage" [src]="backgroundImage" alt="background">
 
-<img class="backgroundImage" [src]="backgroundImage" alt="back">
+
+  <div class="turnStatus">
+    @if (currentTurn !== 'player') {
+      <h1>Enemy Turn</h1>
+    } @else {
+      <h1>Player Turn</h1>
+    }
+  </div>
+
+  <div class="charsFather">
+
+
+    <div class="charWrapper">
+      <div class="hpBar">
+        <div class="hpFill" [style.width.%]="(mainChar.health / mainChar.maxHealth) * 100"></div>
+      </div>
+
+
+      @if (isPlayerDefending) {
+        <div class="shield shieldChar">
+          <img src="assets/battle/shield.png">
+        </div>
+      }
+
+      <canvas
+        id="heroCanvas"
+        class="heroCanvas"
+        [ngStyle]="{'transform': 'translateX(' + heroOffset + 'px)'}"
+      ></canvas>
+    </div>
+
+    <div class="charWrapper">
+      <div class="hpBar">
+        <div class="hpFill enemyHP" [style.width.%]="(enemy?.health ?? 0) / (enemy?.maxHealth ?? 1) * 100"></div>
+      </div>
+
+      @if (isEnemyDefending) {
+        <div class="shield shieldEnemy">
+          <img src="assets/battle/shield.png">
+        </div>
+      }
+
+      <canvas
+        id="enemyCanvas"
+        class="enemyCanvas"
+        [ngStyle]="{'transform': 'translateX(' + enemyOffset + 'px)'}"
+      ></canvas>
+    </div>
+
+
+  </div>
+
+
+  @if (showEscapeWindow) {
+    <div class="escape">
+      <h1>{{ escapeMessage }}</h1>
+    </div>
+  }
+
+
+  <div class="actions">
+
+    <button (click)="attack()" style="background: #bc3a3a" class="basicButton">Attack</button>
+    <button (click)="defend()" style="background: #bc3a3a" class="basicButton">Defend</button>
+    <button (click)="escapeFromBattle()" style="background: #bc3a3a" class="basicButton">Escape</button>
+    <button (click)="inventory()" style="background: #bc3a3a" class="basicButton">Inventory</button>
+  </div>
+
+
+
+  @if (showFinish) {
+    <div class="finish">
+      <h1>{{ finishMessage }}!</h1>
+      @if (victory) {
+        <button (click)="redirectTo('maze?slot=beforeBattle')"  style="background: #bc3a3a" class="basicButton">continue</button>
+      } @else {
+        <button (click)="redirectTo('menu')" style="background: #bc3a3a" class="basicButton">to main menu</button>
+      }
+    </div>
+  }
+
+
+  @if (actionMessage){
+    <div class="actionMessage">
+      <h2>{{ actionMessage }}</h2>
+    </div>
+
+  }
+
+
+
+
+</div>

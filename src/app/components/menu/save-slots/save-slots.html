@@ -26,7 +26,7 @@
               {{ slot.message ||  (slot.timestamp | timestampPipe)  }}
             </p>
             @if (currentRoute.includes("maze")){
-              <button style="background: red" class="basicButton" (click)="saveToSlot(slot.slot)">Save</button>
+              <button style="background: #bc3a3a" class="basicButton" (click)="saveToSlot(slot.slot)">Save</button>
             } @else if (currentRoute === "menu/saves"){
               @if (slot.hasSave){
                 <button style="background: #bc3a3a" class="basicButton" (click)="loadSlot(slot.slot)">Load</button>

@@ -133,10 +133,10 @@ export const MainChar: IMainChar = {
     },
 
     Attack: {
-      Right: { startX: 0, startY: 289, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Left:  { startX: 0, startY: 289, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Up:    { startX: 0, startY: 289, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Down:  { startX: 0, startY: 289, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+      Right: { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 200 },
+      Left:  { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
     },
     GetDamage: {
       Right: { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
@@ -145,10 +145,10 @@ export const MainChar: IMainChar = {
       Down:  { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
     },
     Death: {
-      Right: { startX: 0, startY: 257, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Left:  { startX: 0, startY: 257, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Up:    { startX: 0, startY: 257, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
-      Down:  { startX: 0, startY: 257, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+      Right: { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Left:  { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
     }
   }
 };

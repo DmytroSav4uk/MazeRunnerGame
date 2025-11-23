@@ -9,7 +9,7 @@
   height: 400px;
   z-index: 10;
 
-  background: rgb(73, 37, 37);
+  background: #bc3a3a;
   padding: 20px;
 
   display: flex;
@@ -18,11 +18,20 @@
 
   z-index: 1000;
 
+  border: 10px solid black;
+
 }
 
 .saveMenu div{
   text-align: center;
   margin: 10px;
-  border: 1px solid white;
+  border: 10px solid black;
   width: 200px;
+
+  background: white;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
