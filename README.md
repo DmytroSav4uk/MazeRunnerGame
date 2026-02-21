@@ -115,3 +115,5 @@ See the full license text here:
 
 ---
 
+## **Privacy**
+This project is privacy-focused and does not collect any personal data. You can read the full [Privacy Policy here](PRIVACY.md).
