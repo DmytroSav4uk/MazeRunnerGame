@@ -1,7 +1,7 @@
 # **MazeRunnerGame**
 ### **Author:** Dmytro Savchuk (IPZk-24-1)
 ### Project for the university disciplines:
-### "Component-oriented programming" and "Software standardization and documentation"**
+### "Component-oriented programming" and "Software standardization and documentation"
 
 ---
 
