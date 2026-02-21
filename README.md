@@ -44,7 +44,7 @@ You can run the game in two ways:
 
 Download the prebuilt version:
 
-👉 **[Download MazeRunnerGame](https://release-assets.githubusercontent.com/github-production-release-asset/1068561374/e4704078-7d1c-45d5-996e-77af4297b71b?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-02-21T15%3A26%3A14Z&rscd=attachment%3B+filename%3DMazeRunnerGame.v09.7z&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-02-21T14%3A25%3A52Z&ske=2026-02-21T15%3A26%3A14Z&sks=b&skv=2018-11-09&sig=MiAEJE%2FXaRbJeAnclyd73IxvAncW%2BJWtKmEbXdWy5dQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc3MTY4NzkyNCwibmJmIjoxNzcxNjg0MzI0LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.uhJkDBfNo5AsvbJG2y2x0oLKIyWDB79VQbM9yFQQmCs&response-content-disposition=attachment%3B%20filename%3DMazeRunnerGame.v09.7z&response-content-type=application%2Foctet-stream)**
+👉 **[Download MazeRunnerGame](https://github.com/DmytroSav4uk/MazeRunnerGame/releases/tag/maze)**
 
 Unzip the archive and run:
 
