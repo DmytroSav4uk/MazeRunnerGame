@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: Maze Runner Game Save API
+  version: 1.0.0
+  description: Maze Runner Game Save API
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+
+  /save:
+    post:
+      summary: Save game state
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slot:
+                  type: string
+                  example: slot1
+                level:
+                  type: integer
+                  example: 5
+                maze:
+                  type: array
+                  items:
+                    type: array
+                    items:
+                      type: integer
+                playerX:
+                  type: integer
+                playerY:
+                  type: integer
+                goalRow:
+                  type: integer
+                goalCol:
+                  type: integer
+                nextLevelBiome:
+                  type: string
+                currentBiome:
+                  type: string
+                chests:
+                  type: array
+                  items:
+                    type: object
+                playerState:
+                  type: object
+      responses:
+        "200":
+          description: Save successful
+        "400":
+          description: Invalid slot
+        "500":
+          description: Save error
+
+  /load:
+    get:
+      summary: Load game state
+      parameters:
+        - name: slot
+          in: query
+          required: false
+          schema:
+            type: string
+            example: autosave
+      responses:
+        "200":
+          description: Loaded successfully
+        "404":
+          description: Save file not found
+
+  /slots:
+    get:
+      summary: Get all save slots
+      responses:
+        "200":
+          description: Slots list

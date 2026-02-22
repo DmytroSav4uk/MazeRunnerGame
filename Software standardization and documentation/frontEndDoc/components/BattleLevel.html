@@ -1,0 +1,3626 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>maze-runner-game documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">maze-runner-game documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  BattleLevel</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/game/battle-level/battle-level.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-battle-level</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/NgStyle" target="_blank" >NgStyle</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./battle-level.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./battle-level.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actionMessage" >actionMessage</a>
+                            </li>
+                            <li>
+                                <a href="#backgroundImage" >backgroundImage</a>
+                            </li>
+                            <li>
+                                <a href="#battleBiome" >battleBiome</a>
+                            </li>
+                            <li>
+                                <a href="#beforeBattleSave" >beforeBattleSave</a>
+                            </li>
+                            <li>
+                                <a href="#currentEnemyAnim" >currentEnemyAnim</a>
+                            </li>
+                            <li>
+                                <a href="#currentHeroAnim" >currentHeroAnim</a>
+                            </li>
+                            <li>
+                                <a href="#currentHeroDir" >currentHeroDir</a>
+                            </li>
+                            <li>
+                                <a href="#currentTurn" >currentTurn</a>
+                            </li>
+                            <li>
+                                <a href="#enemy" >enemy</a>
+                            </li>
+                            <li>
+                                <a href="#enemyCtx" >enemyCtx</a>
+                            </li>
+                            <li>
+                                <a href="#enemyFrame" >enemyFrame</a>
+                            </li>
+                            <li>
+                                <a href="#enemyImg" >enemyImg</a>
+                            </li>
+                            <li>
+                                <a href="#enemyInitiative" >enemyInitiative</a>
+                            </li>
+                            <li>
+                                <a href="#enemyOffset" >enemyOffset</a>
+                            </li>
+                            <li>
+                                <a href="#escapeMessage" >escapeMessage</a>
+                            </li>
+                            <li>
+                                <a href="#finishMessage" >finishMessage</a>
+                            </li>
+                            <li>
+                                <a href="#heroCtx" >heroCtx</a>
+                            </li>
+                            <li>
+                                <a href="#heroFrame" >heroFrame</a>
+                            </li>
+                            <li>
+                                <a href="#heroImg" >heroImg</a>
+                            </li>
+                            <li>
+                                <a href="#heroOffset" >heroOffset</a>
+                            </li>
+                            <li>
+                                <a href="#isEnemyDefending" >isEnemyDefending</a>
+                            </li>
+                            <li>
+                                <a href="#isPlayerDefending" >isPlayerDefending</a>
+                            </li>
+                            <li>
+                                <a href="#lastEnemyFrameTime" >lastEnemyFrameTime</a>
+                            </li>
+                            <li>
+                                <a href="#lastHeroFrameTime" >lastHeroFrameTime</a>
+                            </li>
+                            <li>
+                                <a href="#mainChar" >mainChar</a>
+                            </li>
+                            <li>
+                                <a href="#playerInitiative" >playerInitiative</a>
+                            </li>
+                            <li>
+                                <a href="#showEscapeWindow" >showEscapeWindow</a>
+                            </li>
+                            <li>
+                                <a href="#showFinish" >showFinish</a>
+                            </li>
+                            <li>
+                                <a href="#victory" >victory</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#attack" >attack</a>
+                            </li>
+                            <li>
+                                <a href="#defend" >defend</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#drawFrame" >drawFrame</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#endEnemyTurn" >endEnemyTurn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#endPlayerTurn" >endPlayerTurn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enemyAttack" >enemyAttack</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enemyDefend" >enemyDefend</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#enemyTurn" >enemyTurn</a>
+                            </li>
+                            <li>
+                                <a href="#escapeFromBattle" >escapeFromBattle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#finishBattle" >finishBattle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#finishEnemyTurn" >finishEnemyTurn</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initCanvasContexts" >initCanvasContexts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initiativeRoll" >initiativeRoll</a>
+                            </li>
+                            <li>
+                                <a href="#inventory" >inventory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadInitialData" >loadInitialData</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#playerTurn" >playerTurn</a>
+                            </li>
+                            <li>
+                                <a href="#redirectTo" >redirectTo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setBackgroundImage" >setBackgroundImage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setEnemy" >setEnemy</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setImageSmoothing" >setImageSmoothing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#startAnimationLoop" >startAnimationLoop</a>
+                            </li>
+                            <li>
+                                <a href="#startMusic" >startMusic</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateEnemyAnimation" >updateEnemyAnimation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateHeroAnimation" >updateHeroAnimation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(savesService: <a href="../injectables/SavesService.html" target="_self">SavesService</a>, publicFunc: <a href="../injectables/PublicFunctions.html" target="_self">PublicFunctions</a>, dialog: MatDialog, musicService: <a href="../injectables/MusicService.html" target="_self">MusicService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:55</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>savesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SavesService.html" target="_self" >SavesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>publicFunc</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PublicFunctions.html" target="_self" >PublicFunctions</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>musicService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MusicService.html" target="_self" >MusicService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="attack"></a>
+                    <span class="name">
+                        <span ><b>attack</b></span>
+                        <a href="#attack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>attack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:269</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defend"></a>
+                    <span class="name">
+                        <span ><b>defend</b></span>
+                        <a href="#defend"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>defend()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="322"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:322</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drawFrame"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>drawFrame</b></span>
+                        <a href="#drawFrame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>drawFrame(ctx: CanvasRenderingContext2D, img: HTMLImageElement, anim: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, frame: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, anchorBottom: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, bottomOffset: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, flipH: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="219"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:219</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ctx</td>
+                                            <td>
+                                                        <code>CanvasRenderingContext2D</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>img</td>
+                                            <td>
+                                                        <code>HTMLImageElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>anim</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>frame</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>anchorBottom</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>false</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>bottomOffset</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>30</code>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                                <td>flipH</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>false</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="endEnemyTurn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>endEnemyTurn</b></span>
+                        <a href="#endEnemyTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>endEnemyTurn()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="513"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:513</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="endPlayerTurn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>endPlayerTurn</b></span>
+                        <a href="#endPlayerTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>endPlayerTurn()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="506"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:506</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyAttack"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>enemyAttack</b></span>
+                        <a href="#enemyAttack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enemyAttack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="405"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyDefend"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>enemyDefend</b></span>
+                        <a href="#enemyDefend"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enemyDefend()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="463"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:463</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyTurn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>enemyTurn</b></span>
+                        <a href="#enemyTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enemyTurn()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="385"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:385</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="escapeFromBattle"></a>
+                    <span class="name">
+                        <span ><b>escapeFromBattle</b></span>
+                        <a href="#escapeFromBattle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>escapeFromBattle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="331"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:331</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishBattle"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>finishBattle</b></span>
+                        <a href="#finishBattle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>finishBattle(result: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="524"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:524</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>result</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishEnemyTurn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>finishEnemyTurn</b></span>
+                        <a href="#finishEnemyTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>finishEnemyTurn()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="456"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:456</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initCanvasContexts"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initCanvasContexts</b></span>
+                        <a href="#initCanvasContexts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initCanvasContexts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initiativeRoll"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>initiativeRoll</b></span>
+                        <a href="#initiativeRoll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initiativeRoll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="483"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inventory"></a>
+                    <span class="name">
+                        <span ><b>inventory</b></span>
+                        <a href="#inventory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inventory()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="369"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:369</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadInitialData"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadInitialData</b></span>
+                        <a href="#loadInitialData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadInitialData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playerTurn"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>playerTurn</b></span>
+                        <a href="#playerTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>playerTurn()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="501"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:501</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="redirectTo"></a>
+                    <span class="name">
+                        <span ><b>redirectTo</b></span>
+                        <a href="#redirectTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>redirectTo(whereTo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="531"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:531</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>whereTo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setBackgroundImage"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setBackgroundImage</b></span>
+                        <a href="#setBackgroundImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setBackgroundImage()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setEnemy"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setEnemy</b></span>
+                        <a href="#setEnemy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setEnemy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setImageSmoothing"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setImageSmoothing</b></span>
+                        <a href="#setImageSmoothing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setImageSmoothing(enabled: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>enabled</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startAnimationLoop"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>startAnimationLoop</b></span>
+                        <a href="#startAnimationLoop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startAnimationLoop()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:155</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startMusic"></a>
+                    <span class="name">
+                        <span ><b>startMusic</b></span>
+                        <a href="#startMusic"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>startMusic()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateEnemyAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateEnemyAnimation</b></span>
+                        <a href="#updateEnemyAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateEnemyAnimation(time: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>time</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateHeroAnimation"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>updateHeroAnimation</b></span>
+                        <a href="#updateHeroAnimation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateHeroAnimation(time: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>time</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionMessage"></a>
+                    <span class="name">
+                        <span ><b>actionMessage</b></span>
+                        <a href="#actionMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="backgroundImage"></a>
+                    <span class="name">
+                        <span ><b>backgroundImage</b></span>
+                        <a href="#backgroundImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="battleBiome"></a>
+                    <span class="name">
+                        <span ><b>battleBiome</b></span>
+                        <a href="#battleBiome"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="beforeBattleSave"></a>
+                    <span class="name">
+                        <span ><b>beforeBattleSave</b></span>
+                        <a href="#beforeBattleSave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentEnemyAnim"></a>
+                    <span class="name">
+                        <span ><b>currentEnemyAnim</b></span>
+                        <a href="#currentEnemyAnim"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#EnemyAnimState" target="_self" >EnemyAnimState</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Idle&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentHeroAnim"></a>
+                    <span class="name">
+                        <span ><b>currentHeroAnim</b></span>
+                        <a href="#currentHeroAnim"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#CharacterAnimState" target="_self" >CharacterAnimState</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Idle&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentHeroDir"></a>
+                    <span class="name">
+                        <span ><b>currentHeroDir</b></span>
+                        <a href="#currentHeroDir"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Direction" target="_self" >Direction</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Down&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentTurn"></a>
+                    <span class="name">
+                        <span ><b>currentTurn</b></span>
+                        <a href="#currentTurn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;player&quot; | &quot;enemy&quot; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="481" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:481</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemy"></a>
+                    <span class="name">
+                        <span ><b>enemy</b></span>
+                        <a href="#enemy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEnemy.html" target="_self" >IEnemy</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyCtx"></a>
+                    <span class="name">
+                        <span ><b>enemyCtx</b></span>
+                        <a href="#enemyCtx"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanvasRenderingContext2D</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyFrame"></a>
+                    <span class="name">
+                        <span ><b>enemyFrame</b></span>
+                        <a href="#enemyFrame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyImg"></a>
+                    <span class="name">
+                        <span ><b>enemyImg</b></span>
+                        <a href="#enemyImg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Image()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyInitiative"></a>
+                    <span class="name">
+                        <span ><b>enemyInitiative</b></span>
+                        <a href="#enemyInitiative"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="479" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:479</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enemyOffset"></a>
+                    <span class="name">
+                        <span ><b>enemyOffset</b></span>
+                        <a href="#enemyOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="escapeMessage"></a>
+                    <span class="name">
+                        <span ><b>escapeMessage</b></span>
+                        <a href="#escapeMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="329" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:329</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="finishMessage"></a>
+                    <span class="name">
+                        <span ><b>finishMessage</b></span>
+                        <a href="#finishMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="519" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:519</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="heroCtx"></a>
+                    <span class="name">
+                        <span ><b>heroCtx</b></span>
+                        <a href="#heroCtx"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanvasRenderingContext2D</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="heroFrame"></a>
+                    <span class="name">
+                        <span ><b>heroFrame</b></span>
+                        <a href="#heroFrame"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="heroImg"></a>
+                    <span class="name">
+                        <span ><b>heroImg</b></span>
+                        <a href="#heroImg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Image()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="heroOffset"></a>
+                    <span class="name">
+                        <span ><b>heroOffset</b></span>
+                        <a href="#heroOffset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEnemyDefending"></a>
+                    <span class="name">
+                        <span ><b>isEnemyDefending</b></span>
+                        <a href="#isEnemyDefending"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" target="_blank" >Boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="320" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:320</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPlayerDefending"></a>
+                    <span class="name">
+                        <span ><b>isPlayerDefending</b></span>
+                        <a href="#isPlayerDefending"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastEnemyFrameTime"></a>
+                    <span class="name">
+                        <span ><b>lastEnemyFrameTime</b></span>
+                        <a href="#lastEnemyFrameTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastHeroFrameTime"></a>
+                    <span class="name">
+                        <span ><b>lastHeroFrameTime</b></span>
+                        <a href="#lastHeroFrameTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mainChar"></a>
+                    <span class="name">
+                        <span ><b>mainChar</b></span>
+                        <a href="#mainChar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IMainChar.html" target="_self" >IMainChar</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>MainChar</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playerInitiative"></a>
+                    <span class="name">
+                        <span ><b>playerInitiative</b></span>
+                        <a href="#playerInitiative"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="478" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:478</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showEscapeWindow"></a>
+                    <span class="name">
+                        <span ><b>showEscapeWindow</b></span>
+                        <a href="#showEscapeWindow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="328" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFinish"></a>
+                    <span class="name">
+                        <span ><b>showFinish</b></span>
+                        <a href="#showFinish"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="521" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:521</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="victory"></a>
+                    <span class="name">
+                        <span ><b>victory</b></span>
+                        <a href="#victory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="520" class="link-to-prism">src/app/components/game/battle-level/battle-level.ts:520</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {AfterViewInit, Component, OnDestroy, OnInit} from &#x27;@angular/core&#x27;;
+import {SavesService} from &#x27;../../../services/saves/saves-service&#x27;;
+import {ISave} from &#x27;../../../interfaces/save&#x27;;
+import {cloneEnemy, Direction, IEnemy, IEnemyAnimations, MushroomEnemy, SkeletonEnemy} from &#x27;../../../interfaces/Enemy&#x27;;
+import {ICharacterAnimations, IMainChar, MainChar} from &#x27;../../../interfaces/mainChar&#x27;;
+import {PublicFunctions} from &#x27;../../../services/publicFunctions/public-functions&#x27;;
+import {NgStyle} from &#x27;@angular/common&#x27;;
+import {MatDialog} from &#x27;@angular/material/dialog&#x27;;
+import {InventoryDialog} from &#x27;../../dialogs/inventory-dialog/inventory-dialog&#x27;;
+import {MusicService} from &#x27;../../../services/music/music&#x27;;
+
+export type CharacterAnimState &#x3D; keyof ICharacterAnimations;
+export type EnemyAnimState &#x3D; keyof IEnemyAnimations;
+
+@Component({
+  selector: &#x27;app-battle-level&#x27;,
+  templateUrl: &#x27;./battle-level.html&#x27;,
+  imports: [
+    NgStyle
+  ],
+  styleUrls: [&#x27;./battle-level.css&#x27;]
+})
+export class BattleLevel implements OnInit, AfterViewInit, OnDestroy {
+
+  // ----------------------------
+  // Properties
+  // ----------------------------
+  beforeBattleSave: any;
+  battleBiome: string | undefined;
+  backgroundImage: string | undefined;
+
+  enemy!: IEnemy;
+  mainChar: IMainChar &#x3D; MainChar;
+
+  heroCtx!: CanvasRenderingContext2D;
+  enemyCtx!: CanvasRenderingContext2D;
+
+  heroImg &#x3D; new Image();
+  enemyImg &#x3D; new Image();
+
+  heroFrame &#x3D; 0;
+  enemyFrame &#x3D; 0;
+
+  lastHeroFrameTime &#x3D; 0;
+  lastEnemyFrameTime &#x3D; 0;
+
+  currentHeroAnim: CharacterAnimState &#x3D; &#x27;Idle&#x27;;
+  currentEnemyAnim: EnemyAnimState &#x3D; &#x27;Idle&#x27;;
+
+  currentHeroDir: Direction &#x3D; &#x27;Down&#x27;;
+
+  actionMessage: string | null &#x3D; null;
+
+  heroOffset: number &#x3D; 0;
+  enemyOffset: number &#x3D; 0;
+
+
+  constructor(private savesService: SavesService, private publicFunc: PublicFunctions, private dialog: MatDialog,private musicService:MusicService) {
+  }
+
+
+  // ----------------------------
+  // Lifecycle Hooks
+  // ----------------------------
+  ngOnInit(): void {
+    this.loadInitialData();
+    this.startMusic()
+    console.log(this.mainChar);
+  }
+
+  ngAfterViewInit(): void {
+    this.initCanvasContexts();
+  }
+
+  ngOnDestroy() {
+    this.musicService.stopMusic()
+  }
+
+  startMusic(){
+    this.musicService.playMusic(&#x27;assets/music/battleMusic.wav&#x27;)
+  }
+
+
+  // ----------------------------
+  // Initialization
+  // ----------------------------
+  private initCanvasContexts(): void {
+    const heroCanvas &#x3D; document.getElementById(&#x27;heroCanvas&#x27;) as HTMLCanvasElement;
+    const enemyCanvas &#x3D; document.getElementById(&#x27;enemyCanvas&#x27;) as HTMLCanvasElement;
+
+    this.heroCtx &#x3D; heroCanvas.getContext(&#x27;2d&#x27;)!;
+    this.enemyCtx &#x3D; enemyCanvas.getContext(&#x27;2d&#x27;)!;
+
+    this.setImageSmoothing(false);
+  }
+
+  private setImageSmoothing(enabled: boolean): void {
+    [this.heroCtx, this.enemyCtx].forEach(ctx &#x3D;&gt; {
+      ctx.imageSmoothingEnabled &#x3D; enabled;
+      (ctx as any).mozImageSmoothingEnabled &#x3D; enabled;
+      (ctx as any).webkitImageSmoothingEnabled &#x3D; enabled;
+    });
+  }
+
+
+  // ----------------------------
+  // Data Loading
+  // ----------------------------
+  private loadInitialData(): void {
+    this.savesService.loadGame(&#x27;beforeBattle&#x27;).subscribe((res: any) &#x3D;&gt; {
+      this.beforeBattleSave &#x3D; res.data;
+      const data: ISave &#x3D; res.data;
+
+      this.battleBiome &#x3D; data.currentBiome.name;
+
+      this.setBackgroundImage();
+      this.setEnemy();
+      this.startAnimationLoop();
+      this.initiativeRoll();
+    });
+  }
+
+  private setBackgroundImage(): void {
+    switch (this.battleBiome) {
+      case &#x27;Emerald Woods&#x27;:
+        this.backgroundImage &#x3D; &#x27;assets/battle/forestBattle.jpg&#x27;;
+        break;
+      case &#x27;Spooky Dungeon&#x27;:
+        this.backgroundImage &#x3D; &#x27;assets/battle/dungeonBattle.png&#x27;;
+        break;
+      default:
+        this.backgroundImage &#x3D; &#x27;assets/battle/dungeonBattle.png&#x27;;
+    }
+
+    console.log(&#x27;Background image set to:&#x27;, this.backgroundImage);
+  }
+
+  private setEnemy(): void {
+    switch (this.battleBiome) {
+      case &#x27;Emerald Woods&#x27;:
+        this.enemy &#x3D; cloneEnemy(MushroomEnemy);
+        break;
+      case &#x27;Spooky Dungeon&#x27;:
+        this.enemy &#x3D; cloneEnemy(SkeletonEnemy);
+        break;
+      default:
+        this.enemy &#x3D; cloneEnemy(SkeletonEnemy);
+    }
+  }
+
+
+  // ----------------------------
+  // Animation
+  // ----------------------------
+  private startAnimationLoop(): void {
+    const loop &#x3D; (time: number) &#x3D;&gt; {
+      this.updateHeroAnimation(time);
+      this.updateEnemyAnimation(time);
+
+      requestAnimationFrame(loop);
+    };
+
+    requestAnimationFrame(loop);
+  }
+
+  private updateHeroAnimation(time: number): void {
+    const heroAnim &#x3D; this.mainChar.animations[this.currentHeroAnim]![this.currentHeroDir];
+
+    if (time - this.lastHeroFrameTime &gt; heroAnim.frameSpeed) {
+
+      if (this.currentHeroAnim &#x3D;&#x3D;&#x3D; &#x27;Death&#x27;) {
+
+        if (this.heroFrame &lt; heroAnim.frames - 1) {
+          this.heroFrame +&#x3D; 1;
+        }
+
+      } else {
+
+        this.heroFrame &#x3D; (this.heroFrame + 1) % heroAnim.frames;
+      }
+
+      this.lastHeroFrameTime &#x3D; time;
+    }
+
+    this.heroImg.src &#x3D; this.mainChar.spritePath;
+    this.drawFrame(this.heroCtx, this.heroImg, heroAnim, this.heroFrame, true);
+  }
+
+
+  private updateEnemyAnimation(time: number): void {
+    const enemyAnim &#x3D;
+      this.enemy.animations?.[this.currentEnemyAnim] ??
+      this.enemy.animations?.[&#x27;Idle&#x27;];
+
+    if (!enemyAnim) return;
+
+    if (time - this.lastEnemyFrameTime &gt; enemyAnim.frameSpeed) {
+
+      if (this.currentEnemyAnim &#x3D;&#x3D;&#x3D; &#x27;Death&#x27;) {
+        if (this.enemyFrame &lt; enemyAnim.frames - 1) {
+          this.enemyFrame +&#x3D; 1;
+        }
+      } else {
+        this.enemyFrame &#x3D; (this.enemyFrame + 1) % enemyAnim.frames;
+      }
+
+      this.lastEnemyFrameTime &#x3D; time;
+    }
+
+    this.enemyImg.src &#x3D; enemyAnim.spritePath;
+
+
+    const flip &#x3D; !(this.enemy.name &#x3D;&#x3D;&#x3D; &quot;Angry Mushroom&quot; &amp;&amp; this.currentEnemyAnim &#x3D;&#x3D;&#x3D; &#x27;Attack&#x27;);
+
+    this.drawFrame(this.enemyCtx, this.enemyImg, enemyAnim, this.enemyFrame, false, 0, flip);
+  }
+
+
+  private drawFrame(
+    ctx: CanvasRenderingContext2D,
+    img: HTMLImageElement,
+    anim: any,
+    frame: number,
+    anchorBottom: boolean &#x3D; false,
+    bottomOffset: number &#x3D; 30,
+    flipH: boolean &#x3D; false
+  ): void {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    const startX &#x3D; anim.startX ?? 0;
+    const startY &#x3D; anim.startY ?? 0;
+
+    const sx &#x3D; startX + anim.frameWidth * frame;
+    const scale &#x3D; 2;
+
+    const drawWidth &#x3D; anim.frameWidth * scale + 30;
+    const drawHeight &#x3D; anim.frameHeight * scale;
+    let drawX &#x3D; 50;
+    const drawY &#x3D; anchorBottom ? ctx.canvas.height - drawHeight - bottomOffset : 0;
+
+    ctx.save();
+
+    if (flipH) {
+      ctx.translate(drawX + drawWidth, 0);
+      ctx.scale(-1, 1);
+      drawX &#x3D; 0;
+    }
+
+    ctx.drawImage(
+      img,
+      sx,
+      startY,
+      anim.frameWidth,
+      anim.frameHeight,
+      drawX,
+      drawY,
+      drawWidth,
+      drawHeight
+    );
+
+    ctx.restore();
+  }
+
+
+  // ----------------------------
+  // Actions
+  // ----------------------------
+
+  attack() {
+    if (this.currentTurn !&#x3D;&#x3D; &#x27;player&#x27;) return;
+    if (!this.enemy) return;
+
+    this.currentHeroAnim &#x3D; &#x27;Attack&#x27;;
+    this.heroOffset &#x3D; 370;
+    this.enemyOffset &#x3D; 0;
+
+    const roll &#x3D; Math.floor(Math.random() * 20) + 1;
+
+    if (roll &gt; this.enemy.armor) {
+      const damage &#x3D; Math.floor(Math.random() * this.mainChar.damage) + 1;
+
+      if (!this.isEnemyDefending) {
+        this.enemy.health -&#x3D; damage;
+      } else {
+        this.enemy.health -&#x3D; damage / 2;
+      }
+
+      if (this.enemy.health &lt; 0) this.enemy.health &#x3D; 0;
+
+      this.actionMessage &#x3D; &#x60;Hero deals ${damage} damage!&#x60;;
+
+      if (this.enemy.health &#x3D;&#x3D;&#x3D; 0) {
+        this.currentHeroAnim &#x3D; &quot;Idle&quot;;
+        this.currentEnemyAnim &#x3D; &#x27;Death&#x27;;
+        this.finishBattle(&#x27;victory&#x27;);
+        return;
+      }
+
+    } else {
+      this.actionMessage &#x3D; &#x27;Hero missed!&#x27;;
+    }
+
+    setTimeout(() &#x3D;&gt; {
+      this.heroOffset &#x3D; 0;
+      this.enemyOffset &#x3D; 0;
+      this.isEnemyDefending &#x3D; false;
+
+      this.endPlayerTurn();
+    }, 680);
+
+
+    setTimeout(() &#x3D;&gt; {
+      this.actionMessage &#x3D; null;
+    }, 1400)
+
+  }
+
+
+  isPlayerDefending: boolean &#x3D; false
+  isEnemyDefending: Boolean &#x3D; false
+
+  defend() {
+    if (this.currentTurn !&#x3D;&#x3D; &#x27;player&#x27;) return;
+    this.isPlayerDefending &#x3D; true
+    this.endPlayerTurn();
+  }
+
+  showEscapeWindow: boolean &#x3D; false
+  escapeMessage: any
+
+  escapeFromBattle() {
+    if (this.currentTurn !&#x3D;&#x3D; &#x27;player&#x27;) return;
+
+    this.showEscapeWindow &#x3D; true;
+    this.escapeMessage &#x3D; &quot;Attempting escape...&quot;
+
+    setTimeout(() &#x3D;&gt; {
+      if (!this.mainChar) return;
+
+      const hpPercent &#x3D; this.mainChar.health / this.mainChar.maxHealth;
+
+      const escapeChance &#x3D; 30 + (1 - hpPercent) * 60;
+
+      const roll &#x3D; Math.random() * 100;
+
+      if (roll &lt; escapeChance) {
+
+        this.escapeMessage &#x3D; &quot;Success!&quot;
+
+        setTimeout(() &#x3D;&gt; {
+          this.publicFunc.redirectTo(&#x27;maze?slot&#x3D;beforeBattle&#x27;)
+          return;
+        }, 1000)
+
+      } else {
+        console.log(&quot;Escape failed!&quot;);
+        this.escapeMessage &#x3D; &quot;Escape failed!&quot;
+        setTimeout(() &#x3D;&gt; {
+          this.showEscapeWindow &#x3D; false
+        }, 1000)
+      }
+
+      setTimeout(() &#x3D;&gt; {
+        this.endPlayerTurn();
+      }, 2000)
+    }, 3000)
+  }
+
+  inventory() {
+    if (this.currentTurn !&#x3D;&#x3D; &#x27;player&#x27;) return;
+
+    console.log(&#x27;Player opens inventory&#x27;);
+
+    const dialogRef &#x3D; this.dialog.open(InventoryDialog, {
+      width: &#x27;500px&#x27;,
+      data: {mainChar: this.mainChar}
+    });
+
+    dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+      console.log(&#x27;Inventory closed&#x27;, result);
+    });
+  }
+
+
+  private enemyTurn(): void {
+    console.log(&#x27;Enemy turn started&#x27;);
+
+    setTimeout(() &#x3D;&gt; {
+
+      const action &#x3D; Math.random() &lt; 0.7 ? &#x27;attack&#x27; : &#x27;defend&#x27;;
+
+      if (action &#x3D;&#x3D;&#x3D; &#x27;attack&#x27;) {
+        console.log(&#x27;Enemy attacks!&#x27;);
+        this.enemyAttack();
+      } else {
+        console.log(&#x27;Enemy defends!&#x27;);
+        this.enemyDefend();
+      }
+
+      this.endEnemyTurn();
+
+    }, 1000); // затримка для анімації
+  }
+
+  private enemyAttack(): void {
+    if (!this.enemy || !this.mainChar) return;
+
+    this.currentEnemyAnim &#x3D; &#x27;Attack&#x27;;
+    this.enemyOffset &#x3D; -370;
+    this.heroOffset &#x3D; 0;
+
+    const roll &#x3D; Math.floor(Math.random() * 20) + 1;
+
+    if (roll &gt; this.mainChar.armor) {
+      const damage &#x3D; Math.floor(Math.random() * this.enemy.damage) + 1;
+
+      if (!this.isPlayerDefending) {
+        this.mainChar.health -&#x3D; damage;
+      } else {
+        this.mainChar.health -&#x3D; damage / 2;
+      }
+
+      if (this.mainChar.health &lt; 0) this.mainChar.health &#x3D; 0;
+
+      this.actionMessage &#x3D; &#x60;Enemy deals ${damage} damage!&#x60;;
+
+      if (this.mainChar.health &#x3D;&#x3D;&#x3D; 0) {
+        this.currentEnemyAnim &#x3D; &#x27;Idle&#x27;;
+        this.currentHeroAnim &#x3D; &#x27;Death&#x27;;
+        this.finishBattle(&#x27;defeat&#x27;);
+        return;
+      }
+
+    } else {
+      this.actionMessage &#x3D; &#x27;Enemy missed!&#x27;;
+    }
+
+    const enemyAnim &#x3D; this.enemy.animations?.[&#x27;Attack&#x27;];
+    const attackDuration &#x3D; enemyAnim ? enemyAnim.frameSpeed * enemyAnim.frames : 700;
+
+    setTimeout(() &#x3D;&gt; {
+      this.enemyOffset &#x3D; 0;
+      this.heroOffset &#x3D; 0;
+      this.isPlayerDefending &#x3D; false;
+      this.finishEnemyTurn();
+    }, attackDuration);
+
+
+    setTimeout(() &#x3D;&gt; {
+      this.actionMessage &#x3D; null;
+    }, 1400)
+
+  }
+
+
+  private finishEnemyTurn(): void {
+    this.currentEnemyAnim &#x3D; &#x27;Idle&#x27;;
+    this.isPlayerDefending &#x3D; false;
+    this.endEnemyTurn();
+  }
+
+
+  private enemyDefend(): void {
+    if (!this.enemy) return;
+
+    this.isEnemyDefending &#x3D; true;
+    console.log(&#x27;Enemy is defending!&#x27;);
+
+    setTimeout(() &#x3D;&gt; {
+      this.endEnemyTurn();
+    }, 700);
+  }
+
+  // ----------------------------
+  // Initiative &amp; Turn Order
+  // ----------------------------
+
+  playerInitiative: number &#x3D; 0;
+  enemyInitiative: number &#x3D; 0;
+
+  currentTurn: &#x27;player&#x27; | &#x27;enemy&#x27; | null &#x3D; null;
+
+  private initiativeRoll(): void {
+    this.playerInitiative &#x3D; Math.floor(Math.random() * 20) + 1;
+    this.enemyInitiative &#x3D; Math.floor(Math.random() * 20) + 1;
+
+    console.log(&#x27;Player initiative:&#x27;, this.playerInitiative);
+    console.log(&#x27;Enemy initiative:&#x27;, this.enemyInitiative);
+
+    if (this.playerInitiative &gt;&#x3D; this.enemyInitiative) {
+      this.currentTurn &#x3D; &#x27;player&#x27;;
+      console.log(&#x27;Player goes first&#x27;);
+      this.playerTurn();
+    } else {
+      this.currentTurn &#x3D; &#x27;enemy&#x27;;
+      console.log(&#x27;Enemy goes first&#x27;);
+      this.enemyTurn();
+    }
+  }
+
+  private playerTurn(): void {
+    console.log(&#x27;Player turn started&#x27;);
+  }
+
+
+  private endPlayerTurn(): void {
+    this.currentTurn &#x3D; &#x27;enemy&#x27;;
+    this.currentHeroAnim &#x3D; &quot;Idle&quot;
+    this.enemyTurn();
+  }
+
+
+  private endEnemyTurn(): void {
+    this.currentTurn &#x3D; &#x27;player&#x27;;
+    this.playerTurn();
+  }
+
+
+  finishMessage: any
+  victory: boolean &#x3D; false
+  showFinish: boolean &#x3D; false
+
+
+  private finishBattle(result: string) {
+    this.showFinish &#x3D; true
+    this.finishMessage &#x3D; result.toUpperCase()
+    this.victory &#x3D; result &#x3D;&#x3D;&#x3D; &#x27;victory&#x27;;
+  }
+
+
+  redirectTo(whereTo: string) {
+    this.publicFunc.redirectTo(whereTo)
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;battle-container&quot;&gt;
+
+  &lt;img class&#x3D;&quot;backgroundImage&quot; [src]&#x3D;&quot;backgroundImage&quot; alt&#x3D;&quot;background&quot;&gt;
+
+
+  &lt;div class&#x3D;&quot;turnStatus&quot;&gt;
+    @if (currentTurn !&#x3D;&#x3D; &#x27;player&#x27;) {
+      &lt;h1&gt;Enemy Turn&lt;/h1&gt;
+    } @else {
+      &lt;h1&gt;Player Turn&lt;/h1&gt;
+    }
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;charsFather&quot;&gt;
+
+
+    &lt;div class&#x3D;&quot;charWrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;hpBar&quot;&gt;
+        &lt;div class&#x3D;&quot;hpFill&quot; [style.width.%]&#x3D;&quot;(mainChar.health / mainChar.maxHealth) * 100&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+
+      @if (isPlayerDefending) {
+        &lt;div class&#x3D;&quot;shield shieldChar&quot;&gt;
+          &lt;img src&#x3D;&quot;assets/battle/shield.png&quot;&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;canvas
+        id&#x3D;&quot;heroCanvas&quot;
+        class&#x3D;&quot;heroCanvas&quot;
+        [ngStyle]&#x3D;&quot;{&#x27;transform&#x27;: &#x27;translateX(&#x27; + heroOffset + &#x27;px)&#x27;}&quot;
+      &gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;charWrapper&quot;&gt;
+      &lt;div class&#x3D;&quot;hpBar&quot;&gt;
+        &lt;div class&#x3D;&quot;hpFill enemyHP&quot; [style.width.%]&#x3D;&quot;(enemy?.health ?? 0) / (enemy?.maxHealth ?? 1) * 100&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+
+      @if (isEnemyDefending) {
+        &lt;div class&#x3D;&quot;shield shieldEnemy&quot;&gt;
+          &lt;img src&#x3D;&quot;assets/battle/shield.png&quot;&gt;
+        &lt;/div&gt;
+      }
+
+      &lt;canvas
+        id&#x3D;&quot;enemyCanvas&quot;
+        class&#x3D;&quot;enemyCanvas&quot;
+        [ngStyle]&#x3D;&quot;{&#x27;transform&#x27;: &#x27;translateX(&#x27; + enemyOffset + &#x27;px)&#x27;}&quot;
+      &gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+
+
+  &lt;/div&gt;
+
+
+  @if (showEscapeWindow) {
+    &lt;div class&#x3D;&quot;escape&quot;&gt;
+      &lt;h1&gt;{{ escapeMessage }}&lt;/h1&gt;
+    &lt;/div&gt;
+  }
+
+
+  &lt;div class&#x3D;&quot;actions&quot;&gt;
+
+    &lt;button (click)&#x3D;&quot;attack()&quot; style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;Attack&lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;defend()&quot; style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;Defend&lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;escapeFromBattle()&quot; style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;Escape&lt;/button&gt;
+    &lt;button (click)&#x3D;&quot;inventory()&quot; style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;Inventory&lt;/button&gt;
+  &lt;/div&gt;
+
+
+
+  @if (showFinish) {
+    &lt;div class&#x3D;&quot;finish&quot;&gt;
+      &lt;h1&gt;{{ finishMessage }}!&lt;/h1&gt;
+      @if (victory) {
+        &lt;button (click)&#x3D;&quot;redirectTo(&#x27;maze?slot&#x3D;beforeBattle&#x27;)&quot;  style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;continue&lt;/button&gt;
+      } @else {
+        &lt;button (click)&#x3D;&quot;redirectTo(&#x27;menu&#x27;)&quot; style&#x3D;&quot;background: #bc3a3a&quot; class&#x3D;&quot;basicButton&quot;&gt;to main menu&lt;/button&gt;
+      }
+    &lt;/div&gt;
+  }
+
+
+  @if (actionMessage){
+    &lt;div class&#x3D;&quot;actionMessage&quot;&gt;
+      &lt;h2&gt;{{ actionMessage }}&lt;/h2&gt;
+    &lt;/div&gt;
+
+  }
+
+
+
+
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./battle-level.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.battle-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  image-rendering: pixelated;
+}
+
+.heroCanvas, .enemyCanvas {
+  width: 300px;
+  height: 300px;
+  image-rendering: pixelated;
+  z-index: 100;
+}
+
+.charsFather{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 15%;
+}
+
+.actions {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid black;
+  width: fit-content;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.turnStatus{
+  position: absolute;
+  bottom: 115px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  -webkit-text-stroke: 1px black;
+}
+
+
+.charWrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  top: -5px;
+}
+
+
+.hpBar {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 220px;
+  height: 14px;
+
+  background: #320000;
+  border: 2px solid black;
+
+  overflow: hidden;
+  z-index: 200;
+}
+
+.hpFill {
+  height: 100%;
+  background: #ff2e2e;
+  width: 100%;
+  transition: width 0.25s linear;
+}
+
+.enemyHP {
+  background: #ff4444;
+}
+
+
+.heroCanvas, .enemyCanvas {
+  width: 300px;
+  height: 300px;
+  image-rendering: pixelated;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.escape{
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  -webkit-text-stroke: 1px black;
+}
+
+
+.shield{
+  position: absolute;
+}
+
+.shieldChar{
+  top: -30px;
+  right: 0;
+}
+
+.shieldEnemy{
+  top: -30px;
+  left: 0;
+}
+
+.shield img{
+  width: 30px;
+}
+
+.finish{
+  position: absolute;
+  background: rgba(50, 0, 0, 0.22);
+  width: 300px;
+  color: white;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  top: 50%;
+
+  text-align: center;
+
+  border: 10px solid black;
+  padding: 10px;
+  z-index: 1000;
+}
+
+
+.actionMessage {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-text-stroke: 1px black;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  z-index: 10;
+  pointer-events: none;
+  animation: fadeOut 2s ease-in-out forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="battle-container">  <img class="backgroundImage" [src]="backgroundImage" alt="background">  <div class="turnStatus">    @if (currentTurn !== \'player\') {      <h1>Enemy Turn</h1>    } @else {      <h1>Player Turn</h1>    }  </div>  <div class="charsFather">    <div class="charWrapper">      <div class="hpBar">        <div class="hpFill" [style.width.%]="(mainChar.health / mainChar.maxHealth) * 100"></div>      </div>      @if (isPlayerDefending) {        <div class="shield shieldChar">          <img src="assets/battle/shield.png">        </div>      }      <canvas        id="heroCanvas"        class="heroCanvas"        [ngStyle]="{\'transform\': \'translateX(\' + heroOffset + \'px)\'}"      ></canvas>    </div>    <div class="charWrapper">      <div class="hpBar">        <div class="hpFill enemyHP" [style.width.%]="(enemy?.health ?? 0) / (enemy?.maxHealth ?? 1) * 100"></div>      </div>      @if (isEnemyDefending) {        <div class="shield shieldEnemy">          <img src="assets/battle/shield.png">        </div>      }      <canvas        id="enemyCanvas"        class="enemyCanvas"        [ngStyle]="{\'transform\': \'translateX(\' + enemyOffset + \'px)\'}"      ></canvas>    </div>  </div>  @if (showEscapeWindow) {    <div class="escape">      <h1>{{ escapeMessage }}</h1>    </div>  }  <div class="actions">    <button (click)="attack()" style="background: #bc3a3a" class="basicButton">Attack</button>    <button (click)="defend()" style="background: #bc3a3a" class="basicButton">Defend</button>    <button (click)="escapeFromBattle()" style="background: #bc3a3a" class="basicButton">Escape</button>    <button (click)="inventory()" style="background: #bc3a3a" class="basicButton">Inventory</button>  </div>  @if (showFinish) {    <div class="finish">      <h1>{{ finishMessage }}!</h1>      @if (victory) {        <button (click)="redirectTo(\'maze?slot=beforeBattle\')"  style="background: #bc3a3a" class="basicButton">continue</button>      } @else {        <button (click)="redirectTo(\'menu\')" style="background: #bc3a3a" class="basicButton">to main menu</button>      }    </div>  }  @if (actionMessage){    <div class="actionMessage">      <h2>{{ actionMessage }}</h2>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BattleLevel', 'selector': 'app-battle-level'},{'name': 'ChestDialog', 'selector': 'app-chest-dialog'},{'name': 'Credits', 'selector': 'app-credits'},{'name': 'InventoryDialog', 'selector': 'app-inventory-dialog'},{'name': 'MainMenu', 'selector': 'app-main-menu'},{'name': 'MazeLevel', 'selector': 'app-maze-level'},{'name': 'SaveSlots', 'selector': 'app-save-slots'},{'name': 'Settings', 'selector': 'app-settings'},{'name': 'Start', 'selector': 'app-start'},{'name': 'StartMenu', 'selector': 'app-start-menu'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'BattleLevel'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'BattleLevel.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

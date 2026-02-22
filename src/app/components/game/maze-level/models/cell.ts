@@ -6,8 +6,6 @@ interface WallDecor {
   scale: number;
 }
 
-
-
 export class Cell {
   wallDecorIndexes?: { north?: number; south?: number; east?: number; west?: number };
   public wallDecorPositions?: {
@@ -37,13 +35,11 @@ export class Cell {
   ) {
   }
 
-
   hasVisited(): boolean {
     return (
       !this.northWall || !this.eastWall || !this.westWall || !this.southWall
     );
   }
-
 
   breakWallWith(another: Cell) {
     if (this.row === another.row) {
@@ -77,12 +73,12 @@ export class Cell {
     ctx: CanvasRenderingContext2D,
     length: number,
     cellBackground = '#FFFFFF',
-    wallColor: string = 'rgba(0,0,0,0)' // прозорі стіни за замовчуванням
+    wallColor: string = 'rgba(0,0,0,0)'
   ) {
     ctx.fillStyle = cellBackground;
     ctx.fillRect(this.col * length, this.row * length, length, length);
 
-    ctx.strokeStyle = wallColor; // колір стін
+    ctx.strokeStyle = wallColor;
 
     if (this.northWall) {
       ctx.beginPath();

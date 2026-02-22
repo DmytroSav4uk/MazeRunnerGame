@@ -1,0 +1,1475 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>maze-runner-game documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">maze-runner-game documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >Maze</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/components/game/maze-level/models/maze.ts</code>
+        </p>
+
+
+
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#_wallTextureCache" >_wallTextureCache</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_wallTextureLoaded" >_wallTextureLoaded</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#_wallTexturePromise" >_wallTexturePromise</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cellBackground" >cellBackground</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#cells" >cells</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#cellSize" >cellSize</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#ctx" >ctx</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#currentBiome" >currentBiome</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#nCol" >nCol</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#nRow" >nRow</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#draw" >draw</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#drawWallDecor" >drawWallDecor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getNeighbors" >getNeighbors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#huntAndKill" >huntAndKill</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#preloadWallAssets" >preloadWallAssets</a>
+                            </li>
+                            <li>
+                                <a href="#setBiome" >setBiome</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#shuffleArray" >shuffleArray</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(nRow: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, nCol: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, cellSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, ctx: CanvasRenderingContext2D, cellsData?: Array<Array<any>>, wallAssets?: HTMLImageElement[])</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:48</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>nRow</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>nCol</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cellSize</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ctx</td>
+                                                  
+                                                        <td>
+                                                                    <code>CanvasRenderingContext2D</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cellsData</td>
+                                                  
+                                                        <td>
+                                                                    <code>Array&lt;Array&lt;any&gt;&gt;</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>wallAssets</td>
+                                                  
+                                                        <td>
+                                                                    <code>HTMLImageElement[]</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_wallTextureCache"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>_wallTextureCache</b></span>
+                        <a href="#_wallTextureCache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLImageElement</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:10</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_wallTextureLoaded"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_wallTextureLoaded</b></span>
+                        <a href="#_wallTextureLoaded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:11</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_wallTexturePromise"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>_wallTexturePromise</b></span>
+                        <a href="#_wallTexturePromise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Promise&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellBackground"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cellBackground</b></span>
+                        <a href="#cellBackground"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;rgba(255,255,255,0)&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:8</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cells"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>cells</b></span>
+                        <a href="#cells"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Cell.html" target="_self" >Array&lt;Array&lt;Cell&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:6</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cellSize"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>cellSize</b></span>
+                        <a href="#cellSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ctx"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>ctx</b></span>
+                        <a href="#ctx"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanvasRenderingContext2D</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentBiome"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>currentBiome</b></span>
+                        <a href="#currentBiome"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IBiome.html" target="_self" >IBiome | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:7</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nCol"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>nCol</b></span>
+                        <a href="#nCol"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="nRow"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>nRow</b></span>
+                        <a href="#nRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="draw"></a>
+                    <span class="name">
+                        <span ><b>draw</b></span>
+                        <a href="#draw"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>draw(lineThickness: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>lineThickness</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>80</code>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="drawWallDecor"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>drawWallDecor</b></span>
+                        <a href="#drawWallDecor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>drawWallDecor(cell: <a href="../classes/Cell.html" target="_self">Cell</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cell</td>
+                                            <td>
+                                                            <code><a href="../classes/Cell.html" target="_self" >Cell</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNeighbors"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getNeighbors</b></span>
+                        <a href="#getNeighbors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getNeighbors(cell: <a href="../classes/Cell.html" target="_self">Cell</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="239"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:239</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cell</td>
+                                            <td>
+                                                            <code><a href="../classes/Cell.html" target="_self" >Cell</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Cell.html" target="_self" >Array&lt;Cell&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="huntAndKill"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>huntAndKill</b></span>
+                        <a href="#huntAndKill"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>huntAndKill(current: <a href="../classes/Cell.html" target="_self">Cell</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>current</td>
+                                            <td>
+                                                            <code><a href="../classes/Cell.html" target="_self" >Cell</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="preloadWallAssets"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>preloadWallAssets</b></span>
+                        <a href="#preloadWallAssets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>preloadWallAssets()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setBiome"></a>
+                    <span class="name">
+                        <span ><b>setBiome</b></span>
+                        <a href="#setBiome"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setBiome(biome: <a href="../interfaces/IBiome.html" target="_self">IBiome</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="14"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>biome</td>
+                                            <td>
+                                                            <code><a href="../interfaces/IBiome.html" target="_self" >IBiome</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise | void</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shuffleArray"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>shuffleArray</b></span>
+                        <a href="#shuffleArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>shuffleArray(array: number[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="248"
+                                    class="link-to-prism">src/app/components/game/maze-level/models/maze.ts:248</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>array</td>
+                                            <td>
+                                                        <code>number[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>number[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Cell } from &#x27;./cell&#x27;;
+import {IBiome} from &#x27;../../../../interfaces/Biome&#x27;;
+
+
+export class Maze {
+  public cells: Array&lt;Array&lt;Cell&gt;&gt; &#x3D; [];
+  public currentBiome: IBiome | null &#x3D; null;
+  private readonly cellBackground &#x3D; &#x27;rgba(255,255,255,0)&#x27;;
+
+  private _wallTextureCache?: HTMLImageElement;
+  private _wallTextureLoaded: boolean &#x3D; false;
+  private _wallTexturePromise?: Promise&lt;void&gt;;
+
+  setBiome(biome: IBiome): Promise&lt;void&gt; | void {
+    this.currentBiome &#x3D; biome;
+
+    console.log(biome?.wallTexture)
+
+    if (biome?.wallTexture) {
+      if (!this._wallTextureCache || this._wallTextureCache.src !&#x3D;&#x3D; biome.wallTexture) {
+        this._wallTextureCache &#x3D; new Image();
+        this._wallTextureLoaded &#x3D; false;
+        this._wallTexturePromise &#x3D; new Promise((resolve) &#x3D;&gt; {
+          this._wallTextureCache!.onload &#x3D; () &#x3D;&gt; {
+            this._wallTextureLoaded &#x3D; true;
+            resolve();
+          };
+          this._wallTextureCache!.src &#x3D; biome.wallTexture!;
+        });
+        return this._wallTexturePromise; // 👈 ось це важливо
+      }
+    } else {
+      this._wallTextureCache &#x3D; undefined;
+      this._wallTextureLoaded &#x3D; false;
+    }
+  }
+
+  async preloadWallAssets(): Promise&lt;void&gt; {
+    if (!this.wallAssets) return;
+    const loadPromises &#x3D; this.wallAssets.map(
+      img &#x3D;&gt;
+        new Promise&lt;void&gt;(resolve &#x3D;&gt; {
+          if (img.complete &amp;&amp; img.naturalWidth &gt; 0) resolve();
+          else img.onload &#x3D; () &#x3D;&gt; resolve();
+        })
+    );
+    await Promise.all(loadPromises);
+  }
+
+  constructor(
+    public nRow: number,
+    public nCol: number,
+    public cellSize: number,
+    public ctx: CanvasRenderingContext2D,
+    cellsData?: Array&lt;Array&lt;any&gt;&gt;,
+    private wallAssets?: HTMLImageElement[]
+  ) {
+    if (cellsData) {
+      for (let i &#x3D; 0; i &lt; cellsData.length; i++) {
+        const row: Cell[] &#x3D; [];
+        for (let j &#x3D; 0; j &lt; cellsData[i].length; j++) {
+          const c &#x3D; cellsData[i][j];
+          const cell &#x3D; new Cell(c.row, c.col);
+          cell.northWall &#x3D; c.northWall;
+          cell.eastWall &#x3D; c.eastWall;
+          cell.southWall &#x3D; c.southWall;
+          cell.westWall &#x3D; c.westWall;
+          cell.traversed &#x3D; c.traversed;
+          row.push(cell);
+        }
+        this.cells.push(row);
+      }
+    } else {
+      for (let i &#x3D; 0; i &lt; nRow; i++) {
+        const row: Cell[] &#x3D; [];
+        for (let j &#x3D; 0; j &lt; nCol; j++) {
+          row.push(new Cell(i, j));
+        }
+        this.cells.push(row);
+      }
+      const current &#x3D; this.cells[RandomNumber.within(this.nRow)][RandomNumber.within(this.nCol)];
+      this.huntAndKill(current);
+    }
+  }
+
+  draw(lineThickness &#x3D; 80) {
+    this.ctx.lineWidth &#x3D; lineThickness;
+    this.cells.forEach((row) &#x3D;&gt;
+      row.forEach((c) &#x3D;&gt; {
+        this.drawWallDecor(c);
+        c.draw(this.ctx, this.cellSize, this.cellBackground, &#x27;rgb(241,0,0)&#x27;);
+      })
+    );
+  }
+
+  async drawWallDecor(cell: Cell) {
+
+    if (this.wallAssets &amp;&amp; this.wallAssets.some(img &#x3D;&gt; img.width &#x3D;&#x3D;&#x3D; 0)) return;
+
+    const ctx &#x3D; this.ctx;
+    const size &#x3D; this.cellSize;
+    const x0 &#x3D; cell.col * size;
+    const y0 &#x3D; cell.row * size;
+    const biomeTexture &#x3D; this.currentBiome?.wallTexture;
+
+    if (biomeTexture) {
+
+      if (this._wallTexturePromise &amp;&amp; !this._wallTextureLoaded) {
+        await this._wallTexturePromise;
+      }
+
+      const textureImg &#x3D; this._wallTextureCache;
+      if (!textureImg || !this._wallTextureLoaded) return;
+
+      const wallThickness &#x3D; 50;
+
+      const drawTexturedWall &#x3D; (x: number, y: number, w: number, h: number) &#x3D;&gt; {
+        ctx.drawImage(textureImg, x, y, w, h);
+      };
+
+      if (cell.northWall) drawTexturedWall(x0, y0 - wallThickness / 2, size, wallThickness);
+      if (cell.southWall) drawTexturedWall(x0, y0 + size - wallThickness / 2, size, wallThickness);
+      if (cell.westWall)  drawTexturedWall(x0 - wallThickness / 2, y0, wallThickness, size);
+      if (cell.eastWall)  drawTexturedWall(x0 + size - wallThickness / 2, y0, wallThickness, size);
+
+      return;
+    }
+
+    if (!this.wallAssets || this.wallAssets.length &#x3D;&#x3D;&#x3D; 0) return;
+
+    const step &#x3D; size / 4;
+    const count &#x3D; Math.ceil(size / step);
+    if (!cell.wallDecorPositions) cell.wallDecorPositions &#x3D; {};
+    const getWallImg &#x3D; (index: number) &#x3D;&gt; this.wallAssets![index % this.wallAssets!.length];
+
+    // SOUTH
+    if (cell.southWall) {
+      if (!cell.wallDecorPositions.south) {
+        cell.wallDecorPositions.south &#x3D; [];
+        for (let i &#x3D; 0; i &lt; count; i++) {
+          const img &#x3D; getWallImg(i);
+          cell.wallDecorPositions.south.push({
+            img,
+            dx: x0 + i * step,
+            dy: y0 + size - img.height * 0.3 - 35,
+            scale: 0.7
+          });
+        }
+      }
+      cell.wallDecorPositions.south.forEach(p &#x3D;&gt;
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+
+    // NORTH
+    if (cell.northWall) {
+      if (!cell.wallDecorPositions.north) {
+        cell.wallDecorPositions.north &#x3D; [];
+        for (let i &#x3D; 0; i &lt; count; i++) {
+          const img &#x3D; getWallImg(i);
+          cell.wallDecorPositions.north.push({
+            img,
+            dx: x0 + i * step,
+            dy: y0 - img.height * 0.7 + 35,
+            scale: 0.7
+          });
+        }
+      }
+      cell.wallDecorPositions.north.forEach(p &#x3D;&gt;
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+
+    // WEST
+    if (cell.westWall) {
+      if (!cell.wallDecorPositions.west) {
+        cell.wallDecorPositions.west &#x3D; [];
+        for (let i &#x3D; 0; i &lt; count; i++) {
+          const img &#x3D; getWallImg(i);
+          cell.wallDecorPositions.west.push({
+            img,
+            dx: x0 - img.width * 0.8 + 50,
+            dy: y0 + i * step - 30,
+            scale: 0.7
+          });
+        }
+      }
+      cell.wallDecorPositions.west.forEach(p &#x3D;&gt;
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+
+    // EAST
+    if (cell.eastWall) {
+      if (!cell.wallDecorPositions.east) {
+        cell.wallDecorPositions.east &#x3D; [];
+        for (let i &#x3D; 0; i &lt; count; i++) {
+          const img &#x3D; getWallImg(i);
+          cell.wallDecorPositions.east.push({
+            img,
+            dx: x0 + size - img.width * 0.2 - 20,
+            dy: y0 + i * step - 30,
+            scale: 0.7
+          });
+        }
+      }
+      cell.wallDecorPositions.east.forEach(p &#x3D;&gt;
+        ctx.drawImage(p.img, p.dx, p.dy, p.img.width * p.scale, p.img.height * p.scale)
+      );
+    }
+  }
+
+  private huntAndKill(current: Cell) {
+    const unvisitedNeighbors &#x3D; this.getNeighbors(current).filter((c) &#x3D;&gt; !c.hasVisited());
+
+    if (unvisitedNeighbors.length &#x3D;&#x3D;&#x3D; 0) {
+      const randomRows &#x3D; this.shuffleArray([...Array(this.nRow).keys()]);
+      for (let huntRow of randomRows) {
+        const randomColumns &#x3D; this.shuffleArray([...Array(this.nCol).keys()]);
+        for (let huntCol of randomColumns) {
+          current &#x3D; this.cells[huntRow][huntCol];
+          if (current.hasVisited()) continue;
+
+          const visitedNeighbors &#x3D; this.getNeighbors(current).filter((c) &#x3D;&gt; c.hasVisited());
+          if (visitedNeighbors.length &lt; 1) continue;
+
+          const nextCell &#x3D; visitedNeighbors[RandomNumber.within(visitedNeighbors.length)];
+          current.breakWallWith(nextCell);
+          this.huntAndKill(nextCell);
+        }
+      }
+    } else {
+      const nextCell &#x3D; unvisitedNeighbors[RandomNumber.within(unvisitedNeighbors.length)];
+      current.breakWallWith(nextCell);
+      this.huntAndKill(nextCell);
+    }
+  }
+
+  private getNeighbors(cell: Cell): Array&lt;Cell&gt; {
+    const neighbors &#x3D; [];
+    if (cell.row - 1 &gt;&#x3D; 0) neighbors.push(this.cells[cell.row - 1][cell.col]);
+    if (cell.row + 1 &lt; this.nRow) neighbors.push(this.cells[cell.row + 1][cell.col]);
+    if (cell.col - 1 &gt;&#x3D; 0) neighbors.push(this.cells[cell.row][cell.col - 1]);
+    if (cell.col + 1 &lt; this.nCol) neighbors.push(this.cells[cell.row][cell.col + 1]);
+    return neighbors;
+  }
+
+  private shuffleArray(array: number[]): number[] {
+    let currentIndex &#x3D; array.length;
+    while (currentIndex !&#x3D;&#x3D; 0) {
+      const temp &#x3D; Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[temp]] &#x3D; [array[temp], array[currentIndex]];
+    }
+    return array;
+  }
+}
+
+class RandomNumber {
+  static within(n: number): number {
+    return Math.floor(Math.random() * n);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'Maze.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

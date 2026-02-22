@@ -1,0 +1,1212 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>maze-runner-game documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">maze-runner-game documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#actionMap" title="src/app/components/game/maze-level/models/keyboard-map.ts" ><b>actionMap</b>&nbsp;&nbsp;&nbsp;(src/.../keyboard-map.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ArmorUpgrade" title="src/app/interfaces/Item.ts" ><b>ArmorUpgrade</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#baseUrl" title="src/app/configs/urls.ts" ><b>baseUrl</b>&nbsp;&nbsp;&nbsp;(src/.../urls.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Chest" title="src/app/interfaces/Chest.ts" ><b>Chest</b>&nbsp;&nbsp;&nbsp;(src/.../Chest.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#chestSprite" title="src/app/interfaces/Chest.ts" ><b>chestSprite</b>&nbsp;&nbsp;&nbsp;(src/.../Chest.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#dungeon" title="src/app/interfaces/Biome.ts" ><b>dungeon</b>&nbsp;&nbsp;&nbsp;(src/.../Biome.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#equivalentKeys" title="src/app/configs/equivalents.ts" ><b>equivalentKeys</b>&nbsp;&nbsp;&nbsp;(src/.../equivalents.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#forest" title="src/app/interfaces/Biome.ts" ><b>forest</b>&nbsp;&nbsp;&nbsp;(src/.../Biome.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#healingPotion" title="src/app/interfaces/Item.ts" ><b>healingPotion</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#HealthUpgrade" title="src/app/interfaces/Item.ts" ><b>HealthUpgrade</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#ITEM_REGISTRY" title="src/app/interfaces/Item.ts" ><b>ITEM_REGISTRY</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#keyboardMap" title="src/app/components/game/maze-level/models/keyboard-map.ts" ><b>keyboardMap</b>&nbsp;&nbsp;&nbsp;(src/.../keyboard-map.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MainChar" title="src/app/interfaces/mainChar.ts" ><b>MainChar</b>&nbsp;&nbsp;&nbsp;(src/.../mainChar.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#MushroomEnemy" title="src/app/interfaces/Enemy.ts" ><b>MushroomEnemy</b>&nbsp;&nbsp;&nbsp;(src/.../Enemy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#routes" title="src/app/app.routes.ts" ><b>routes</b>&nbsp;&nbsp;&nbsp;(src/.../app.routes.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SkeletonEnemy" title="src/app/interfaces/Enemy.ts" ><b>SkeletonEnemy</b>&nbsp;&nbsp;&nbsp;(src/.../Enemy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#UltraSpeedPotion" title="src/app/interfaces/Item.ts" ><b>UltraSpeedPotion</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#urls" title="src/app/configs/urls.ts" ><b>urls</b>&nbsp;&nbsp;&nbsp;(src/.../urls.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#WeaponUpgrade" title="src/app/interfaces/Item.ts" ><b>WeaponUpgrade</b>&nbsp;&nbsp;&nbsp;(src/.../Item.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#winterForest" title="src/app/interfaces/Biome.ts" ><b>winterForest</b>&nbsp;&nbsp;&nbsp;(src/.../Biome.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/components/game/maze-level/models/keyboard-map.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionMap"></a>
+                    <span class="name">
+                        <span ><b>actionMap</b></span>
+                        <a href="#actionMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, &quot;Use&quot; | &quot;Sprint&quot; | &quot;Inventory&quot;&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  F: &#x27;Use&#x27;,
+  f: &#x27;Use&#x27;,
+  А:&#x27;Use&#x27;,
+  а:&#x27;Use&#x27;,
+  Shift: &#x27;Sprint&#x27;,
+  I:&#x27;Inventory&#x27;,
+  i:&#x27;Inventory&#x27;,
+  Ш:&#x27;Inventory&#x27;,
+  ш:&#x27;Inventory&#x27;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="keyboardMap"></a>
+                    <span class="name">
+                        <span ><b>keyboardMap</b></span>
+                        <a href="#keyboardMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, Direction&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ArrowLeft: &#x27;Left&#x27;,
+  ArrowRight: &#x27;Right&#x27;,
+  ArrowUp: &#x27;Up&#x27;,
+  ArrowDown: &#x27;Down&#x27;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../components/App.html" target="_self" >ApplicationConfig</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interfaces/Item.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ArmorUpgrade"></a>
+                    <span class="name">
+                        <span ><b>ArmorUpgrade</b></span>
+                        <a href="#ArmorUpgrade"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >IItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Armor upgrade&#x27;,
+  description: &#x27;Increases armor on 1 (max armor is 20)&#x27;,
+  usableInMaze: true,
+  usableInBattle: false,
+  stackable: true,
+  use(player: IMainChar) {
+    if (player.armor &lt; 20) {
+      player.armor +&#x3D; 1;
+    }
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="healingPotion"></a>
+                    <span class="name">
+                        <span ><b>healingPotion</b></span>
+                        <a href="#healingPotion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >IItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Healing Potion&#x27;,
+  description: &#x27;Heals 20 HP (cannot exceed max health).&#x27;,
+  stackable:true,
+  usableInBattle: true,
+  usableInMaze: true,
+
+  use: (player: IMainChar) &#x3D;&gt; {
+    const healAmount &#x3D; 20;
+    const healed &#x3D; Math.min(player.health + healAmount, player.maxHealth);
+    const actualHeal &#x3D; healed - player.health;
+    player.health &#x3D; healed;
+
+    console.log(&#x60;💖 ${player.name} healed for ${actualHeal} HP (${player.health}/${player.maxHealth})&#x60;);
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="HealthUpgrade"></a>
+                    <span class="name">
+                        <span ><b>HealthUpgrade</b></span>
+                        <a href="#HealthUpgrade"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >IItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Health Upgrade&#x27;,
+  description: &#x27;Increases max health on 5&#x27;,
+  usableInMaze: true,
+  usableInBattle: false,
+  stackable: true,
+  use(player: IMainChar) {
+    player.maxHealth +&#x3D; 5;
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ITEM_REGISTRY"></a>
+                    <span class="name">
+                        <span ><b>ITEM_REGISTRY</b></span>
+                        <a href="#ITEM_REGISTRY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >Record&lt;string, IItem&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  &#x27;Healing Potion&#x27;: healingPotion,
+  &#x27;Ultra Speed Potion&#x27;: UltraSpeedPotion,
+  &#x27;Weapon Upgrade&#x27;: WeaponUpgrade,
+  &#x27;Armor Upgrade&#x27;: ArmorUpgrade,
+  &#x27;Health Upgrade&#x27;: HealthUpgrade,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="UltraSpeedPotion"></a>
+                    <span class="name">
+                        <span ><b>UltraSpeedPotion</b></span>
+                        <a href="#UltraSpeedPotion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >IItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Ultra Speed Potion&#x27;,
+  description: &#x27;makes you so fast you can that tear through the matter but only for 5 seconds (do not use sprint button or potion will stop working)&#x27;,
+  usableInMaze: true,
+  usableInBattle: false,
+  stackable: true,
+  use(player: IMainChar) {
+    player.speed &#x3D; 500;
+    setTimeout(()&#x3D;&gt;{
+      player.speed &#x3D; 1.5
+    },5000)
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="WeaponUpgrade"></a>
+                    <span class="name">
+                        <span ><b>WeaponUpgrade</b></span>
+                        <a href="#WeaponUpgrade"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IItem.html" target="_self" >IItem</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Weapon Upgrade&#x27;,
+  description: &#x27;Increases damage on 5&#x27;,
+  usableInMaze: true,
+  usableInBattle: false,
+  stackable: true,
+  use(player: IMainChar) {
+    player.damage +&#x3D; 5;
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/configs/urls.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseUrl"></a>
+                    <span class="name">
+                        <span ><b>baseUrl</b></span>
+                        <a href="#baseUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;http://localhost:3000&#x27;</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="urls"></a>
+                    <span class="name">
+                        <span ><b>urls</b></span>
+                        <a href="#urls"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  saves:{
+    save:&#x60;${baseUrl}/save&#x60;,
+    load:&#x60;${baseUrl}/load&#x60;,
+    getAll:&#x60;${baseUrl}/slots&#x60;
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interfaces/Chest.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Chest"></a>
+                    <span class="name">
+                        <span ><b>Chest</b></span>
+                        <a href="#Chest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IChest.html" target="_self" >IChest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  itemInside: {} as IItem,
+  isOpen: false,
+  sprite: chestSprite,
+  animations: {
+    Closed: {
+      frames: [{ x: 0, y: 0 }],
+      frameWidth: 48,
+      frameHeight: 32,
+      frameSpeed: 500
+    },
+    Open: {
+      frames: [
+        { x: 1, y: 0 },
+        { x: 2, y: 0 },
+        { x: 3, y: 0 },
+        { x: 4, y: 0 },
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+        { x: 2, y: 1 },
+        { x: 3, y: 1 },
+        { x: 4, y: 1 }
+      ],
+      frameWidth: 48,
+      frameHeight: 32,
+      frameSpeed: 100
+    }
+  },
+  row: 0,
+  col: 0,
+  frameIndex: 0,
+  lastFrameTime: 0
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chestSprite"></a>
+                    <span class="name">
+                        <span ><b>chestSprite</b></span>
+                        <a href="#chestSprite"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Image()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interfaces/Biome.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dungeon"></a>
+                    <span class="name">
+                        <span ><b>dungeon</b></span>
+                        <a href="#dungeon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IBiome.html" target="_self" >IBiome</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Spooky Dungeon&#x27;,
+  backgroundColor: &#x27;#191919&#x27;,
+  wallAssets: [],
+  wallTexture: &quot;assets/mazeLevel/Spooky dungeon/wall/dungeonWall.png&quot;,
+  groundAssets: [&quot;assets/mazeLevel/Spooky dungeon/ground/skulls.png&quot;],
+  music: &#x27;assets/music/spookyDungeonMusic.wav&#x27;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="forest"></a>
+                    <span class="name">
+                        <span ><b>forest</b></span>
+                        <a href="#forest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IBiome.html" target="_self" >IBiome</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Emerald Woods&#x27;,
+  backgroundColor: &#x27;#228b22&#x27;,
+  wallAssets: [&quot;assets/mazeLevel/Emerald woods/wall/tree.png&quot;, &quot;assets/mazeLevel/Emerald woods/wall/birch.png&quot;, &quot;assets/mazeLevel/Emerald woods/wall/appleTree.png&quot;],
+  groundAssets: [&quot;assets/mazeLevel/Emerald woods/ground/bush1.png&quot;, &quot;assets/mazeLevel/Emerald woods/ground/bush2.png&quot;, &quot;assets/mazeLevel/Emerald woods/ground/littleTree.png&quot;, &quot;assets/mazeLevel/Emerald woods/ground/mushroom.png&quot;, &quot;assets/mazeLevel/Emerald woods/ground/mushrooms.png&quot;, &quot;assets/mazeLevel/Emerald woods/ground/pen.png&quot;],
+  music: &#x27;assets/music/emeraldForestMusic.wav&#x27;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="winterForest"></a>
+                    <span class="name">
+                        <span ><b>winterForest</b></span>
+                        <a href="#winterForest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IBiome.html" target="_self" >IBiome</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Glassy Forest&#x27;,
+  backgroundColor: &#x27;#f3faff&#x27;,
+  wallAssets: [&quot;assets/mazeLevel/Glassy forest/wall/pine.png&quot;, &quot;assets/mazeLevel/Glassy forest/wall/pine.png&quot;],
+  groundAssets: [&quot;assets/mazeLevel/Glassy forest/ground/snow1.png&quot;, &quot;assets/mazeLevel/Glassy forest/ground/snow2.png&quot;, &quot;assets/mazeLevel/Glassy forest/ground/snow3.png&quot;, &quot;assets/mazeLevel/Glassy forest/ground/snowman1.png&quot;, &quot;assets/mazeLevel/Glassy forest/ground/snowman2.png&quot;, &quot;assets/mazeLevel/Glassy forest/ground/candy.png&quot;],
+  skyEffect: &quot;assets/mazeLevel/Glassy forest/snow.gif&quot;,
+  music: &#x27;assets/music/glassyForestMusic.wav&#x27;
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/configs/equivalents.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="equivalentKeys"></a>
+                    <span class="name">
+                        <span ><b>equivalentKeys</b></span>
+                        <a href="#equivalentKeys"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string, string[]&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  W: [&#x27;W&#x27;, &#x27;w&#x27;, &#x27;Ц&#x27;, &#x27;ц&#x27;],
+  A: [&#x27;A&#x27;, &#x27;a&#x27;, &#x27;Ф&#x27;, &#x27;ф&#x27;],
+  S: [&#x27;S&#x27;, &#x27;s&#x27;, &#x27;І&#x27;, &#x27;і&#x27;, &#x27;Ы&#x27;, &#x27;ы&#x27;],
+  D: [&#x27;D&#x27;, &#x27;d&#x27;, &#x27;В&#x27;, &#x27;в&#x27;],
+  F: [&#x27;F&#x27;, &#x27;f&#x27;, &#x27;А&#x27;, &#x27;а&#x27;],
+  Q: [&#x27;Q&#x27;, &#x27;q&#x27;, &#x27;Й&#x27;, &#x27;й&#x27;],
+  E: [&#x27;E&#x27;, &#x27;e&#x27;, &#x27;У&#x27;, &#x27;у&#x27;],
+  R: [&#x27;R&#x27;, &#x27;r&#x27;, &#x27;К&#x27;, &#x27;к&#x27;],
+  T: [&#x27;T&#x27;, &#x27;t&#x27;, &#x27;Е&#x27;, &#x27;е&#x27;],
+  Y: [&#x27;Y&#x27;, &#x27;y&#x27;, &#x27;Н&#x27;, &#x27;н&#x27;],
+  U: [&#x27;U&#x27;, &#x27;u&#x27;, &#x27;Г&#x27;, &#x27;г&#x27;],
+  I: [&#x27;I&#x27;, &#x27;i&#x27;, &#x27;Ш&#x27;, &#x27;ш&#x27;],
+  O: [&#x27;O&#x27;, &#x27;o&#x27;, &#x27;Щ&#x27;, &#x27;щ&#x27;],
+  P: [&#x27;P&#x27;, &#x27;p&#x27;, &#x27;З&#x27;, &#x27;з&#x27;],
+  Z: [&#x27;Z&#x27;, &#x27;z&#x27;, &#x27;Я&#x27;, &#x27;я&#x27;],
+  X: [&#x27;X&#x27;, &#x27;x&#x27;, &#x27;Ч&#x27;, &#x27;ч&#x27;],
+  C: [&#x27;C&#x27;, &#x27;c&#x27;, &#x27;С&#x27;, &#x27;с&#x27;],
+  V: [&#x27;V&#x27;, &#x27;v&#x27;, &#x27;М&#x27;, &#x27;м&#x27;],
+  B: [&#x27;B&#x27;, &#x27;b&#x27;, &#x27;И&#x27;, &#x27;и&#x27;],
+  N: [&#x27;N&#x27;, &#x27;n&#x27;, &#x27;Т&#x27;, &#x27;т&#x27;],
+  M: [&#x27;M&#x27;, &#x27;m&#x27;, &#x27;Ь&#x27;, &#x27;ь&#x27;]
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interfaces/mainChar.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MainChar"></a>
+                    <span class="name">
+                        <span ><b>MainChar</b></span>
+                        <a href="#MainChar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IMainChar.html" target="_self" >IMainChar</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Hero&#x27;,
+  health:50,
+  baseHealth:50,
+  maxHealth:50,
+  damage:20,
+  baseDamage:20,
+  armor:10,
+  baseArmor:10,
+  speed:1.5,
+  inventory: createInventory(),
+  spritePath: &#x27;assets/characters/mainCharSheet.png&#x27;,
+  animations: {
+    Walk: {
+      Right: { startX: 1, startY: 65, frames: 4, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Left:  { startX: 1, startY: 65, frames: 4, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 1, startY: 65, frames: 4, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 1, startY: 65, frames: 4, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+    },
+    Idle: {
+      Right: { startX: 1, startY: 1, frames: 2, frameWidth: 32, frameHeight: 32, frameSpeed: 500 },
+      Left:  { startX: 1, startY: 1, frames: 2, frameWidth: 32, frameHeight: 32, frameSpeed: 500 },
+      Up:    { startX: 1, startY: 1, frames: 2, frameWidth: 32, frameHeight: 32, frameSpeed: 500 },
+      Down:  { startX: 1, startY: 1, frames: 2, frameWidth: 32, frameHeight: 32, frameSpeed: 500 }
+    },
+    Run: {
+      Right: { startX: 0, startY: 97, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Left:  { startX: 0, startY: 97, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 97, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 97, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+    },
+
+    Attack: {
+      Right: { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 200 },
+      Left:  { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 257, frames: 7, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+    },
+    GetDamage: {
+      Right: { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Left:  { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 257, frames: 3, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+    },
+    Death: {
+      Right: { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Left:  { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Up:    { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 },
+      Down:  { startX: 0, startY: 225, frames: 8, frameWidth: 32, frameHeight: 32, frameSpeed: 100 }
+    }
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/interfaces/Enemy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="MushroomEnemy"></a>
+                    <span class="name">
+                        <span ><b>MushroomEnemy</b></span>
+                        <a href="#MushroomEnemy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEnemy.html" target="_self" >IEnemy</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Angry Mushroom&#x27;,
+  biome: &#x27;Emerald Woods&#x27;,
+  x: 150,
+  y: 200,
+  row: 5,
+  col: 3,
+  direction: &#x27;Down&#x27;,
+  speed: 1.1,
+  color: &#x27;#cccccc&#x27;,
+  health: 60,
+  maxHealth:60,
+  damage: 15,
+  visionRange: 220,
+  armor: 10,
+
+  spriteScale: 2,
+  directional: false,
+
+  hitbox: {
+    width: 45,
+    height: 40,
+    offsetX: -22,
+    offsetY: -35
+  },
+
+  animations: {
+    Idle: {
+      spritePath: &#x27;assets/enemies/mushroom/Mushroom-Idle.png&#x27;,
+      frames: 7,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 200,
+      loop: true
+    },
+    Walk: {
+      spritePath: &#x27;assets/enemies/mushroom/Mushroom-Run.png&#x27;,
+      frames: 8,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 120,
+      loop: true
+    },
+    Attack: {
+      spritePath: &#x27;assets/enemies/mushroom/Mushroom-Attack.png&#x27;,
+      frames: 8,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 100
+    },
+    GetDamage: {
+      spritePath: &#x27;assets/enemies/mushroom/Mushroom-Hit.png&#x27;,
+      frames: 4,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 150
+    },
+    Death: {
+      spritePath: &#x27;assets/enemies/mushroom/Mushroom-Die.png&#x27;,
+      frames: 15,
+      frameWidth: 80,
+      frameHeight: 64,
+      frameSpeed: 150
+    }
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SkeletonEnemy"></a>
+                    <span class="name">
+                        <span ><b>SkeletonEnemy</b></span>
+                        <a href="#SkeletonEnemy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/IEnemy.html" target="_self" >IEnemy</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  name: &#x27;Skeleton Warrior&#x27;,
+  biome: &#x27;Spooky Dungeon&#x27;,
+  x: 150,
+  y: 200,
+  row: 5,
+  col: 3,
+  direction: &#x27;Down&#x27;,
+  speed: 1.1,
+  color: &#x27;#cccccc&#x27;,
+  health: 60,
+  maxHealth:60,
+  damage: 20,
+  visionRange: 220,
+  armor: 10,
+
+  spriteScale: 2,
+  directional: false,
+
+  hitbox: {
+    width: 40,
+    height: 50,
+    offsetX: -20,
+    offsetY: -40
+  },
+
+  animations: {
+    Idle: {
+      spritePath: &#x27;assets/enemies/skeleton/Skeleton_01_White_Idle.png&#x27;,
+      frames: 8,
+      frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 200,
+      loop: true
+    },
+    Walk: {
+      spritePath: &#x27;assets/enemies/skeleton/Skeleton_01_White_Walk.png&#x27;,
+      frames: 8,
+      frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 120,
+      loop: true
+    },
+    Attack: {
+      spritePath: &#x27;assets/enemies/skeleton/Skeleton_01_White_Attack1.png&#x27;,
+      frames: 8,
+      frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 100
+    },
+    GetDamage: {
+      spritePath: &#x27;assets/enemies/skeleton/Skeleton_01_White_Hurt.png&#x27;,
+      frames: 4,
+      frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 150
+    },
+    Death: {
+      spritePath: &#x27;assets/enemies/skeleton/Skeleton_01_White_Die.png&#x27;,
+      frames: 13,
+      frameWidth: 96,
+      frameHeight: 64,
+      frameSpeed: 150
+    }
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app.routes.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routes"></a>
+                    <span class="name">
+                        <span ><b>routes</b></span>
+                        <a href="#routes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/router/Routes" target="_blank" >Routes</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    path: &#x27;&#x27;, component: StartMenu, children: [
+      {path: &#x27;&#x27;, component: Start},
+      {path: &#x27;menu&#x27;, component: MainMenu},
+      {path: &#x27;menu/credits&#x27;, component: Credits},
+      {path: &#x27;menu/saves&#x27;, component: SaveSlots},
+      {path: &#x27;menu/settings&#x27;, component: Settings}
+    ]
+  },
+  {
+    path: &#x27;maze&#x27;, component: MazeLevel, children: [
+      {path: &#x27;saves&#x27;, component: SaveSlots}
+    ]
+  },
+  {path:&#x27;battle&#x27;,component:BattleLevel}
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -35,8 +35,6 @@ export class Maze {
     }
   }
 
-
-
   async preloadWallAssets(): Promise<void> {
     if (!this.wallAssets) return;
     const loadPromises = this.wallAssets.map(
@@ -48,7 +46,6 @@ export class Maze {
     );
     await Promise.all(loadPromises);
   }
-
 
   constructor(
     public nRow: number,

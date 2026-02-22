@@ -13,11 +13,15 @@
     "electron": "ng build --configuration production  && electron .",
     "electron-dev": "ng build --configuration development && npx electron .",
     "electron-prod": "ng build --configuration production && npx electron .",
-
     "build:angular": "ng build --configuration production",
     "prepare:electron": "powershell -Command \"Remove-Item -Recurse -Force release -ErrorAction Ignore; New-Item -ItemType Directory -Path release; Copy-Item main.js,server.js release/; Copy-Item package.json release/; Copy-Item dist/MazeRunnerGame release/dist -Recurse\"",
     "package": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=win32 --arch=x64 --out=dist --overwrite",
-    "package:mac-universal": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=darwin --arch=universal --out=dist --overwrite"
+    "package:mac-universal": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=darwin --arch=universal --out=dist --overwrite",
+
+    "doc:build": "compodoc -p tsconfig.doc.json",
+    "doc:serve": "compodoc -s",
+    "doc:build-and-serve": "compodoc -p tsconfig.doc.json -s"
+
   },
   "prettier": {
     "printWidth": 100,
@@ -47,6 +51,7 @@
     "@angular/build": "^20.3.2",
     "@angular/cli": "^20.3.2",
     "@angular/compiler-cli": "^20.3.0",
+    "@compodoc/compodoc": "^1.2.1",
     "@types/jasmine": "~5.1.0",
     "electron": "^39.2.3",
     "electron-packager": "^17.1.2",

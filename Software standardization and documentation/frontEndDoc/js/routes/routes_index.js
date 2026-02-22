@@ -1,0 +1,1 @@
+var ROUTES_INDEX = {"name":"<root>","kind":"module","children":[{"name":"StartMenu","kind":"component","path":"","filename":"src/app/app.routes.ts"},{"name":"MazeLevel","kind":"component","path":"maze","filename":"src/app/app.routes.ts"},{"name":"BattleLevel","kind":"component","path":"battle","filename":"src/app/app.routes.ts"}]}
