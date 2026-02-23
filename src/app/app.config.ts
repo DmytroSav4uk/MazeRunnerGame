@@ -19,7 +19,19 @@ export const cookieConfig: NgcCookieConsentConfig = {
     }
   },
   theme: 'edgeless',
-  type: 'info'
+  type: 'info',
+
+  content: {
+    header: 'Cookie Consent',
+    message: 'This website uses cookies to ensure you get the best experience on our website and to analyze traffic in accordance with GDPR regulations.',
+    dismiss: 'Got it!',
+    allow: 'Accept all',
+    deny: 'Decline',
+    link: 'Learn more',
+    href: 'https://github.com/DmytroSav4uk/MazeRunnerGame/blob/master/PRIVACY.md',
+    policy: 'Cookie Policy'
+  }
+
 };
 
 
