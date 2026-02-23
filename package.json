@@ -17,11 +17,9 @@
     "prepare:electron": "powershell -Command \"Remove-Item -Recurse -Force release -ErrorAction Ignore; New-Item -ItemType Directory -Path release; Copy-Item main.js,server.js release/; Copy-Item package.json release/; Copy-Item dist/MazeRunnerGame release/dist -Recurse\"",
     "package": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=win32 --arch=x64 --out=dist --overwrite",
     "package:mac-universal": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=darwin --arch=universal --out=dist --overwrite",
-
     "doc:build": "compodoc -p tsconfig.doc.json",
     "doc:serve": "compodoc -s",
     "doc:build-and-serve": "compodoc -p tsconfig.doc.json -s"
-
   },
   "prettier": {
     "printWidth": 100,
@@ -43,6 +41,8 @@
     "@angular/material": "^20.2.10",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
+    "cookieconsent": "^3.1.1",
+    "ngx-cookieconsent": "^8.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

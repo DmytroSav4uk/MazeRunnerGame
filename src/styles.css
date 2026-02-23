@@ -46,7 +46,7 @@ button{
 
 
 
-.basicButton {
+.basicButton, .cc-btn {
   color: #fff;
 
   padding: 15px 40px 15px 40px;
@@ -72,4 +72,18 @@ button{
   border: 20px solid black;
   background: rgba(60, 24, 24, 0.51);
   padding: 10px;
+}
+
+.cc-color-override-688238583.cc-window{
+  text-align: center;
+}
+
+.cc-btn{
+}
+
+.cc-window{
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
