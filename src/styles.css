@@ -87,3 +87,5 @@ button{
   flex-direction: column;
   gap: 20px;
 }
+
+.cc-invisible { display: none; }
