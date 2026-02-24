@@ -19,7 +19,9 @@
     "package:mac-universal": "npm run build:angular && npm run prepare:electron && electron-packager ./release MazeRunnerGame --platform=darwin --arch=universal --out=dist --overwrite",
     "doc:build": "compodoc -p tsconfig.doc.json",
     "doc:serve": "compodoc -s",
-    "doc:build-and-serve": "compodoc -p tsconfig.doc.json -s"
+    "doc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
+    "storybook": "ng run MazeRunnerGame:storybook",
+    "build-storybook": "ng run MazeRunnerGame:build-storybook"
   },
   "prettier": {
     "printWidth": 100,
@@ -34,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "@angular/cdk": "^21.1.5",
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
     "@angular/core": "^20.3.0",
@@ -48,10 +51,18 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "^0.2003.0",
+    "@angular-devkit/build-angular": "^20.3.0",
+    "@angular-devkit/core": "^20.3.0",
     "@angular/build": "^20.3.2",
     "@angular/cli": "^20.3.2",
     "@angular/compiler-cli": "^20.3.0",
+    "@angular/platform-browser-dynamic": "^20.3.0",
     "@compodoc/compodoc": "^1.2.1",
+    "@storybook/addon-a11y": "^10.2.12",
+    "@storybook/addon-docs": "^10.2.12",
+    "@storybook/addon-onboarding": "^10.2.12",
+    "@storybook/angular": "^10.2.12",
     "@types/jasmine": "~5.1.0",
     "electron": "^39.2.3",
     "electron-packager": "^17.1.2",
@@ -61,6 +72,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "storybook": "^10.2.12",
     "typescript": "~5.9.2"
   }
 }

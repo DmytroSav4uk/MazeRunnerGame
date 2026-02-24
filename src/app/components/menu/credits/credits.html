@@ -1,72 +1,67 @@
-<div class="menu">
+<div class="menu" [style.justify-content]="verticalAlign">
+  <div class="credits" [style.width]="containerWidth">
 
+    <button class="closeButton"
+            [style.background-color]="closeButtonColor"
+            (click)="redirectTo('menu')">X
+    </button>
 
-  <div class="credits">
+    <h1 [style.color]="'white'">Made by: Dmytro Savchuk (IPZk-24-1)</h1>
+    <h1 [style.color]="'white'">Project from discipline "Component oriented programming"</h1>
 
+    <h1 [style.color]="'white'">
+      Theme: <span [style.color]="themeColor">Maze runner game</span>
+    </h1>
 
-    <button class="closeButton" (click)="redirectTo('menu')">X</button>
+    <div class="credits-content">
+      <h2 [style.color]="'white'">Image Assets:</h2>
+      <ul>
+        <li>
+          <a [style.color]="themeColor" target="_blank"
+             href="https://cdna.artstation.com/p/assets/images/images/071/087/584/original/fatih-emir-bg-design.gif?1704403912">
+            main menu background
+          </a>
+        </li>
+        <li>
+          <a [style.color]="themeColor" target="_blank"
+             href="https://monopixelart.itch.io/skeletons-pack?download">
+            skeleton enemies
+          </a>
+        </li>
+        <li>
+          <a [style.color]="themeColor" target="_blank"
+             href="https://monopixelart.itch.io/forest-monsters-pixel-art">
+            mushroom enemies
+          </a>
+        </li>
+        <li>
+          <a [style.color]="themeColor" target="_blank"
+             href="https://admurin.itch.io/free-chest-animations">
+            chests
+          </a>
+        </li>
+      </ul>
 
+      <h2 [style.color]="'white'">Music:</h2>
+      <ul>
+        <li>
+          <a [style.color]="themeColor" target="_blank"
+             href="https://www.youtube.com/watch?v=5bn3Jmvep1k">
+            8-Bit Fantasy & Adventure Music by xDeviruchi
+          </a>
+        </li>
+      </ul>
 
-    <h1>Made by: Dmytro Savchuk (IPZk-24-1)</h1>
-    <h1>Project from discipline "Component oriented programming"</h1>
-    <h1>Theme: <span style="color: #6abc3a">Maze runner game</span></h1>
-
-    <h2>Image Assets:</h2>
-
-    <ul>
-      <li>
-        <a
-          href="https://cdna.artstation.com/p/assets/images/images/071/087/584/original/fatih-emir-bg-design.gif?1704403912">main
-          menu background</a>
-      </li>
-
-      <li>
-        <a
-          href="https://monopixelart.itch.io/skeletons-pack?download">skeleton enemies</a>
-      </li>
-
-      <li>
-        <a
-          href="https://monopixelart.itch.io/forest-monsters-pixel-art">mushroom enemies</a>
-      </li>
-
-      <li>
-        <a
-          href="https://admurin.itch.io/free-chest-animations">chests</a>
-      </li>
-
-
-    </ul>
-
-
-    <h2>Music: </h2>
-
-
-    <ul>
-
-      <li>
-        <a href="https://www.youtube.com/watch?v=5bn3Jmvep1k">8-Bit Fantasy & Adventure Music by xDeviruchi</a>
-      </li>
-
-    </ul>
-
-
-    <h2>Special thanks to: </h2>
-
-    <ul>
-      <li>
-      <p>Chat GPT for image generation</p>
-      </li>
-    </ul>
-
-    <ul>
-      <li>
-        <p>My groupmates for testing</p>
-      </li>
-    </ul>
-
+      <h2 [style.color]="'white'">Special thanks to:</h2>
+      <ul>
+        <li>
+          <p [style.color]="'white'">Chat GPT for image generation</p>
+        </li>
+        <li>
+          <p [style.color]="'white'">My groupmates for testing</p>
+        </li>
+      </ul>
+    </div>
 
   </div>
-
-
 </div>

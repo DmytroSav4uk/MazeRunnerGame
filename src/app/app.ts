@@ -18,7 +18,7 @@ export class App implements OnInit, OnDestroy{
   ngOnInit() {
     this.statusChangeSubscription = this.ccService.statusChange$.subscribe(
       (event) => {
-
+        this.ccService.close(false);
       }
     );
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {PublicFunctions} from '../../../services/publicFunctions/public-functions';
 import {ISettings} from '../../../interfaces/settings';
@@ -14,10 +14,16 @@ import {equivalentKeys} from '../../../configs/equivalents';
 })
 export class Settings implements OnInit {
   form!: FormGroup;
-  activeSection: 'audio' | 'controls' | 'difficulty' = 'audio';
 
   difficulties = ['easy', 'medium', 'hard'];
   controlNames = ['up', 'down', 'left', 'right', 'use', 'sprint', 'inventory'];
+
+  @Input() accentColor: string = '#bc3a3a';
+  @Input() navActiveColor: string = '#a9ba41';
+  activeSection: 'audio' | 'controls' | 'difficulty' = 'audio';
+
+  @Input() width: string = '80%';
+  @Input() height: string = '550px';
 
   constructor(public publicFunc: PublicFunctions, private fb: FormBuilder, private musicService:MusicService) {
   }
@@ -33,7 +39,7 @@ export class Settings implements OnInit {
 
     this.form.valueChanges.subscribe(value => {
       this.publicFunc.setLocalStorage('settings', value);
-      this.musicService.updateVolume()
+      this.musicService.updateVolume();
     });
   }
 

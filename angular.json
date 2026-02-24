@@ -82,12 +82,36 @@
               }
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/cookieconsent/build/cookieconsent.min.css"
+              "src/styles.css"
+
+//          ,    "node_modules/cookieconsent/build/cookieconsent.min.css"
             ],
             "scripts": [
               "node_modules/cookieconsent/build/cookieconsent.min.js"
             ]
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "MazeRunnerGame:build",
+            "compodoc": false,
+            "port": 6006,
+            "styles": [
+              "src/styles.css"
+            ]
+          }
+
+
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook",
+            "browserTarget": "MazeRunnerGame:build",
+            "compodoc": false,
+            "outputDir": "storybook-static"
           }
         }
       }

@@ -8,7 +8,7 @@ import {NgcCookieConsentConfig, provideNgcCookieConsent} from 'ngx-cookieconsent
 
 export const cookieConfig: NgcCookieConsentConfig = {
   cookie: {
-    domain: 'localhost:4200'
+    domain: window.location.hostname
   },
   palette: {
     popup: {
@@ -19,7 +19,7 @@ export const cookieConfig: NgcCookieConsentConfig = {
     }
   },
   theme: 'edgeless',
-  type: 'info',
+  type: 'opt-out',
 
   content: {
     header: 'Cookie Consent',
